@@ -1,0 +1,62 @@
+{
+  "Index": {
+    "title": "CV - Cody Olsen, Full Stack Engineer"
+  },
+  "Footer": {
+    "generated": "Built CV <link>on {when}</link>"
+  },
+  "UnlockButton": {
+    "unlock": "Unlock",
+    "redacted": "Redacted",
+    "help": "Some information is redacted because it's private. You can unlock it by entering your password below.",
+    "noPassword": "No password? Send me an <link>email</link>",
+    "submit": "Unlock redacted",
+    "passwordRequired": "Password can't be empty!",
+    "passwordIncorrect": "Wrong password!",
+    "unlocking": "Unlocking...",
+    "unlocked": "Unlocked",
+    "unlockedHelp": "You're now able to see the redacted information. You may download a PDF or print this page. Just make sure you have my permission to share the pdf/printout with others before doing so.",
+    "ok": "OK, I got it",
+    "welcome": "Hello, {user}!"
+  },
+  "ProfileCard": {
+    "title": "Profile Overview",
+    "cv": "Curriculum vitae",
+    "name": "Cody Olsen",
+    "role": "Full Stack Engineer",
+    "imageAlt": "Picture of Cody's face",
+    "address": "Address",
+    "country": "Norway",
+    "email": "Email",
+    "phone": "Phone",
+    "age": "<b>{age}</b> years young, born in {birthday, date}",
+    "about": "About",
+    "profile": "I am a Full Stack JavaScript developer and a UI designer. <br />I have a background in graphic design, iconography, motion design, and UX. I started learning JS when I was 18 and haven't stopped since. <br /><br />I'm active in the Open Source Community and maintain a few packages of my own. <br /><br />I care a lot about Accessibility and often take the initiative in implementing fixes. I've also led workshops to train staff to test the user experience for people relying on assistive tech. Teach them how to navigate by keyboard only, use a Screen Reader, design for color blindness, and more. <br /><br />I don't mind taking one for the team and doing work nobody wants to do (like updating dependencies or writing docs). I'll happily do grunt work like that if you give me graphics, SVGs, animations, or design system tasks now and then.",
+    "print": "Print"
+  },
+  "ExperienceStats": {
+    "title": "Relevant Experience"
+  },
+  "ExperienceTimeline": {
+    "title": "Experience"
+  },
+  "Since": {
+    "label": "<value>{years}</value><unit>{years, plural, =1 {year} other {years}}</unit>"
+  },
+  "OpenSourceStats": {
+    "title": "Open Source Stats",
+    "im": "ioredis-mock is used by",
+    "repos": "public repositories",
+    "csiv": "compute-scroll-into-view has",
+    "monthly": "monthly downloads",
+    "first": "Published my first library",
+    "firstStat": "{years, number} <unit>years ago</unit>",
+    "yearsAgo": "on MooTools Forge",
+    "last": "My latest library has",
+    "lastStat": "{stars, number} <unit>stars</unit>",
+    "lastSubtext": "on GitHub"
+  },
+  "Education": {
+    "title": "Education"
+  }
+}

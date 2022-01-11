@@ -1,0 +1,62 @@
+{
+  "Index": {
+    "title": "CV - Cody Olsen, Fullstack Utvikler"
+  },
+  "Footer": {
+    "generated": "Bygget CV <link>på {when}</link>"
+  },
+  "UnlockButton": {
+    "unlock": "Lås opp",
+    "redacted": "Skjult",
+    "help": "Enkelte opplysninger er skjult pga personvern. Fyll inn passordet ditt nedenfor for å vise dem.",
+    "noPassword": "Har du ikke passord? Send meg en <link>e-post</link>",
+    "submit": "Vis skjulte opplysninger",
+    "passwordRequired": "Passord er påkrevd!",
+    "passwordIncorrect": "Feil passord!",
+    "unlocking": "Låser opp...",
+    "unlocked": "Låst opp",
+    "unlockedHelp": "Du har nå fått tilgang til skjulte opplysninger. Du kan laste ned en PDF eller skrive ut denne siden. Men spør meg om tillatelse før du deler PDF-en/utskriften med andre.",
+    "ok": "OK, jeg skjønner",
+    "welcome": "Heisann, {user}!"
+  },
+  "ProfileCard": {
+    "title": "Personalia",
+    "cv": "Curriculum vitae",
+    "name": "Cody Olsen",
+    "role": "Fullstack Utvikler",
+    "imageAlt": "Bilde av Cody's ansikt",
+    "address": "Adresse",
+    "country": "Norge",
+    "email": "E-post",
+    "phone": "Mobil",
+    "age": "<b>{age}</b> år ung, født i {birthday, date}",
+    "about": "Personprofil",
+    "profile": "I am a Full Stack JavaScript developer and a UI designer. <br />I have a background in graphic design, iconography, motion design, and UX. I started learning JS when I was 18 and haven't stopped since. <br /><br />I'm active in the Open Source Community and maintain a few packages of my own. <br /><br />I care a lot about Accessibility and often take the initiative in implementing fixes. I've also led workshops to train staff to test the user experience for people relying on assistive tech. Teach them how to navigate by keyboard only, use a Screen Reader, design for color blindness, and more. <br /><br />I don't mind taking one for the team and doing work nobody wants to do (like updating dependencies or writing docs). I'll happily do grunt work like that if you give me graphics, SVGs, animations, or design system tasks now and then.",
+    "print": "Skriv ut"
+  },
+  "ExperienceStats": {
+    "title": "Nøkkelkompetanse"
+  },
+  "ExperienceTimeline": {
+    "title": "Arbeidserfaring"
+  },
+  "Since": {
+    "label": "<value>{years}</value><unit>år</unit>"
+  },
+  "OpenSourceStats": {
+    "title": "Åpen kildekode-statistikk",
+    "im": "ioredis-mock brukes av",
+    "repos": "offentlige repositories",
+    "csiv": "compute-scroll-into-view har",
+    "monthly": "nedlastinger i måneden",
+    "first": "Ga ut mitt første bibliotek for",
+    "firstStat": "{years, number} <unit>år siden</unit>",
+    "yearsAgo": "på MooTools Forge",
+    "last": "Mitt siste bibliotek har",
+    "lastStat": "{stars, number} <unit>stjerner</unit>",
+    "lastSubtext": "på GitHub"
+  },
+  "Education": {
+    "title": "Utdanning"
+  }
+}

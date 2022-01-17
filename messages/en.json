@@ -17,7 +17,8 @@
     "unlocked": "Unlocked",
     "unlockedHelp": "You're now able to see the redacted information. You may download a PDF or print this page. Just make sure you have my permission to share the pdf/printout with others before doing so.",
     "ok": "OK, I got it",
-    "welcome": "Hello, {user}!"
+    "welcome": "Hello, {user}!",
+    "welcomeBack": "Welcome back, {name}!"
   },
   "ProfileCard": {
     "title": "Profile Overview",

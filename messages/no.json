@@ -17,7 +17,8 @@
     "unlocked": "Låst opp",
     "unlockedHelp": "Du har nå fått tilgang til skjulte opplysninger. Du kan laste ned en PDF eller skrive ut denne siden. Men spør meg om tillatelse før du deler PDF-en/utskriften med andre.",
     "ok": "OK, jeg skjønner",
-    "welcome": "Heisann, {user}!"
+    "welcome": "Heisann, {user}!",
+    "welcomeBack": "Velkommen tilbake, {name}!"
   },
   "ProfileCard": {
     "title": "Personalia",

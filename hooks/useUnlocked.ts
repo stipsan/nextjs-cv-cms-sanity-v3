@@ -1,4 +1,6 @@
+import toast from 'react-hot-toast'
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { useTranslations } from 'next-intl'
 
 export type Unlocked = {
   user: string
@@ -10,6 +12,7 @@ export type Unlocked = {
 }
 
 export default function useUnlocked() {
+  const t = useTranslations('UnlockButton')
   const [unlocked, setUnlocked] = useState<Unlocked>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
@@ -35,17 +38,17 @@ export default function useUnlocked() {
         if (res.ok) {
           setUnlocked(json)
           localStorage.setItem('unlock', password)
+          return json.user
         } else {
-          setError(json.error)
-          localStorage.removeItem('unlock')
+          throw new Error(json.error)
         }
       }
     } catch (err) {
-      console.error(err)
       if (mounted.current) {
-        setError(err)
+        setError(err.message)
       }
       localStorage.removeItem('unlock')
+      throw err
     } finally {
       if (mounted.current) {
         setLoading(false)
@@ -54,10 +57,26 @@ export default function useUnlocked() {
   }, [])
 
   useEffect(() => {
-    if (localStorage.getItem('unlock')) {
-      unlock(localStorage.getItem('unlock') as string)
+    if (localStorage.getItem('unlock') && !loading && !unlocked && !error) {
+      toast.promise(
+        unlock(localStorage.getItem('unlock') as string),
+        {
+          loading: t('unlocking'),
+          success: (name) => t('welcomeBack', { name }),
+          error: (err) => err.message,
+        },
+        {
+          success: {
+            icon: '👋',
+          },
+        }
+      )
+
+      return () => {
+        toast.dismiss()
+      }
     }
-  }, [unlock])
+  }, [error, loading, t, unlock, unlocked])
 
   return { unlocked, loading, error, setError, unlock }
 }

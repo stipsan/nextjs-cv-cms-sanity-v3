@@ -77,7 +77,7 @@ export async function getStaticProps({ locale }) {
       'https://api.npmjs.org/downloads/point/last-month/compute-scroll-into-view'
     )
       .then((res) => res.json())
-      .then((data) => data.downloads)
+      .then((data) => data.downloads || 12114685)
       .catch((err) => {
         console.error(
           'Error while fetching download stats for compute-scroll-into-view',
@@ -88,7 +88,7 @@ export async function getStaticProps({ locale }) {
       }),
     fetch('https://api.github.com/repos/stipsan/react-spring-bottom-sheet')
       .then((res) => res.json())
-      .then((data) => data.stargazers_count)
+      .then((data) => data.stargazers_count || 277)
       .catch((err) => {
         console.error(
           'Error while fetching stargazers for react-spring-bottom-sheet',

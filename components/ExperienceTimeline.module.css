@@ -1,0 +1,3 @@
+.dropShadowOutline {
+  filter: drop-shadow(0 -0.5rem 0 #fff) drop-shadow(0 0.5rem 0 #fff);
+}

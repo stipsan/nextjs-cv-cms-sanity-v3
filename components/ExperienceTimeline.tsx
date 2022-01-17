@@ -1,3 +1,4 @@
+import cx from 'classnames'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import TwentyFourEstoreLogo from 'public/24.svg'
@@ -10,6 +11,7 @@ import ProxyLogo from 'public/proxy.svg'
 import TimbleLogo from 'public/timble.svg'
 import YooLogo from 'public/yootheme.svg'
 import { useMemo } from 'react'
+import { dropShadowOutline } from './ExperienceTimeline.module.css'
 
 //
 
@@ -152,7 +154,12 @@ export default function ExperienceTimeline() {
                 <div className="relative flex items-start space-x-3">
                   {activityItem.type === 'worked' ? (
                     <>
-                      <a className="h-12 w-12 bg-white flex items-center justify-center ring-8 ring-white translate-y-1">
+                      <a
+                        className={cx(
+                          dropShadowOutline,
+                          'h-12 w-12 flex items-center justify-center'
+                        )}
+                      >
                         <Image
                           src={activityItem.imageUrl}
                           alt=""

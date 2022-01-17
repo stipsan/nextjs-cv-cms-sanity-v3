@@ -26,18 +26,18 @@ export default function useUnlocked() {
     try {
       setError(null)
       const res = await fetch('/api/unlock', {
-        method: 'POST', // or 'PUT'
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ password }),
       })
       const json = await res.json()
       if (mounted.current) {
         if (res.ok) {
           setUnlocked(json)
+          localStorage.setItem('unlock', password)
         } else {
           setError(json.error)
+          localStorage.removeItem('unlock')
         }
       }
     } catch (err) {
@@ -45,12 +45,19 @@ export default function useUnlocked() {
       if (mounted.current) {
         setError(err)
       }
+      localStorage.removeItem('unlock')
     } finally {
       if (mounted.current) {
         setLoading(false)
       }
     }
   }, [])
+
+  useEffect(() => {
+    if (localStorage.getItem('unlock')) {
+      unlock(localStorage.getItem('unlock') as string)
+    }
+  }, [unlock])
 
   return { unlocked, loading, error, setError, unlock }
 }

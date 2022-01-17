@@ -11,7 +11,8 @@ import ProxyLogo from 'public/proxy.svg'
 import TimbleLogo from 'public/timble.svg'
 import YooLogo from 'public/yootheme.svg'
 import { useMemo } from 'react'
-import { dropShadowOutline } from './ExperienceTimeline.module.css'
+
+import styles from './ExperienceTimeline.module.css'
 
 //
 
@@ -156,7 +157,7 @@ export default function ExperienceTimeline() {
                     <>
                       <a
                         className={cx(
-                          dropShadowOutline,
+                          styles.dropShadowOutline,
                           'h-12 w-12 flex items-center justify-center'
                         )}
                       >

@@ -78,6 +78,11 @@ const RelativeWhen = ({
 }) => {
   const now = useNow({ updateInterval: 1000 })
   const relativeWhen = intl.formatRelativeTime(date, now)
+  // Get the string used for "now", as we are skipping it
+  const nowText = useMemo(
+    () => intl.formatRelativeTime(new Date(), new Date()),
+    [intl]
+  )
 
   return (
     <a
@@ -87,7 +92,7 @@ const RelativeWhen = ({
       rel="noopener noreferrer"
     >
       <time dateTime={dateJson} title={dateAbsolute}>
-        {relativeWhen.length > 5 ? relativeWhen : dateAbsolute}
+        {nowText !== relativeWhen ? relativeWhen : dateAbsolute}
       </time>
     </a>
   )

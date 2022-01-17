@@ -8,7 +8,6 @@
     "encrypt": "node encrypt"
   },
   "dependencies": {
-    "@headlessui/react": "^1.4.2",
     "@heroicons/react": "^1.0.5",
     "@segment/snippet": "^4.15.3",
     "@tailwindcss/forms": "^0.4.0",

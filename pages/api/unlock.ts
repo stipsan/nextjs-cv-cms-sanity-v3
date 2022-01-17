@@ -1,5 +1,6 @@
 import Cryptr from 'cryptr'
 import type { Unlocked } from 'hooks/useUnlocked'
+import parsePhoneNumber from 'libphonenumber-js'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 import encrypted from '../../encrypted.json'
@@ -30,6 +31,12 @@ export default async function handler(
       const user = users[req.body.password]
       try {
         const data = JSON.parse(cryptr.decrypt(encrypted.data))
+        if (data.phone) {
+          const phoneNumber = parsePhoneNumber(data.phone)
+          data.phoneUrl = phoneNumber.getURI()
+          data.phone = phoneNumber.formatInternational()
+        }
+
         return res.status(200).json({ user, data })
       } catch (err) {
         console.error('Failed to decrypt data json', err)

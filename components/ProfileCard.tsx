@@ -103,7 +103,7 @@ export default function ProfileCard({
               {unlocked?.data?.phone ? (
                 <a
                   className="hover:underline focus:outline-none focus:underline"
-                  href={`tel:${unlocked.data.phone}`}
+                  href={unlocked.data.phoneUrl || `tel:${unlocked.data.phone}`}
                 >
                   {unlocked.data.phone}
                 </a>

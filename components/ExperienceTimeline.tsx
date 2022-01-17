@@ -1,25 +1,15 @@
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
-import TwentyFourEstoreLogo from 'public/24nettbutikk.jpg'
+import TwentyFourEstoreLogo from 'public/24.svg'
 import FINNLogo from 'public/finn.jpg'
-import ImediaLogo from 'public/imedia.png'
+import ImediaLogo from 'public/imedias.svg'
 import KulturmeglerneLogo from 'public/kulturmeglerne.png'
 import NinjaForgeLogo from 'public/ninjaforge.png'
-import ProThemerLogo from 'public/prothemer.jpg'
+import ProThemerLogo from 'public/prothemer.png'
 import ProxyLogo from 'public/proxy.png'
-import TimbleLogo from 'public/timble.jpg'
-import YooLogo from 'public/yoo.jpg'
+import TimbleLogo from 'public/timble.svg'
+import YooLogo from 'public/yootheme.svg'
 import { useMemo } from 'react'
-
-// https://www.linkedin.com/company/proxy-technologies/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3Bt2kN75QQTWWwftcDeZpKjA%3D%3D&licu=urn%3Ali%3Acontrol%3Ad_flagship3_profile_view_base-background_details_company
-// https://www.linkedin.com/company/finn-no/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3Bt2kN75QQTWWwftcDeZpKjA%3D%3D&licu=urn%3Ali%3Acontrol%3Ad_flagship3_profile_view_base-background_details_company
-// https://www.linkedin.com/company/kulturmeglerne/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3Bt2kN75QQTWWwftcDeZpKjA%3D%3D&licu=urn%3Ali%3Acontrol%3Ad_flagship3_profile_view_base-background_details_company
-// https://www.linkedin.com/company/24nettbutikk/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3Bt2kN75QQTWWwftcDeZpKjA%3D%3D&licu=urn%3Ali%3Acontrol%3Ad_flagship3_profile_view_base-background_details_company
-// https://www.linkedin.com/search/results/all/?keywords=YOOtheme%20GmbH&lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3Bt2kN75QQTWWwftcDeZpKjA%3D%3D
-// https://www.linkedin.com/company/i-media-as/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3Bt2kN75QQTWWwftcDeZpKjA%3D%3D&licu=urn%3Ali%3Acontrol%3Ad_flagship3_profile_view_base-background_details_company
-// https://www.linkedin.com/company/timble/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3Bt2kN75QQTWWwftcDeZpKjA%3D%3D&licu=urn%3Ali%3Acontrol%3Ad_flagship3_profile_view_base-background_details_company
-// https://www.linkedin.com/company/ninjaforge/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3Bt2kN75QQTWWwftcDeZpKjA%3D%3D&licu=urn%3Ali%3Acontrol%3Ad_flagship3_profile_view_base-background_details_company
-// https://www.linkedin.com/company/prothemer/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3Bt2kN75QQTWWwftcDeZpKjA%3D%3D&licu=urn%3Ali%3Acontrol%3Ad_flagship3_profile_view_base-background_details_company
 
 //
 
@@ -49,15 +39,6 @@ export default function ExperienceTimeline() {
   const t = useTranslations('ExperienceTimeline')
   const activity = useMemo(
     () => [
-      // https://www.linkedin.com/company/proxy-technologies/
-      // https://www.linkedin.com/company/finn-no/
-      // https://www.linkedin.com/company/kulturmeglerne/
-      // https://www.linkedin.com/company/24nettbutikk/
-      // https://www.linkedin.com/company/yootheme-gmbh/
-      // https://www.linkedin.com/company/i-media-as/
-      // https://www.linkedin.com/company/timble/
-      // https://www.linkedin.com/company/ninjaforge/
-      // https://www.linkedin.com/company/prothemer/
       {
         id: 1,
         type: 'worked',
@@ -164,21 +145,20 @@ export default function ExperienceTimeline() {
               <div className="relative pb-8">
                 {activityItemIdx !== activity.length - 1 ? (
                   <span
-                    className="absolute top-5 left-5 -ml-px h-full w-0.5 bg-gray-200"
+                    className="absolute top-5 left-6 -ml-px h-full w-0.5 bg-gray-200"
                     aria-hidden="true"
                   />
                 ) : null}
                 <div className="relative flex items-start space-x-3">
                   {activityItem.type === 'worked' ? (
                     <>
-                      <a className="h-10 w-10 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white translate-y-1">
+                      <a className="h-12 w-12 bg-white flex items-center justify-center ring-8 ring-white translate-y-1">
                         <Image
-                          className="rounded-full bg-gray-400"
                           src={activityItem.imageUrl}
                           alt=""
                           loading="eager"
-                          height={80}
-                          width={80}
+                          height={96}
+                          width={96}
                         />
                       </a>
 

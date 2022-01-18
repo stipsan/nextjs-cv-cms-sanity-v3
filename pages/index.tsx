@@ -1,7 +1,9 @@
 import Education from 'components/Education'
 import ExperienceStats from 'components/ExperienceStats'
 import ExperienceTimeline from 'components/ExperienceTimeline'
-import Footer from 'components/Footer'
+import Footer, {
+  getStaticProps as getStaticFooterProps,
+} from 'components/Footer'
 import LocaleSwitch from 'components/LocaleSwitch'
 import OpenSourceStats from 'components/OpenSourceStats'
 import ProfileCard from 'components/ProfileCard'
@@ -63,18 +65,14 @@ export async function getStaticProps({ locale }) {
   const [
     { default: shared },
     { default: local },
-    { version: next },
-    { version: react },
-    { version: tailwind },
+    { next, react, tailwind },
     computeScrollIntoViewWeeklyDownloads,
     reactSpringBottomSheetStars,
     ioredisMockDependants,
   ] = await Promise.all([
     import('messages/en.json'),
     import(`messages/${locale}.json`),
-    import('next/package.json'),
-    import('react/package.json'),
-    import('tailwindcss/package.json'),
+    getStaticFooterProps(),
     fetch(
       'https://api.npmjs.org/downloads/point/last-month/compute-scroll-into-view'
     )

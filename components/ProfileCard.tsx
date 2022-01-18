@@ -31,7 +31,7 @@ export default function ProfileCard({
               <a
                 className="block relative rounded-full mx-auto h-20 w-20 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-slate-500"
                 href="/headshot.jpeg"
-                download={`${t('name')}.jpeg`}
+                target="_blank"
               >
                 <Image
                   className="rounded-full"

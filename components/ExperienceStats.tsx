@@ -1,15 +1,26 @@
 import useYears from 'hooks/useYears'
+import Image from 'next/image'
 import { useTranslations } from 'next-intl'
+import JSLogo from 'public/js.svg'
+import NodeLogo from 'public/node.svg'
+import ReactLogo from 'public/react.svg'
 import { memo, useMemo } from 'react'
 
 export default function ExperienceStats() {
   const t = useTranslations('ExperienceStats')
   const stats = useMemo(
     () => [
-      // https://github.com/stipsan/uikit-react/commit/9cf682b8f38611293edc0e7da7be9f7692004d96
-      { name: 'React', since: '2015-01-02' },
-      { name: 'node.js', since: '2010-05-01' },
-      { name: 'JavaScript', since: '2008-02-01' },
+      {
+        name: 'React',
+        since: '2015-01-02',
+        logo: ReactLogo,
+      },
+      {
+        name: 'node.js',
+        since: '2010-05-01',
+        logo: NodeLogo,
+      },
+      { name: 'JavaScript', since: '2008-02-01', logo: JSLogo },
     ],
     []
   )
@@ -22,12 +33,15 @@ export default function ExperienceStats() {
         {stats.map((item) => (
           <div
             key={item.name}
-            className="px-4 py-5 bg-slate-900 rounded-2xl overflow-hidden sm:p-6 print:p-6"
+            className="px-4 py-5 bg-slate-900 rounded-2xl overflow-hidden sm:p-6 print:p-6 relative group"
           >
             <dt className="text-sm font-medium text-slate-400 truncate">
               {item.name}
             </dt>
             <Since since={item.since} />
+            <span className="absolute top-1/2 -translate-y-6 right-4 h-12 w-12 mix-blend-screen opacity-25 transition-opacity transform-gpu group-hover:opacity-100">
+              <Image src={item.logo} alt="" layout="fill" />
+            </span>
           </div>
         ))}
       </dl>

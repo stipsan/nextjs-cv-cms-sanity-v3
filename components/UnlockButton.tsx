@@ -142,7 +142,7 @@ export default function UnlockButton({
               type="password"
               readOnly={loading}
               className={cx(
-                'block mt-4 w-full shadow-sm shadow-slate-400/25 focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm border-gray-300 rounded-md',
+                'block mt-4 w-full shadow-sm shadow-slate-400/25 focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm border-slate-300 rounded-md',
                 {
                   'animate-pulse': loading,
                   'animate-[shake_1s_ease-in-out]':

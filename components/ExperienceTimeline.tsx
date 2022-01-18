@@ -50,9 +50,11 @@ export default function ExperienceTimeline() {
         company: 'FINN.no',
         joined: parseISO('2018-11-01'),
         left: parseISO('2020-12-31'),
-        location: 'Oslo Area, Norway',
+        location: 'Oslo',
+        flag: '🇳🇴',
         imageUrl: logos.finn,
         href: 'https://www.linkedin.com/company/finn-no/',
+        mapUrl: 'http://maps.apple.com/?address=Grensen+5-7,Oslo',
       },
       {
         id: 'km',
@@ -61,9 +63,11 @@ export default function ExperienceTimeline() {
         company: 'Kulturmeglerne',
         joined: parseISO('2018-09-01'),
         left: parseISO('2018-10-31'),
-        location: 'Oslo Area, Norway',
+        location: 'Oslo',
+        flag: '🇳🇴',
         imageUrl: logos.km,
         href: 'https://www.linkedin.com/company/kulturmeglerne/',
+        mapUrl: 'http://maps.apple.com/?address=Brenneriveien+5,Oslo',
       },
       {
         id: 'sd',
@@ -80,8 +84,10 @@ export default function ExperienceTimeline() {
         joined: parseISO('2014-11-01'),
         left: parseISO('2018-08-31'),
         location: 'Oslo',
+        flag: '🇳🇴',
         imageUrl: logos['24'],
         href: 'https://www.linkedin.com/company/24nettbutikk/',
+        mapUrl: 'http://maps.apple.com/?address=Grev+Wedels+Plass+5,Oslo',
       },
       {
         id: 'yt',
@@ -90,9 +96,12 @@ export default function ExperienceTimeline() {
         company: 'YOOtheme',
         joined: parseISO('2014-09-01'),
         left: parseISO('2014-09-30'),
-        location: 'Orkanger, Norway',
+        location: 'Hamburg',
+        flag: '🇩🇪',
         imageUrl: logos.yt,
         href: 'https://www.linkedin.com/company/yootheme-gmbh/',
+        mapUrl: 'http://maps.apple.com/?address=Hongkongstraße+10a,Hamburg',
+        remote: true,
       },
       {
         id: 'im',
@@ -101,9 +110,11 @@ export default function ExperienceTimeline() {
         company: 'I Media AS',
         joined: parseISO('2014-05-01'),
         left: parseISO('2014-08-31'),
-        location: 'Molde, Norway',
+        location: 'Molde',
+        flag: '🇳🇴',
         imageUrl: logos.im,
         href: 'https://www.linkedin.com/company/i-media-as/',
+        mapUrl: 'http://maps.apple.com/?address=Molde',
       },
       {
         id: 'timble',
@@ -113,8 +124,11 @@ export default function ExperienceTimeline() {
         joined: parseISO('2010-05-01'),
         left: parseISO('2014-05-31'),
         location: 'Belgium',
+        flag: '🇧🇪',
         imageUrl: logos.timble,
         href: 'https://www.linkedin.com/company/timble/',
+        mapUrl: 'http://maps.apple.com/?address=Leuven,Belgium',
+        remote: true,
       },
       {
         id: 'nf',
@@ -123,9 +137,12 @@ export default function ExperienceTimeline() {
         company: 'NinjaForge',
         joined: parseISO('2008-02-01'),
         left: parseISO('2012-05-31'),
-        location: 'Japan',
+        location: 'Osaka',
+        flag: '🇯🇵',
         imageUrl: logos.nf,
         href: 'https://www.linkedin.com/company/ninjaforge/',
+        mapUrl: 'http://maps.apple.com/?address=Osaka,Japan',
+        remote: true,
       },
       {
         id: 'pt',
@@ -134,9 +151,12 @@ export default function ExperienceTimeline() {
         company: 'ProThemer',
         joined: parseISO('2010-01-01'),
         left: parseISO('2011-04-30'),
-        location: 'Cape Town, South Africa',
+        location: 'Cape Town',
+        flag: '🇿🇦',
         imageUrl: logos.pt,
         href: 'https://www.linkedin.com/company/prothemer/',
+        mapUrl: 'http://maps.apple.com/?address=Cape+Town,South+Africa',
+        remote: true,
       },
     ],
     []
@@ -178,18 +198,18 @@ export default function ExperienceTimeline() {
 
                       <div className="min-w-0 flex-1">
                         <div>
-                          <h2 className="font-medium text-gray-900">
+                          <h2 className="font-medium text-slate-900">
                             {activityItem.role}
                           </h2>
                           <div className="text-sm">
                             <a
                               href={activityItem.href}
-                              className="hover:underline font-medium text-gray-900"
+                              className="hover:underline font-medium text-slate-900"
                             >
                               {activityItem.company}
                             </a>
                           </div>
-                          <p className="mt-0.5 text-sm text-gray-500">
+                          <p className="mt-0.5 text-sm text-slate-500">
                             {
                               <>
                                 {rangeFormatter.current && activityItem.left ? (
@@ -226,6 +246,7 @@ export default function ExperienceTimeline() {
                                       'duration',
                                       getDuration(
                                         activityItem.joined,
+                                        // @ts-expect-error
                                         activityItem.left || mounted
                                       )
                                     )
@@ -233,8 +254,21 @@ export default function ExperienceTimeline() {
                               </>
                             }
                           </p>
-                          <p className="mt-0.5 text-sm text-gray-500">
-                            {activityItem.location}
+                          <p className="mt-0.5 text-sm text-slate-500">
+                            <a
+                              className="hover:underline"
+                              href={activityItem.mapUrl}
+                            >
+                              {activityItem.location}
+                            </a>
+                            <span className="ml-1 translate-y-[1px] print:hidden">
+                              {activityItem.flag}
+                            </span>
+                            {activityItem.remote && (
+                              <span className="ml-2 print:hidden">
+                                {t('remote')}
+                              </span>
+                            )}
                           </p>
                         </div>
                       </div>
@@ -252,13 +286,13 @@ export default function ExperienceTimeline() {
 
                       <div className="min-w-0 flex-1">
                         <div>
-                          <h2 className="font-medium text-gray-900">
+                          <h2 className="font-medium text-slate-900">
                             {t('changedName')}
                           </h2>
                           <div className="text-sm">
                             <a
                               href={t('changedNameLink')}
-                              className="hover:underline group font-medium text-gray-900"
+                              className="hover:underline group font-medium text-slate-900"
                             >
                               {t.rich('changedNameFromTo', {
                                 from: activityItem.from,
@@ -276,7 +310,7 @@ export default function ExperienceTimeline() {
                               })}
                             </a>
                           </div>
-                          <p className="mt-0.5 text-sm text-gray-500">
+                          <p className="mt-0.5 text-sm text-slate-500">
                             {t('changedNameDate', { date: activityItem.date })}
                           </p>
                         </div>

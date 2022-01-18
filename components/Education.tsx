@@ -28,14 +28,14 @@ export default function Education() {
       <h1 className="text-lg leading-6 font-medium text-slate-900">
         {t('title')}
       </h1>
-      <ul role="list" className="divide-y divide-gray-200">
+      <ul role="list" className="divide-y divide-slate-200">
         {activityItems.map((activityItem) => (
           <li key={activityItem.id} className="py-4">
             <div className="flex space-x-3">
               <div className="flex-1 space-y-1">
                 <div className="flex-row items-center justify-between">
                   <h3 className="font-medium">{activityItem.school}</h3>
-                  <p className="text-sm text-gray-500">{activityItem.study}</p>
+                  <p className="text-sm text-slate-500">{activityItem.study}</p>
                   <p className="text-sm">{activityItem.when}</p>
                 </div>
               </div>

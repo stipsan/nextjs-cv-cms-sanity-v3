@@ -123,7 +123,7 @@ export default function ExperienceTimeline() {
         company: 'Timble',
         joined: parseISO('2010-05-01'),
         left: parseISO('2014-05-31'),
-        location: 'Belgium',
+        location: 'Leuven',
         flag: '🇧🇪',
         imageUrl: logos.timble,
         href: 'https://www.linkedin.com/company/timble/',

@@ -38,7 +38,7 @@ export default async function handler(
         }
         if (data.references) {
           data.references.forEach((reference) => {
-            if (reference.phone && !reference.phoneUrl) {
+            if (reference.phone) {
               const phoneNumber = parsePhoneNumber(reference.phone)
               reference.phoneUrl = phoneNumber.getURI()
               reference.phone = phoneNumber.formatInternational()

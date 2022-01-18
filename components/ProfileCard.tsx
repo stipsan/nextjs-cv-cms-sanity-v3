@@ -22,7 +22,7 @@ export default function ProfileCard({
   const githubUrl = useShorterUrl(github)
   const linkedinUrl = useShorterUrl(linkedin)
   return (
-    <section className="rounded-2xl bg-slate-50 border border-slate-300 border-opacity-25 [page-break-inside:avoid] [page-break-after:always]">
+    <section className="rounded-2xl bg-slate-50 border border-slate-300 border-opacity-25">
       <h1 className="sr-only">{t('title')}</h1>
       <div className="px-6 py-4">
         <div className="sm:flex sm:items-center sm:justify-between print:flex print:items-center print:justify-between">

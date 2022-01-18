@@ -9,7 +9,7 @@ import { Toaster } from 'react-hot-toast'
 function App({ Component, pageProps }) {
   return (
     <>
-      <Toaster />
+      <Toaster containerClassName="print:hidden" />
       <NextIntlProvider
         messages={pageProps.messages}
         now={new Date(pageProps.now)}

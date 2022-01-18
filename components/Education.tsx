@@ -24,7 +24,7 @@ const activityItems = [
 export default function Education() {
   const t = useTranslations('Education')
   return (
-    <section className="rounded-2xl bg-slate-50 border border-slate-300 border-opacity-25 [page-break-inside:avoid] [page-break-after:always] px-6 py-4">
+    <section className="my-5 rounded-2xl bg-slate-50 border border-slate-300 border-opacity-25 px-6 py-4 break-inside-avoid">
       <h1 className="text-lg leading-6 font-medium text-slate-900">
         {t('title')}
       </h1>

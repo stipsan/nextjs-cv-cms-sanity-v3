@@ -66,7 +66,7 @@ export default function OpenSourceStats({
     ]
   )
   return (
-    <section className="py-6 relative [-webkit-page-break-inside:avoid] [page-break-after:always]">
+    <section className="my-5 py-6 relative break-inside-avoid">
       <h1 className="mb-3 text-lg leading-6 font-medium text-slate-700">
         {t('title')}
       </h1>

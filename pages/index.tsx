@@ -38,7 +38,7 @@ export default function Index({
           unlocked={unlocked}
         />
       </div>
-      <main className="font-sans antialiased text-slate-600 max-w-[21cm] grid grid-flow-row gap-y-5 mx-auto px-4 sm:px-6 print:px-6 lg:px-8 pt-10">
+      <main className="font-sans antialiased text-slate-600 max-w-[21cm] mx-auto px-4 sm:px-6 print:px-6 lg:px-8 pt-10">
         <ProfileCard unlocked={unlocked} />
         <ExperienceStats />
         <ExperienceTimeline />
@@ -68,7 +68,7 @@ export async function getStaticProps({ locale }) {
     reactSpringBottomSheetStars,
     ioredisMockDependants,
   ] = await Promise.all([
-    import('messages/shared.json'),
+    import('messages/en.json'),
     import(`messages/${locale}.json`),
     import('next/package.json'),
     import('react/package.json'),

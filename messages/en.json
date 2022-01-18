@@ -1,4 +1,7 @@
 {
+  "LocaleSwitch": {
+    "link": "{locale, select, en {<flag>🇺🇸</flag> English} no {<flag>🇳🇴</flag> Norsk} other {<flag>🏳️</flag> {locale}}}"
+  },
   "Index": {
     "title": "CV - Cody Olsen, Full Stack Engineer"
   },
@@ -39,7 +42,15 @@
     "title": "Relevant Experience"
   },
   "ExperienceTimeline": {
-    "title": "Experience"
+    "title": "Experience",
+    "changedName": "Legal Change of Name",
+    "changedNameFromTo": "From <del>{from}</del> to <b>{to}</b>",
+    "changedNameDate": "{date, date, ::yyyyLLL}",
+    "changedNameLink": "https://www.skatteetaten.no/en/forms/rf-1453-change-of-name/",
+    "present": "Present",
+    "range": "{start} – {end}",
+    "duration": "{years, plural, =0 {} =1 {# yr } other {# yrs }}{months, plural, =0 {} =1 {# mo} other {# mos}}"
+
   },
   "Since": {
     "label": "<value>{years}</value><unit>{years, plural, =1 {year} other {years}}</unit>"

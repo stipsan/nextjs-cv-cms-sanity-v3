@@ -44,7 +44,7 @@ export default function Footer({ build, next, react, tailwind }: FooterProps) {
   )
 
   return (
-    <footer className="py-6 mb-6 text-center text-xs print:pb-0 print:mb-0">
+    <footer className="py-6 mt-5 mb-6 text-center text-xs print:pb-0 print:mb-0">
       {generated}
       <RelativeWhen
         date={buildDate}

@@ -36,6 +36,15 @@ export default async function handler(
           data.phoneUrl = phoneNumber.getURI()
           data.phone = phoneNumber.formatInternational()
         }
+        if (data.references) {
+          data.references.forEach((reference) => {
+            if (reference.phone && !reference.phoneUrl) {
+              const phoneNumber = parsePhoneNumber(reference.phone)
+              reference.phoneUrl = phoneNumber.getURI()
+              reference.phone = phoneNumber.formatInternational()
+            }
+          })
+        }
 
         return res.status(200).json({ user, data })
       } catch (err) {

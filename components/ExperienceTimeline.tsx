@@ -4,18 +4,10 @@ import { intervalToDuration, parseISO } from 'date-fns'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useIntl, useTranslations } from 'next-intl'
-import TwentyFourEstoreLogo from 'public/24.svg'
-import FINNLogo from 'public/finn.svg'
-import ImediaLogo from 'public/imedias.svg'
-import KulturmeglerneLogo from 'public/kulturmeglerne.svg'
-import NinjaForgeLogo from 'public/ninjaforge.png'
-import ProThemerLogo from 'public/prothemer.png'
-import ProxyLogo from 'public/proxy.svg'
-import TimbleLogo from 'public/timble.svg'
-import YooLogo from 'public/yootheme.svg'
 import { useEffect, useMemo, useRef, useState } from 'react'
 
 import styles from './ExperienceTimeline.module.css'
+import logos from './logos'
 
 export default function ExperienceTimeline() {
   const t = useTranslations('ExperienceTimeline')
@@ -45,7 +37,7 @@ export default function ExperienceTimeline() {
         left: null,
         location: 'San Francisco',
         flag: '🇺🇸',
-        imageUrl: ProxyLogo,
+        imageUrl: logos.proxy,
         href: 'https://www.linkedin.com/company/proxy-technologies/',
         mapUrl:
           'http://maps.apple.com/?address=500+3rd+Street,Suite+245,San+Francisco',
@@ -59,7 +51,7 @@ export default function ExperienceTimeline() {
         joined: parseISO('2018-11-01'),
         left: parseISO('2020-12-31'),
         location: 'Oslo Area, Norway',
-        imageUrl: FINNLogo,
+        imageUrl: logos.finn,
         href: 'https://www.linkedin.com/company/finn-no/',
       },
       {
@@ -70,7 +62,7 @@ export default function ExperienceTimeline() {
         joined: parseISO('2018-09-01'),
         left: parseISO('2018-10-31'),
         location: 'Oslo Area, Norway',
-        imageUrl: KulturmeglerneLogo,
+        imageUrl: logos.km,
         href: 'https://www.linkedin.com/company/kulturmeglerne/',
       },
       {
@@ -88,7 +80,7 @@ export default function ExperienceTimeline() {
         joined: parseISO('2014-11-01'),
         left: parseISO('2018-08-31'),
         location: 'Oslo',
-        imageUrl: TwentyFourEstoreLogo,
+        imageUrl: logos['24'],
         href: 'https://www.linkedin.com/company/24nettbutikk/',
       },
       {
@@ -99,7 +91,7 @@ export default function ExperienceTimeline() {
         joined: parseISO('2014-09-01'),
         left: parseISO('2014-09-30'),
         location: 'Orkanger, Norway',
-        imageUrl: YooLogo,
+        imageUrl: logos.yt,
         href: 'https://www.linkedin.com/company/yootheme-gmbh/',
       },
       {
@@ -110,7 +102,7 @@ export default function ExperienceTimeline() {
         joined: parseISO('2014-05-01'),
         left: parseISO('2014-08-31'),
         location: 'Molde, Norway',
-        imageUrl: ImediaLogo,
+        imageUrl: logos.im,
         href: 'https://www.linkedin.com/company/i-media-as/',
       },
       {
@@ -121,7 +113,7 @@ export default function ExperienceTimeline() {
         joined: parseISO('2010-05-01'),
         left: parseISO('2014-05-31'),
         location: 'Belgium',
-        imageUrl: TimbleLogo,
+        imageUrl: logos.timble,
         href: 'https://www.linkedin.com/company/timble/',
       },
       {
@@ -132,7 +124,7 @@ export default function ExperienceTimeline() {
         joined: parseISO('2008-02-01'),
         left: parseISO('2012-05-31'),
         location: 'Japan',
-        imageUrl: NinjaForgeLogo,
+        imageUrl: logos.nf,
         href: 'https://www.linkedin.com/company/ninjaforge/',
       },
       {
@@ -143,7 +135,7 @@ export default function ExperienceTimeline() {
         joined: parseISO('2010-01-01'),
         left: parseISO('2011-04-30'),
         location: 'Cape Town, South Africa',
-        imageUrl: ProThemerLogo,
+        imageUrl: logos.pt,
         href: 'https://www.linkedin.com/company/prothemer/',
       },
     ],

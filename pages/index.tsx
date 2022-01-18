@@ -5,6 +5,7 @@ import Footer from 'components/Footer'
 import LocaleSwitch from 'components/LocaleSwitch'
 import OpenSourceStats from 'components/OpenSourceStats'
 import ProfileCard from 'components/ProfileCard'
+import References from 'components/References'
 import UnlockButton from 'components/UnlockButton'
 import useUnlocked from 'hooks/useUnlocked'
 import Head from 'next/head'
@@ -49,6 +50,7 @@ export default function Index({
           ioredisMockDependants={ioredisMockDependants}
           reactSpringBottomSheetStars={reactSpringBottomSheetStars}
         />
+        <References unlocked={unlocked} />
         <Education />
         <Footer build={now} next={next} react={react} tailwind={tailwind} />
       </main>

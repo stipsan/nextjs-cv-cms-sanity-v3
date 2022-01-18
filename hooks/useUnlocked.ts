@@ -9,6 +9,13 @@ export type Unlocked = {
     postalCode: string
     phone: string
     phoneUrl: string
+    references: {
+      id: string
+      name: string
+      phone: string
+      phoneUrl: string
+      email: string
+    }[]
   }
 }
 

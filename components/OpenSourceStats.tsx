@@ -3,14 +3,14 @@ import { useIntl, useTranslations } from 'next-intl'
 import { useMemo } from 'react'
 
 type OpenSourceStatsProps = {
-  computeScrollIntoViewWeeklyDownloads: number
-  ioredisMockDependants: number
-  reactSpringBottomSheetStars: number
+  csivWeeklyDownloads: number
+  imDependants: number
+  rsbsStars: number
 }
 export default function OpenSourceStats({
-  computeScrollIntoViewWeeklyDownloads,
-  ioredisMockDependants,
-  reactSpringBottomSheetStars,
+  csivWeeklyDownloads,
+  imDependants,
+  rsbsStars,
 }: OpenSourceStatsProps) {
   const t = useTranslations('OpenSourceStats')
   const intl = useIntl()
@@ -19,13 +19,13 @@ export default function OpenSourceStats({
     () => [
       {
         name: 'im',
-        stat: intl.formatNumber(ioredisMockDependants),
+        stat: intl.formatNumber(imDependants),
         unit: t('repos'),
         url: 'https://github.com/stipsan/ioredis-mock/network/dependents',
       },
       {
         name: 'csiv',
-        stat: intl.formatNumber(computeScrollIntoViewWeeklyDownloads),
+        stat: intl.formatNumber(csivWeeklyDownloads),
         unit: t('monthly'),
         url: 'https://www.npmjs.com/package/compute-scroll-into-view',
       },
@@ -45,7 +45,7 @@ export default function OpenSourceStats({
       {
         name: 'last',
         stat: t.rich('lastStat', {
-          stars: reactSpringBottomSheetStars,
+          stars: rsbsStars,
           unit: (children) => (
             <span className="inline-block font-normal text-3xl text-slate-300 ml-0.5">
               {children}
@@ -56,14 +56,7 @@ export default function OpenSourceStats({
         url: 'https://github.com/stipsan/react-spring-bottom-sheet/stargazers',
       },
     ],
-    [
-      computeScrollIntoViewWeeklyDownloads,
-      intl,
-      ioredisMockDependants,
-      reactSpringBottomSheetStars,
-      t,
-      yearsSinceFirstLib,
-    ]
+    [csivWeeklyDownloads, intl, imDependants, rsbsStars, t, yearsSinceFirstLib]
   )
   return (
     <section className="my-5 py-6 relative break-inside-avoid">

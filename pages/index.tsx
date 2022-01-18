@@ -1,11 +1,11 @@
 import Education from 'components/Education'
 import ExperienceStats from 'components/ExperienceStats'
 import ExperienceTimeline from 'components/ExperienceTimeline'
-import Footer, {
-  getStaticProps as getStaticFooterProps,
-} from 'components/Footer'
+import Footer from 'components/Footer'
+import { getStaticProps as getStaticFooterProps } from 'components/Footer.getStaticProps'
 import LocaleSwitch from 'components/LocaleSwitch'
 import OpenSourceStats from 'components/OpenSourceStats'
+import { getStaticProps as getStaticOpenSourceStatsProps } from 'components/OpenSourceStats.getStaticProps'
 import ProfileCard from 'components/ProfileCard'
 import References from 'components/References'
 import UnlockButton from 'components/UnlockButton'
@@ -18,9 +18,9 @@ export default function Index({
   next,
   react,
   tailwind,
-  computeScrollIntoViewWeeklyDownloads,
-  ioredisMockDependants,
-  reactSpringBottomSheetStars,
+  csivWeeklyDownloads,
+  imDependants,
+  rsbsStars,
 }) {
   const t = useTranslations('Index')
   const { error, setError, loading, unlock, unlocked } = useUnlocked()
@@ -46,11 +46,9 @@ export default function Index({
         <ExperienceStats />
         <ExperienceTimeline />
         <OpenSourceStats
-          computeScrollIntoViewWeeklyDownloads={
-            computeScrollIntoViewWeeklyDownloads
-          }
-          ioredisMockDependants={ioredisMockDependants}
-          reactSpringBottomSheetStars={reactSpringBottomSheetStars}
+          csivWeeklyDownloads={csivWeeklyDownloads}
+          imDependants={imDependants}
+          rsbsStars={rsbsStars}
         />
         <References unlocked={unlocked} />
         <Education />
@@ -66,74 +64,12 @@ export async function getStaticProps({ locale }) {
     { default: shared },
     { default: local },
     { next, react, tailwind },
-    computeScrollIntoViewWeeklyDownloads,
-    reactSpringBottomSheetStars,
-    ioredisMockDependants,
+    { csivWeeklyDownloads, imDependants, rsbsStars },
   ] = await Promise.all([
     import('messages/en.json'),
     import(`messages/${locale}.json`),
     getStaticFooterProps(),
-    fetch(
-      'https://api.npmjs.org/downloads/point/last-month/compute-scroll-into-view'
-    )
-      .then((res) => res.json())
-      .then((data) => data.downloads || 12114685)
-      .catch((err) => {
-        console.error(
-          'Error while fetching download stats for compute-scroll-into-view',
-          err
-        )
-        // number fetched 14th january 2022
-        return 12114685
-      }),
-    fetch('https://api.github.com/repos/stipsan/react-spring-bottom-sheet')
-      .then((res) => res.json())
-      .then((data) => data.stargazers_count || 277)
-      .catch((err) => {
-        console.error(
-          'Error while fetching stargazers for react-spring-bottom-sheet',
-          err
-        )
-        // number fetched 14th january 2022
-        return 277
-      }),
-    Promise.race([
-      fetch('https://github.com/stipsan/ioredis-mock/network/dependents')
-        .then((data) => {
-          if (!data.ok) {
-            throw new Error(`${data.status}: ${data.statusText}`)
-          }
-          return data.text()
-        })
-        .then((text) => {
-          const dom = new JSDOM(text)
-          const dependents = dom.window.document.querySelectorAll(
-            `#dependents > div.Box > div.Box-header.clearfix > div > div > a.btn-link.selected`
-          )
-
-          return Array.from(dependents).reduce((prev, curr: HTMLElement) => {
-            const extracted = curr.textContent
-              ? parseInt(
-                  curr.textContent.trim().split(' ')[0].replace(',', ''),
-                  10
-                )
-              : 0
-            if (extracted > prev) {
-              return extracted
-            }
-            return prev
-          }, 0)
-        })
-        .catch((err) => {
-          console.error(
-            'Error while fetching stargazers for react-spring-bottom-sheet',
-            err
-          )
-          // number fetched 14th january 2022
-          return 1607
-        }),
-      new Promise((resolve) => setTimeout(() => resolve(1607), 30000)),
-    ]),
+    getStaticOpenSourceStatsProps(),
   ])
   const messages = { ...shared, ...local }
   const now = new Date().getTime()
@@ -143,9 +79,9 @@ export async function getStaticProps({ locale }) {
       next,
       react,
       tailwind,
-      computeScrollIntoViewWeeklyDownloads,
-      reactSpringBottomSheetStars,
-      ioredisMockDependants,
+      csivWeeklyDownloads,
+      rsbsStars,
+      imDependants,
       now,
     },
   }

@@ -188,7 +188,7 @@ export default function ExperienceTimeline() {
                         )}
                       >
                         <Image
-                          src={activityItem.imageUrl}
+                          src={logos[activityItem.id]}
                           alt=""
                           loading="eager"
                           height={96}

@@ -3,16 +3,6 @@ import { useIntl, useNow } from 'next-intl'
 import { useTranslations } from 'next-intl'
 import { useMemo } from 'react'
 
-export async function getStaticProps() {
-  const [{ version: next }, { version: react }, { version: tailwind }] =
-    await Promise.all([
-      import('next/package.json'),
-      import('react/package.json'),
-      import('tailwindcss/package.json'),
-    ])
-  return { next, react, tailwind }
-}
-
 type FooterProps = {
   build: number
   next: string

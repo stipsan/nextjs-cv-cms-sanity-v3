@@ -9,19 +9,19 @@ export default function References({
 }: Pick<UnlockProps, 'unlocked'>) {
   const t = useTranslations('References')
   return (
-    <section className="my-5 py-6 relative break-inside-avoid">
+    <section className="my-5 py-6 relative print:hidden">
       <h1 className="mb-3 text-lg leading-6 font-medium text-slate-700">
         {t('title')}
       </h1>
       {unlocked?.data?.references ? (
         <ul
           role="list"
-          className="mt-5 grid grid-cols-1 gap-2 sm:grid-cols-3 print:grid-cols-3 bg-slate-100 p-2 rounded-3xl"
+          className="mt-5 grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 bg-slate-100 p-2 rounded-3xl"
         >
           {unlocked.data.references.map((reference) => (
             <li
               key={reference.id}
-              className="px-4 py-5 transition bg-white rounded-2xl overflow-hidden sm:p-6 print:p-6 flex items-center justify-center flex-col"
+              className="px-4 py-5 transition bg-white rounded-2xl overflow-hidden sm:p-6 flex items-center justify-center flex-col"
             >
               <figure
                 className={

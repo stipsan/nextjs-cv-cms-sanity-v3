@@ -47,7 +47,7 @@
     "changedNameFromTo": "From <del>{from}</del> to <b>{to}</b>",
     "changedNameLink": "https://www.skatteetaten.no/en/forms/rf-1453-change-of-name/",
     "present": "Present",
-    "range": "{start} - {end}",
+    "range": "{start} – {end}",
     "duration": "{years, plural, =0 {} =1 {# yr } other {# yrs }}{months, plural, =0 {} =1 {# mo} other {# mos}}",
     "remote": "• Work from home"
   },

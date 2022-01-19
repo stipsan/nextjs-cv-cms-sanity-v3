@@ -1,29 +1,34 @@
-import useYears from 'hooks/useYears'
+import { differenceInYears } from 'date-fns'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import JSLogo from 'public/js.svg'
 import NodeLogo from 'public/node.svg'
 import ReactLogo from 'public/react.svg'
-import { memo, useMemo } from 'react'
+import { memo } from 'react'
 
-export default function ExperienceStats() {
+const stats = [
+  {
+    name: 'React',
+    // 2015-01-02
+    since: new Date(2015, 0, 2),
+    logo: ReactLogo,
+  },
+  {
+    name: 'node.js',
+    // 2010-05-01
+    since: new Date(2010, 4, 1),
+    logo: NodeLogo,
+  },
+  {
+    name: 'JavaScript',
+    // 2008-02-01
+    since: new Date(2008, 1, 1),
+    logo: JSLogo,
+  },
+]
+
+export default memo(function ExperienceStats({ then }: { then: Date }) {
   const t = useTranslations('ExperienceStats')
-  const stats = useMemo(
-    () => [
-      {
-        name: 'React',
-        since: '2015-01-02',
-        logo: ReactLogo,
-      },
-      {
-        name: 'node.js',
-        since: '2010-05-01',
-        logo: NodeLogo,
-      },
-      { name: 'JavaScript', since: '2008-02-01', logo: JSLogo },
-    ],
-    []
-  )
   return (
     <section className="my-5 py-6 break-inside-avoid">
       <h1 className="mb-3 text-lg leading-6 font-medium text-slate-700">
@@ -38,25 +43,27 @@ export default function ExperienceStats() {
             <dt className="text-sm font-medium text-slate-400 truncate">
               {item.name}
             </dt>
-            <Since since={item.since} />
-            <span className="absolute top-1/2 -translate-y-6 right-4 h-12 w-12 mix-blend-screen opacity-25 transition-opacity transform-gpu group-hover:opacity-100">
-              <Image src={item.logo} alt="" layout="fill" />
+            <Since since={item.since} then={then} />
+            <span className="absolute top-1/2 -translate-y-6 right-4 mix-blend-screen opacity-25 transition-opacity transform-gpu group-hover:opacity-100">
+              <span className="inline-block relative h-12 w-12">
+                <Image src={item.logo} alt="" layout="fill" />
+              </span>
             </span>
           </div>
         ))}
       </dl>
     </section>
   )
-}
+})
 
-const Since = memo(function Since({ since }: { since: string }) {
+function Since({ since, then }: { since: Date; then: Date }) {
   const t = useTranslations('Since')
-  const { integer: years } = useYears(since)
+  const years = differenceInYears(then, since)
 
   return (
     <dd className="mt-1">
       {t.rich('label', {
-        years: years * -1,
+        years: years,
         value: (children) => (
           <span className="text-3xl font-semibold text-slate-100">
             {children}
@@ -70,4 +77,4 @@ const Since = memo(function Since({ since }: { since: string }) {
       })}
     </dd>
   )
-})
+}

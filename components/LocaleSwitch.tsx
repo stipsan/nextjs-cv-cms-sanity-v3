@@ -2,8 +2,9 @@ import cx from 'classnames'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTranslations } from 'next-intl'
+import { memo } from 'react'
 
-export default function LocaleSwitch() {
+export default memo(function LocaleSwitch() {
   const t = useTranslations('LocaleSwitch')
   const { locale, locales, route } = useRouter()
 
@@ -35,4 +36,4 @@ export default function LocaleSwitch() {
       ))}
     </nav>
   )
-}
+})

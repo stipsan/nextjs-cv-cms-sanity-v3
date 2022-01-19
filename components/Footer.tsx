@@ -1,19 +1,24 @@
 import { useRouter } from 'next/router'
 import { useIntl, useNow } from 'next-intl'
 import { useTranslations } from 'next-intl'
-import { useMemo } from 'react'
+import { memo, useMemo } from 'react'
 
 type FooterProps = {
-  build: number
+  then: number
   next: string
   react: string
   tailwind: string
 }
-export default function Footer({ build, next, react, tailwind }: FooterProps) {
+export default memo(function Footer({
+  then,
+  next,
+  react,
+  tailwind,
+}: FooterProps) {
   const t = useTranslations('Footer')
   const intl = useIntl()
   const { locale } = useRouter()
-  const buildDate = useMemo(() => new Date(build), [build])
+  const buildDate = useMemo(() => new Date(then), [then])
   const date = useMemo(
     () =>
       intl.formatDateTime(buildDate, {
@@ -63,7 +68,7 @@ export default function Footer({ build, next, react, tailwind }: FooterProps) {
       </div>
     </footer>
   )
-}
+})
 
 const RelativeWhen = ({
   date,

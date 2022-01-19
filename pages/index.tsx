@@ -1,6 +1,7 @@
 import Education from 'components/Education'
 import ExperienceStats from 'components/ExperienceStats'
 import ExperienceTimeline from 'components/ExperienceTimeline'
+import { getStaticProps as getStaticExperienceTimelineProps } from 'components/ExperienceTimeline.getStaticProps'
 import Footer from 'components/Footer'
 import { getStaticProps as getStaticFooterProps } from 'components/Footer.getStaticProps'
 import LocaleSwitch from 'components/LocaleSwitch'
@@ -14,13 +15,15 @@ import Head from 'next/head'
 import { useTranslations } from 'next-intl'
 
 export default function Index({
-  now,
+  // Renaming to then, to make it clear that it doesn't update after nounting, used when something should reflect the time the CV got built
+  now: then,
   next,
   react,
   tailwind,
   csivWeeklyDownloads,
   imDependants,
   rsbsStars,
+  experiences,
 }) {
   const t = useTranslations('Index')
   const { error, setError, loading, unlock, unlocked } = useUnlocked()
@@ -42,34 +45,36 @@ export default function Index({
             unlocked={unlocked}
           />
         </div>
-        <ProfileCard unlocked={unlocked} />
-        <ExperienceStats />
-        <ExperienceTimeline />
+        <ProfileCard unlocked={unlocked} then={then} />
+        <ExperienceStats then={then} />
+        <ExperienceTimeline experiences={experiences} />
         <OpenSourceStats
           csivWeeklyDownloads={csivWeeklyDownloads}
           imDependants={imDependants}
           rsbsStars={rsbsStars}
+          then={then}
         />
         <References unlocked={unlocked} />
         <Education />
-        <Footer build={now} next={next} react={react} tailwind={tailwind} />
+        <Footer then={then} next={next} react={react} tailwind={tailwind} />
       </main>
     </>
   )
 }
 
 export async function getStaticProps({ locale }) {
-  const { JSDOM } = await import('jsdom')
   const [
     { default: shared },
     { default: local },
     { next, react, tailwind },
     { csivWeeklyDownloads, imDependants, rsbsStars },
+    { experiences },
   ] = await Promise.all([
     import('messages/en.json'),
     import(`messages/${locale}.json`),
     getStaticFooterProps(),
     getStaticOpenSourceStatsProps(),
+    getStaticExperienceTimelineProps({ locale }),
   ])
   const messages = { ...shared, ...local }
   const now = new Date().getTime()
@@ -82,6 +87,7 @@ export async function getStaticProps({ locale }) {
       csivWeeklyDownloads,
       rsbsStars,
       imDependants,
+      experiences,
       now,
     },
   }

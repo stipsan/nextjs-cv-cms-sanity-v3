@@ -1,20 +1,24 @@
-import useYears from 'hooks/useYears'
+import { differenceInYears } from 'date-fns'
 import { useIntl, useTranslations } from 'next-intl'
-import { useMemo } from 'react'
+import { memo, useMemo } from 'react'
+
+// 2010-02-18
+const firstLibDate = new Date(2010, 1, 18)
 
 type OpenSourceStatsProps = {
   csivWeeklyDownloads: number
   imDependants: number
   rsbsStars: number
+  then: Date
 }
-export default function OpenSourceStats({
+export default memo(function OpenSourceStats({
   csivWeeklyDownloads,
   imDependants,
   rsbsStars,
+  then,
 }: OpenSourceStatsProps) {
   const t = useTranslations('OpenSourceStats')
   const intl = useIntl()
-  const { integer: yearsSinceFirstLib } = useYears('2010-02-18')
   const stats = useMemo(
     () => [
       {
@@ -32,7 +36,7 @@ export default function OpenSourceStats({
       {
         name: 'first',
         stat: t.rich('firstStat', {
-          years: yearsSinceFirstLib * -1,
+          years: differenceInYears(then, firstLibDate),
           unit: (children) => (
             <span className="inline-block font-normal text-3xl text-slate-300 ml-0.5">
               {children}
@@ -56,7 +60,7 @@ export default function OpenSourceStats({
         url: 'https://github.com/stipsan/react-spring-bottom-sheet/stargazers',
       },
     ],
-    [csivWeeklyDownloads, intl, imDependants, rsbsStars, t, yearsSinceFirstLib]
+    [csivWeeklyDownloads, imDependants, intl, rsbsStars, t, then]
   )
   return (
     <section className="my-5 py-6 relative break-inside-avoid">
@@ -86,4 +90,4 @@ export default function OpenSourceStats({
       </dl>
     </section>
   )
-}
+})

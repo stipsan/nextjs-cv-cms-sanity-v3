@@ -8,12 +8,12 @@ import {
 import cx from 'classnames'
 import type { UnlockProps } from 'hooks/useUnlocked'
 import { useTranslations } from 'next-intl'
-import { useRef, useState } from 'react'
+import { memo, useRef, useState } from 'react'
 import { BottomSheet } from 'react-spring-bottom-sheet'
 
 import styles from './UnlockButton.module.css'
 
-export default function UnlockButton({
+export default memo(function UnlockButton({
   unlock,
   error,
   setError,
@@ -222,7 +222,7 @@ export default function UnlockButton({
       </BottomSheet>
     </div>
   )
-}
+})
 
 export function RedactedLabel() {
   const t = useTranslations('UnlockButton')

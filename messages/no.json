@@ -42,7 +42,6 @@
     "title": "Arbeidserfaring",
     "changedName": "Juridisk navneendring",
     "changedNameFromTo": "Fra <del>{from}</del> til <b>{to}</b>",
-    "changedNameDate": "{date, date, ::yyyyLLL}",
     "changedNameLink": "https://www.skatteetaten.no/skjema/endre-navn/",
     "present": "Nå",
     "range": "{start}–{end}",

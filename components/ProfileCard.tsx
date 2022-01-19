@@ -1,10 +1,10 @@
 import { PrinterIcon } from '@heroicons/react/outline'
-import useShorterUrl from 'hooks/useShorterUrl'
+import { differenceInYears } from 'date-fns'
 import type { UnlockProps } from 'hooks/useUnlocked'
-import useYears from 'hooks/useYears'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import headshot from 'public/headshot.jpeg'
+import { memo } from 'react'
 
 import { RedactedLabel } from './UnlockButton'
 
@@ -14,13 +14,11 @@ const birthday = new Date('1989-10-07')
 const github = 'https://github.com/stipsan'
 const linkedin = 'https://linkedin.com/in/stipsan'
 
-export default function ProfileCard({
+export default memo(function ProfileCard({
   unlocked,
-}: Pick<UnlockProps, 'unlocked'>) {
+  then,
+}: Pick<UnlockProps, 'unlocked'> & { then: Date }) {
   const t = useTranslations('ProfileCard')
-  const { integer: age } = useYears(birthday)
-  const githubUrl = useShorterUrl(github)
-  const linkedinUrl = useShorterUrl(linkedin)
   return (
     <section className="rounded-2xl bg-slate-50 border border-slate-300 border-opacity-25">
       <h1 className="sr-only">{t('title')}</h1>
@@ -49,15 +47,7 @@ export default function ProfileCard({
               <p className="text-xl font-bold text-slate-900 sm:text-2xl print:text-2xl">
                 {t('name')}
               </p>
-              <p className="text-sm font-medium text-slate-600">
-                {t.rich('age', {
-                  birthday,
-                  age: age * -1,
-                  b: (children) => (
-                    <span className="text-slate-900">{children}</span>
-                  ),
-                })}
-              </p>
+              <Birthday t={t} then={then} />
             </div>
           </div>
           <div className="mt-5 prin flex justify-center sm:mt-0 print:hidden">
@@ -121,7 +111,7 @@ export default function ProfileCard({
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {githubUrl}
+                <ShortUrl url={github} />
               </a>
             </Dd>
           </div>
@@ -134,7 +124,7 @@ export default function ProfileCard({
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {linkedinUrl}
+                <ShortUrl url={linkedin} />
               </a>
             </Dd>
           </div>
@@ -149,7 +139,26 @@ export default function ProfileCard({
       </div>
     </section>
   )
-}
+})
+
+const Birthday = memo(function Birthday({
+  t,
+  then,
+}: {
+  t: ReturnType<typeof useTranslations>
+  then: Date
+}) {
+  const age = differenceInYears(then, birthday)
+  return (
+    <p className="text-sm font-medium text-slate-600">
+      {t.rich('age', {
+        birthday,
+        age,
+        b: (children) => <span className="text-slate-900">{children}</span>,
+      })}
+    </p>
+  )
+})
 
 function Dt({ children }) {
   return <dt className="text-sm font-medium text-slate-500">{children}</dt>
@@ -158,3 +167,19 @@ function Dt({ children }) {
 function Dd({ children }) {
   return <dd className="mt-0.5 text-sm text-slate-900">{children}</dd>
 }
+
+const ShortUrl = memo(function ShortUrl({ url }: { url: string }) {
+  const parsed = new URL(url)
+
+  const parts = parsed.pathname.split('/')
+  const handle = parts.pop()
+
+  return (
+    <>
+      <span className="text-slate-500 hover:text-slate-900 transition-colors">{`${
+        parsed.hostname
+      }${parts.join('/')}/`}</span>
+      {handle}
+    </>
+  )
+})

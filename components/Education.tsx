@@ -1,4 +1,5 @@
 import { useTranslations } from 'next-intl'
+import { memo } from 'react'
 
 const activityItems = [
   {
@@ -21,7 +22,7 @@ const activityItems = [
   },
 ]
 
-export default function Education() {
+export default memo(function Education() {
   const t = useTranslations('Education')
   return (
     <section className="my-5 rounded-2xl bg-slate-50 border border-slate-300 border-opacity-25 px-6 py-4 break-inside-avoid">
@@ -45,4 +46,4 @@ export default function Education() {
       </ul>
     </section>
   )
-}
+})

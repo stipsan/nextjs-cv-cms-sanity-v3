@@ -45,7 +45,6 @@
     "title": "Experience",
     "changedName": "Legal Change of Name",
     "changedNameFromTo": "From <del>{from}</del> to <b>{to}</b>",
-    "changedNameDate": "{date, date, ::yyyyLLL}",
     "changedNameLink": "https://www.skatteetaten.no/en/forms/rf-1453-change-of-name/",
     "present": "Present",
     "range": "{start} - {end}",

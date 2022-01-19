@@ -1,10 +1,11 @@
 import type { UnlockProps } from 'hooks/useUnlocked'
 import Image from 'next/image'
-import { useIntl, useTranslations } from 'next-intl'
+import { useTranslations } from 'next-intl'
+import { memo } from 'react'
 
 import logos from './logos'
 
-export default function References({
+export default memo(function References({
   unlocked,
 }: Pick<UnlockProps, 'unlocked'>) {
   const t = useTranslations('References')
@@ -62,7 +63,7 @@ export default function References({
       )}
     </section>
   )
-}
+})
 
 function RedactedLabel() {
   const t = useTranslations('UnlockButton')

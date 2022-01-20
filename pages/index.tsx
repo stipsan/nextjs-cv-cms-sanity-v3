@@ -36,7 +36,7 @@ export default function Index({
         <title>{t('title')}</title>
       </Head>
       <div className="h-1 bg-gradient-to-r from-teal-400 to-blue-600" />
-      <main className="font-sans antialiased text-slate-600 max-w-[21cm] mx-auto px-4 sm:px-6 print:px-6 lg:px-8 pt-4 sm:pt-5 print:pt-5">
+      <main className="font-sans antialiased text-slate-600 max-w-[21cm] mx-auto px-4 sm:px-6 print:px-10 lg:px-8 pt-4 sm:pt-5 print:pt-5">
         <div className="print:hidden pb-4 sm:pb-5 flex justify-start items-center">
           <LocaleSwitch displayNames={displayNames} />
           <UnlockButton

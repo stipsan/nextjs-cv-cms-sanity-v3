@@ -1,36 +1,41 @@
 import cx from 'classnames'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useTranslations } from 'next-intl'
 import { memo } from 'react'
 
-export default memo(function LocaleSwitch() {
-  const t = useTranslations('LocaleSwitch')
-  const { locale, locales, route } = useRouter()
+export default memo(function LocaleSwitch({
+  displayNames,
+}: {
+  displayNames: { [key: string]: string[] }
+}) {
+  const { locale: currentLocale, locales, route } = useRouter()
+  const currentIdx = locales.indexOf(currentLocale)
 
   return (
     <nav className="shadow-inner shadow-slate-400/25 p-0.5 rounded-lg justify-self-center inline-flex space-x-1 bg-slate-100 transition">
-      {locales.map((link) => (
-        <Link key={link} href={route} locale={link} prefetch={false}>
+      {locales.map((locale) => (
+        <Link key={locale} href={route} locale={locale} prefetch={false}>
           <a
             className={cx(
-              'transform-cpu leading-4 py-1.5 px-3 flex text-sm font-medium rounded-[0.4rem] focus:outline-none focus:ring-2 ring-offset-2 ring-offset-slate-400 ring-white ring-opacity-60 transition-colors',
+              'transform-cpu leading-4 py-1.5 px-3 text-sm font-medium rounded-[0.4rem] focus:outline-none focus:ring-2 ring-offset-2 ring-offset-slate-400 ring-white ring-opacity-60 transition-colors',
               {
                 'text-slate-600 bg-white shadow shadow-slate-500/25 pointer-events-none':
-                  link === locale,
+                  locale === currentLocale,
                 'text-slate-500 hover:text-slate-800 active:text-slate-900':
-                  link !== locale,
+                  locale !== currentLocale,
               }
             )}
           >
-            {t.rich('link', {
-              locale: link,
-              flag: (children) => (
-                <span className="translate-y-[1px] mr-1.5 scale-110">
-                  {children}
-                </span>
-              ),
-            })}
+            {displayNames[locale].map((part, idx) => (
+              <span
+                key={part}
+                className={cx('block text-xs capitalize transition-opacity', {
+                  'opacity-60': currentIdx !== idx,
+                })}
+              >
+                {part}
+              </span>
+            ))}
           </a>
         </Link>
       ))}

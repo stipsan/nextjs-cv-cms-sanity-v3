@@ -1,7 +1,4 @@
 {
-  "LocaleSwitch": {
-    "link": "{locale, select, en {<flag>🇺🇸</flag> English} no {<flag>🇳🇴</flag> Norsk} other {<flag>🏳️</flag> {locale}}}"
-  },
   "Index": {
     "title": "CV - Cody Olsen, Full Stack Engineer"
   },

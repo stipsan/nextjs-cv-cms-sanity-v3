@@ -5,6 +5,7 @@ import { getStaticProps as getStaticExperienceTimelineProps } from 'components/E
 import Footer from 'components/Footer'
 import { getStaticProps as getStaticFooterProps } from 'components/Footer.getStaticProps'
 import LocaleSwitch from 'components/LocaleSwitch'
+import { getStaticProps as getStaticLocaleSwitchProps } from 'components/LocaleSwitch.getStaticProps'
 import OpenSourceStats from 'components/OpenSourceStats'
 import { getStaticProps as getStaticOpenSourceStatsProps } from 'components/OpenSourceStats.getStaticProps'
 import ProfileCard from 'components/ProfileCard'
@@ -15,6 +16,7 @@ import Head from 'next/head'
 import { useTranslations } from 'next-intl'
 
 export default function Index({
+  displayNames,
   // Renaming to then, to make it clear that it doesn't update after nounting, used when something should reflect the time the CV got built
   now: then,
   next,
@@ -34,9 +36,9 @@ export default function Index({
         <title>{t('title')}</title>
       </Head>
       <div className="h-1 bg-gradient-to-r from-teal-400 to-blue-600" />
-      <main className="font-sans antialiased text-slate-600 max-w-[21cm] mx-auto px-4 sm:px-6 print:px-6 lg:px-8 pt-10">
-        <div className="print:hidden pb-10 flex justify-start items-center">
-          <LocaleSwitch />
+      <main className="font-sans antialiased text-slate-600 max-w-[21cm] mx-auto px-4 sm:px-6 print:px-6 lg:px-8 pt-4 sm:pt-5 print:pt-5">
+        <div className="print:hidden pb-4 sm:pb-5 flex justify-start items-center">
+          <LocaleSwitch displayNames={displayNames} />
           <UnlockButton
             error={error}
             setError={setError}
@@ -62,14 +64,16 @@ export default function Index({
   )
 }
 
-export async function getStaticProps({ locale }) {
+export async function getStaticProps({ locale, locales }) {
   const [
+    { displayNames },
     { default: shared },
     { default: local },
     { next, react, tailwind },
     { csivWeeklyDownloads, imDependants, rsbsStars },
     { experiences },
   ] = await Promise.all([
+    getStaticLocaleSwitchProps({ locales }),
     import('messages/en.json'),
     import(`messages/${locale}.json`),
     getStaticFooterProps(),
@@ -80,6 +84,7 @@ export async function getStaticProps({ locale }) {
   const now = new Date().getTime()
   return {
     props: {
+      displayNames,
       messages,
       next,
       react,

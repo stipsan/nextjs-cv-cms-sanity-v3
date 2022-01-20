@@ -29,7 +29,7 @@ export default memo(function UnlockButton({
   const t = useTranslations('UnlockButton')
 
   return (
-    <div className="ml-10 w-40">
+    <div className="ml-6 sm:ml-7 w-40">
       <div className="group w-0">
         <button
           id="unlock-button"

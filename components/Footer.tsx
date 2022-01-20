@@ -113,7 +113,7 @@ const Tag = ({
   url: string
 }) => (
   <a
-    className="block rounded bg-slate-900 overflow-hidden text-slate-50"
+    className="block rounded bg-slate-900 overflow-hidden text-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-cyan-800"
     href={url}
     target="_blank"
     rel="noopener noreferrer"

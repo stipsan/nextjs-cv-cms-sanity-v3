@@ -74,7 +74,7 @@ export default memo(function OpenSourceStats({
             href={item.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-4 py-5 transition bg-slate-900 hover:bg-slate-800 hover:shadow-lg hover:shadow-slate-500 rounded-2xl overflow-hidden sm:p-6 print:p-6"
+            className="px-4 py-5 transition bg-slate-900 hover:bg-slate-800 hover:shadow-lg hover:shadow-slate-500 rounded-2xl overflow-hidden sm:p-6 print:p-6 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-slate-800"
           >
             <dt className="text-sm font-medium text-slate-400 truncate">
               {t(item.name)}

@@ -95,5 +95,7 @@ export async function getStaticProps({ locale, locales }) {
       experiences,
       now,
     },
+    // Regen every 10 seconds
+    revalidate: 10,
   }
 }

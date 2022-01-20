@@ -17,7 +17,7 @@ export default memo(function Footer({
 }: FooterProps) {
   const t = useTranslations('Footer')
   const intl = useIntl()
-  const { locale } = useRouter()
+  const { locale, defaultLocale } = useRouter()
   const buildDate = useMemo(() => new Date(then), [then])
   const date = useMemo(
     () =>
@@ -38,7 +38,7 @@ export default memo(function Footer({
           <a
             className="text-slate-800"
             href={new URL(
-              locale === 'en' ? '/' : `/${locale}`,
+              locale === defaultLocale ? '/' : `/${locale}`,
               'https://cv.cocody.dev/'
             ).toString()}
             target="_blank"
@@ -51,7 +51,7 @@ export default memo(function Footer({
           <a
             className="text-slate-800"
             href={new URL(
-              locale === 'en' ? '/' : `/${locale}`,
+              locale === defaultLocale ? '/' : `/${locale}`,
               'https://cv.cocody.dev/'
             ).toString()}
             target="_blank"
@@ -62,7 +62,7 @@ export default memo(function Footer({
         ),
         site: 'cv.cocody.dev',
       }),
-    [date, locale, t]
+    [date, defaultLocale, locale, t]
   )
 
   return (

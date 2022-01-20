@@ -17,7 +17,7 @@ export default memo(function LocaleSwitch({
         <Link key={locale} href={route} locale={locale} prefetch={false}>
           <a
             className={cx(
-              'transform-cpu leading-4 py-1.5 px-3 text-sm font-medium rounded-[0.4rem] focus:outline-none focus:ring-2 ring-offset-2 ring-offset-slate-400 ring-white ring-opacity-60 transition-colors',
+              'transform-cpu leading-4 py-1.5 px-3 text-sm font-medium rounded-[0.4rem] focus:outline-none focus-visible:ring-2 ring-offset-2 ring-offset-slate-400 ring-white ring-opacity-60 transition active:scale-95',
               {
                 'text-slate-600 bg-white shadow shadow-slate-500/25 pointer-events-none':
                   locale === currentLocale,

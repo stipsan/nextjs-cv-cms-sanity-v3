@@ -3,7 +3,7 @@
     "title": "CV - Cody Olsen, Fullstack Utvikler"
   },
   "Footer": {
-    "generated": "Bygget CV <github>{when}</github> på <link>{site}</link>"
+    "generated": "Bygget CV <print><github>{when}</github> på <link>{site}</link></print>"
   },
   "UnlockButton": {
     "unlock": "Lås opp",

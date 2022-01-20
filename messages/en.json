@@ -3,7 +3,7 @@
     "title": "CV - Cody Olsen, Full Stack Engineer"
   },
   "Footer": {
-    "generated": "Built CV on <github>{when}</github> at <link>{site}</link>"
+    "generated": "Built CV <print>on <github>{when}</github> at <link>{site}</link></print>"
   },
   "UnlockButton": {
     "unlock": "Unlock",

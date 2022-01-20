@@ -3,7 +3,7 @@ import { differenceInYears } from 'date-fns'
 import type { UnlockProps } from 'hooks/useUnlocked'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { useTranslations } from 'next-intl'
+import { useIntl, useTranslations } from 'next-intl'
 import headshot from 'public/headshot.jpeg'
 import { memo } from 'react'
 
@@ -21,6 +21,7 @@ export default memo(function ProfileCard({
 }: Pick<UnlockProps, 'unlocked'> & { then: Date }) {
   const t = useTranslations('ProfileCard')
   const { locale } = useRouter()
+  const intl = useIntl()
   return (
     <section className="rounded-2xl bg-slate-50 border border-slate-300 border-opacity-25">
       <h1 className="sr-only">{t('title')}</h1>
@@ -49,7 +50,7 @@ export default memo(function ProfileCard({
               <p className="text-xl font-bold text-slate-900 sm:text-2xl print:text-2xl">
                 {t('name')}
               </p>
-              <Birthday t={t} then={then} />
+              <Birthday t={t} then={then} intl={intl} />
             </div>
           </div>
           <div className="mt-5 flex justify-center sm:mt-0 print:mt-0">
@@ -158,9 +159,11 @@ export default memo(function ProfileCard({
 
 const Birthday = memo(function Birthday({
   t,
+  intl,
   then,
 }: {
   t: ReturnType<typeof useTranslations>
+  intl: ReturnType<typeof useIntl>
   then: Date
 }) {
   const age = differenceInYears(then, birthday)
@@ -170,6 +173,14 @@ const Birthday = memo(function Birthday({
         birthday,
         age,
         b: (children) => <span className="text-slate-900">{children}</span>,
+        time: (children) => (
+          <time
+            dateTime={birthday.toJSON()}
+            title={intl.formatDateTime(birthday, { dateStyle: 'full' })}
+          >
+            {children}
+          </time>
+        ),
       })}
     </p>
   )

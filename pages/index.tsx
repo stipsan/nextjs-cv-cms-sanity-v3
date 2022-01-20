@@ -64,7 +64,7 @@ export default function Index({
   )
 }
 
-export async function getStaticProps({ locale, locales }) {
+export async function getServerSideProps({ locale, locales }) {
   const [
     { displayNames },
     { default: shared },

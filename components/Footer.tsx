@@ -31,9 +31,9 @@ export default memo(function Footer({
     () =>
       t.rich('generated', {
         when: date,
-        link: (children) => (
+        github: (children) => (
           <a
-            className="hidden print:inline"
+            className="hidden print:inline text-slate-800"
             href={new URL(
               locale === 'en' ? '/' : `/${locale}`,
               'https://cv.cocody.dev/'
@@ -44,6 +44,20 @@ export default memo(function Footer({
             {children}
           </a>
         ),
+        link: (children) => (
+          <a
+            className="hidden print:inline text-slate-800"
+            href={new URL(
+              locale === 'en' ? '/' : `/${locale}`,
+              'https://cv.cocody.dev/'
+            ).toString()}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {children}
+          </a>
+        ),
+        site: 'cv.cocody.dev',
       }),
     [date, locale, t]
   )

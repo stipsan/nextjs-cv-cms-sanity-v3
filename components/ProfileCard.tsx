@@ -1,7 +1,8 @@
-import { PrinterIcon } from '@heroicons/react/outline'
+import { BadgeCheckIcon, PrinterIcon } from '@heroicons/react/outline'
 import { differenceInYears } from 'date-fns'
 import type { UnlockProps } from 'hooks/useUnlocked'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import { useTranslations } from 'next-intl'
 import headshot from 'public/headshot.jpeg'
 import { memo } from 'react'
@@ -19,6 +20,7 @@ export default memo(function ProfileCard({
   then,
 }: Pick<UnlockProps, 'unlocked'> & { then: Date }) {
   const t = useTranslations('ProfileCard')
+  const { locale } = useRouter()
   return (
     <section className="rounded-2xl bg-slate-50 border border-slate-300 border-opacity-25">
       <h1 className="sr-only">{t('title')}</h1>
@@ -50,15 +52,28 @@ export default memo(function ProfileCard({
               <Birthday t={t} then={then} />
             </div>
           </div>
-          <div className="mt-5 prin flex justify-center sm:mt-0 print:hidden">
+          <div className="mt-5 flex justify-center sm:mt-0 print:mt-0">
             <button
               type="button"
-              className="transition inline-flex items-center px-5 py-2 border border-transparent rounded-lg hover:shadow-sm text-sm font-medium text-white bg-sky-600 hover:shadow-sky-100 hover:bg-sky-700 active:bg-sky-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-sky-500"
+              className="print:hidden transition inline-flex items-center px-5 py-2 border border-transparent rounded-lg hover:shadow-sm text-sm font-medium text-white bg-sky-600 hover:shadow-sky-100 hover:bg-sky-700 active:bg-sky-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-sky-500"
               onClick={() => window.print()}
             >
               <PrinterIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
               {t('print')}
             </button>
+            <a
+              href={new URL(
+                locale === 'en' ? '/' : `/${locale}`,
+                'https://cv.cocody.dev/'
+              ).toString()}
+              className="hidden print:inline-flex items-center px-5 py-2 border border-transparent rounded-lg text-sm font-medium text-slate-500 bg-slate-100 "
+            >
+              <BadgeCheckIcon
+                className="-ml-1 mr-2 h-5 w-5"
+                aria-hidden="true"
+              />
+              {t('latest')}
+            </a>
           </div>
         </div>
       </div>

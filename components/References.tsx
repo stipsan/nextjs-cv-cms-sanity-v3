@@ -41,6 +41,9 @@ export default memo(function References({
               <h2 className="mt-5 text-lg font-medium text-slate-800">
                 {reference.name}
               </h2>
+              <p className="text-sm font-medium text-slate-700 mb-1">
+                {reference.role}
+              </p>
               <a
                 className="text-sm text-slate-600 hover:underline focus:outline-none focus:underline"
                 href={reference.phoneUrl || `tel:${reference.phone}`}

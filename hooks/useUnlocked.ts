@@ -12,6 +12,7 @@ export type Unlocked = {
     references: {
       id: string
       name: string
+      role: string
       phone: string
       phoneUrl: string
       email: string

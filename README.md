@@ -1,1 +1,1 @@
-[![cv cocody dev_](https://user-images.githubusercontent.com/81981/150010903-99f382f0-9ab2-404a-b9b2-adf8f4dd8f7e.png)](https://cv.cocody.dev)
+[![cv cocody dev_](https://user-images.githubusercontent.com/81981/150403050-64637b7c-6303-463a-a695-11dc94d7cfdd.png)](https://cv.cocody.dev)

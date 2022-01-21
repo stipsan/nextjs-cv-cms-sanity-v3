@@ -28,18 +28,19 @@ export default memo(function ProfileCard({
   const intl = useIntl()
   const { locale, defaultLocale } = useRouter()
   const somecard = somecards[locale]
+  const somecardurl = new URL(somecard.src, 'https://cv.cocody.dev/').toString()
   return (
     <>
       <Head>
         <meta name="description" content={t('metaDescription')} />
-        <meta name="twitter:image:src" content={somecard.src} />
+        <meta name="twitter:image:src" content={somecardurl} />
         <meta name="twitter:image:alt" content={t('twitterImageAlt')} />
         <meta name="twitter:site" content={twitter} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={t('metaTitle')} />
         <meta name="twitter:description" content={t('metaDescription')} />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content={somecard.src} />
+        <meta property="og:image" content={somecardurl} />
         <meta property="og:title" content={t('metaTitle')} />
         <meta property="og:description" content={t('metaDescription')} />
       </Head>

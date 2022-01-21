@@ -14,6 +14,7 @@ import UnlockButton from 'components/UnlockButton'
 import useUnlocked from 'hooks/useUnlocked'
 import Head from 'next/head'
 import { useTranslations } from 'next-intl'
+import favicon from 'public/favicon.png'
 
 export default function Index({
   displayNames,
@@ -40,7 +41,7 @@ export default function Index({
           content="#0f172a"
           media="(prefers-color-scheme: dark)"
         />
-        <link rel="shortcut icon" type="image/png" href="/favicon.png" />
+        <link rel="shortcut icon" type="image/png" href={favicon.src} />
       </Head>
       <div className="h-1 bg-gradient-to-r from-teal-400 to-blue-600" />
       <main className="font-sans antialiased text-slate-600 max-w-[21cm] mx-auto px-4 sm:px-6 print:px-10 lg:px-8 pt-4 sm:pt-5 print:pt-5">

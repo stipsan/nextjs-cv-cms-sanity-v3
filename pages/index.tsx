@@ -40,7 +40,7 @@ export default function Index({
           content="#0f172a"
           media="(prefers-color-scheme: dark)"
         />
-        <link rel="alternate icon" type="image/png" href="/favicon.png" />
+        <link rel="shortcut icon" type="image/png" href="/favicon.png" />
       </Head>
       <div className="h-1 bg-gradient-to-r from-teal-400 to-blue-600" />
       <main className="font-sans antialiased text-slate-600 max-w-[21cm] mx-auto px-4 sm:px-6 print:px-10 lg:px-8 pt-4 sm:pt-5 print:pt-5">

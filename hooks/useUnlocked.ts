@@ -49,6 +49,9 @@ export default function useUnlocked() {
           localStorage.setItem('unlock', password)
           return json.user
         } else {
+          if (json.error === 'Password is incorrect') {
+            localStorage.removeItem('unlock')
+          }
           throw new Error(json.error)
         }
       }
@@ -56,7 +59,6 @@ export default function useUnlocked() {
       if (mounted.current) {
         setError(err.message)
       }
-      localStorage.removeItem('unlock')
       throw err
     } finally {
       if (mounted.current) {

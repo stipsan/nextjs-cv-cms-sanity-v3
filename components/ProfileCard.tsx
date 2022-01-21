@@ -38,6 +38,7 @@ export default memo(function ProfileCard({
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={t('metaTitle')} />
         <meta name="twitter:description" content={t('metaDescription')} />
+        <meta property="og:type" content="website" />
         <meta property="og:image" content={somecard.src} />
         <meta property="og:title" content={t('metaTitle')} />
         <meta property="og:description" content={t('metaDescription')} />

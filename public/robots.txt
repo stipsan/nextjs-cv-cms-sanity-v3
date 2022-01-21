@@ -3,6 +3,9 @@ User-agent: *
 Disallow: /no/somecard
 User-agent: *
 Disallow: /somecard
+# Allow the card images
+User-agent: *
+Allow: /somecard-*.png
 
 # Allow all crawlers in general
 User-agent: *

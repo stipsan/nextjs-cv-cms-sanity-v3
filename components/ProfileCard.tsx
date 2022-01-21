@@ -199,6 +199,8 @@ const Subheading = memo(function Birthday({
   const age = differenceInYears(then, birthday)
   return (
     <p className="text-sm font-medium text-slate-600">
+      <span className="block sm:inline print:inline">{t('pronouns')}</span>
+      <span className="hidden sm:inline print:inline">{' • '}</span>
       {t.rich('subheading', {
         birthday,
         age,

@@ -29,7 +29,8 @@ export default memo(function ProfileCard({
     <>
       <Head>
         <meta name="description" content={t('metaDescription')} />
-        <meta name="twitter:image:src" content={somecard} />
+        <meta name="twitter:image" content={somecard} />
+        <meta name="twitter:image:alt" content={t('twitterImageAlt')} />
         <meta name="twitter:site" content={twitter} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={t('metaTitle')} />

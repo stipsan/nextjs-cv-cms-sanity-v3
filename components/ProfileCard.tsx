@@ -6,6 +6,8 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useIntl, useTranslations } from 'next-intl'
 import headshot from 'public/headshot.jpeg'
+import somecarden from 'public/somecard-en.png'
+import somecardno from 'public/somecard-no.png'
 import { memo } from 'react'
 
 import { RedactedLabel } from './UnlockButton'
@@ -16,6 +18,7 @@ const birthday = new Date('1989-10-07')
 const github = 'https://github.com/stipsan'
 const linkedin = 'https://linkedin.com/in/stipsan'
 const twitter = '@stipsan'
+const somecards = { en: somecarden, no: somecardno }
 
 export default memo(function ProfileCard({
   unlocked,
@@ -24,18 +27,18 @@ export default memo(function ProfileCard({
   const t = useTranslations('ProfileCard')
   const intl = useIntl()
   const { locale, defaultLocale } = useRouter()
-  const somecard = `https://cv.cocody.dev/somecard-${locale}.png`
+  const somecard = somecards[locale]
   return (
     <>
       <Head>
         <meta name="description" content={t('metaDescription')} />
-        <meta name="twitter:image" content={somecard} />
+        <meta name="twitter:image" content={somecard.src} />
         <meta name="twitter:image:alt" content={t('twitterImageAlt')} />
         <meta name="twitter:site" content={twitter} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={t('metaTitle')} />
         <meta name="twitter:description" content={t('metaDescription')} />
-        <meta property="og:image" content={somecard} />
+        <meta property="og:image" content={somecard.src} />
         <meta property="og:title" content={t('metaTitle')} />
         <meta property="og:description" content={t('metaDescription')} />
       </Head>

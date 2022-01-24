@@ -44,8 +44,8 @@ export default function Index({
         <link rel="shortcut icon" type="image/png" href={favicon.src} />
       </Head>
       <div className="h-1 bg-gradient-to-r from-teal-400 to-blue-600" />
-      <main className="font-sans antialiased text-slate-600 max-w-[21cm] mx-auto px-4 sm:px-6 print:px-10 lg:px-8 pt-4 sm:pt-5 print:pt-5">
-        <div className="print:hidden pb-4 sm:pb-5 flex justify-start items-center">
+      <main className="mx-auto max-w-[21cm] px-4 pt-4 font-sans text-slate-600 antialiased print:px-10 print:pt-5 sm:px-6 sm:pt-5 lg:px-8">
+        <div className="flex items-center justify-start pb-4 print:hidden sm:pb-5">
           <LocaleSwitch displayNames={displayNames} />
           <UnlockButton
             error={error}

@@ -9,7 +9,7 @@ export default function SocialMediaCard() {
 
   return (
     <div
-      className="flex items-center justify-center h-screen w-full bg-black group cursor-pointer overflow-auto"
+      className="group flex h-screen w-full cursor-pointer items-center justify-center overflow-auto bg-black"
       title="Click to switch locale"
       onClick={() =>
         router.push(router.route, router.route, {
@@ -19,7 +19,7 @@ export default function SocialMediaCard() {
     >
       <div
         // Should look good at 500px width, scale(0.4)
-        className="transition-transform transform-gpu duration-500 active:scale-50 h-[640px] w-[1280px] flex-shrink-0 flex justify-center items-center"
+        className="flex h-[640px] w-[1280px] flex-shrink-0 transform-gpu items-center justify-center transition-transform duration-500 active:scale-50"
         style={{
           // First bg concept https://www.joshwcomeau.com/gradient-generator?colors=0990a7|63f2e3|000000&angle=135&colorMode=hcl&precision=15&easingCurve=1.1|1|-0.1|0
           // Remade version uses: bg-cyan-600, bg-cyan-100, bg-cyan-300, bg-cyan-900, bg-black
@@ -55,8 +55,8 @@ export default function SocialMediaCard() {
         }}
         onClick={(event) => event.stopPropagation()}
       >
-        <article className="rounded-full backdrop-blur-xl backdrop-saturate-200 bg-black/50 p-10 flex items-center space-x-5">
-          <div className="flex-shrink-0 block relative rounded-full mx-auto w-64 h-64 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-slate-500">
+        <article className="flex items-center space-x-5 rounded-full bg-black/50 p-10 backdrop-blur-xl backdrop-saturate-200">
+          <div className="relative mx-auto block h-64 w-64 flex-shrink-0 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2">
             <Image
               className="rounded-full "
               src={headshot}
@@ -65,16 +65,16 @@ export default function SocialMediaCard() {
               height={256}
               width={256}
             />
-            <span className="block absolute top-0 right-0 bottom-0 left-0 rounded-full bg-cyan-700 mix-blend-screen opacity-70" />
+            <span className="absolute top-0 right-0 bottom-0 left-0 block rounded-full bg-cyan-700 opacity-70 mix-blend-screen" />
           </div>
-          <div className="text-4xl leading-10 font-medium flex flex-col text-cyan-100 pl-6 pr-12">
-            <div className="bg-clip-text text-transparent bg-gradient-to-r from-sky-100 to-teal-200">
+          <div className="flex flex-col pl-6 pr-12 text-4xl font-medium leading-10 text-cyan-100">
+            <div className="bg-gradient-to-r from-sky-100 to-teal-200 bg-clip-text text-transparent">
               Curriculum Vitae
             </div>
-            <div className="text-9xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-sky-100 to-teal-400 pt-3 pb-6">
+            <div className="bg-gradient-to-r from-sky-100 to-teal-400 bg-clip-text pt-3 pb-6 text-9xl font-bold text-transparent">
               Cody Olsen
             </div>
-            <div className="bg-clip-text text-transparent bg-gradient-to-r from-sky-100 to-teal-400">
+            <div className="bg-gradient-to-r from-sky-100 to-teal-400 bg-clip-text text-transparent">
               {t('pronouns')} • {t('role')}
             </div>
           </div>

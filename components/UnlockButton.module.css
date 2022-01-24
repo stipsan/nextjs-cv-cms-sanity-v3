@@ -1,4 +1,5 @@
-.custom[data-rsbs-root]:after, .custom [data-rsbs-overlay] {
+.custom[data-rsbs-root]:after,
+.custom [data-rsbs-overlay] {
   margin-left: auto;
   margin-right: auto;
   max-width: 420px;
@@ -6,7 +7,12 @@
 }
 
 .custom [data-rsbs-backdrop] {
-  background: linear-gradient(to top, hsla(0,0%,100%, 1) 300px, hsla(0,0%,100%, 0.6), hsla(0,0%,100%, 0.3));
+  background: linear-gradient(
+    to top,
+    hsla(0, 0%, 100%, 1) 300px,
+    hsla(0, 0%, 100%, 0.6),
+    hsla(0, 0%, 100%, 0.3)
+  );
 }
 
 .custom [data-rsbs-header] {

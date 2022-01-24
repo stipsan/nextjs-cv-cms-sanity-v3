@@ -25,8 +25,8 @@ const activityItems = [
 export default memo(function Education() {
   const t = useTranslations('Education')
   return (
-    <section className="my-5 rounded-2xl bg-slate-50 border border-slate-300 border-opacity-25 px-6 py-4 break-inside-avoid">
-      <h1 className="text-lg leading-6 font-medium text-slate-900">
+    <section className="my-5 break-inside-avoid rounded-2xl border border-slate-300 border-opacity-25 bg-slate-50 px-6 py-4">
+      <h1 className="text-lg font-medium leading-6 text-slate-900">
         {t('title')}
       </h1>
       <ul role="list" className="divide-y divide-slate-200">

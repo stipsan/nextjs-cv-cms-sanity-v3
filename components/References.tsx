@@ -10,24 +10,24 @@ export default memo(function References({
 }: Pick<UnlockProps, 'unlocked'>) {
   const t = useTranslations('References')
   return (
-    <section className="my-5 py-6 relative print:hidden">
-      <h1 className="mb-3 text-lg leading-6 font-medium text-slate-700">
+    <section className="relative my-5 py-6 print:hidden">
+      <h1 className="mb-3 text-lg font-medium leading-6 text-slate-700">
         {t('title')}
       </h1>
       {unlocked?.data?.references ? (
         <ul
           role="list"
-          className="mt-5 grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 bg-slate-100 p-2 rounded-3xl"
+          className="mt-5 grid grid-cols-1 gap-2 rounded-3xl bg-slate-100 p-2 sm:grid-cols-2 md:grid-cols-3"
         >
           {unlocked.data.references.map((reference) => (
             <li
               key={reference.id}
-              className="px-4 py-5 transition bg-white rounded-2xl overflow-hidden sm:p-6 flex items-center justify-center flex-col"
+              className="flex flex-col items-center justify-center overflow-hidden rounded-2xl bg-white px-4 py-5 transition sm:p-6"
             >
               <figure
                 className={
                   reference.id === 'proxy'
-                    ? 'h-20 w-20 mb-4 pt-2'
+                    ? 'mb-4 h-20 w-20 pt-2'
                     : 'h-24 w-24 pt-4'
                 }
               >
@@ -41,17 +41,17 @@ export default memo(function References({
               <h2 className="mt-5 text-lg font-medium text-slate-800">
                 {reference.name}
               </h2>
-              <p className="text-sm font-medium text-slate-700 mb-1">
+              <p className="mb-1 text-sm font-medium text-slate-700">
                 {reference.role}
               </p>
               <a
-                className="text-sm text-slate-600 hover:underline focus:outline-none focus:underline"
+                className="text-sm text-slate-600 hover:underline focus:underline focus:outline-none"
                 href={reference.phoneUrl || `tel:${reference.phone}`}
               >
                 {reference.phone}
               </a>
               <a
-                className="hover:underline focus:outline-none focus:underline block text-sm text-slate-600 truncate w-full text-center"
+                className="block w-full truncate text-center text-sm text-slate-600 hover:underline focus:underline focus:outline-none"
                 href={`mailto:${reference.email}`}
               >
                 {reference.email}
@@ -60,7 +60,7 @@ export default memo(function References({
           ))}
         </ul>
       ) : (
-        <div className="bg-slate-100 p-2 rounded-3xl">
+        <div className="rounded-3xl bg-slate-100 p-2">
           <RedactedLabel />
         </div>
       )}
@@ -73,7 +73,7 @@ function RedactedLabel() {
 
   return (
     <label
-      className="block bg-white rounded-2xl py-2 px-4 h-10 text-opacity-50 hover:opacity-100 transition-opacity cursor-pointer"
+      className="block h-10 cursor-pointer rounded-2xl bg-white py-2 px-4 text-opacity-50 transition-opacity hover:opacity-100"
       htmlFor="unlock-button"
     >
       {t('redacted')}

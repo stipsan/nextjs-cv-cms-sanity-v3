@@ -30,22 +30,22 @@ const stats = [
 export default memo(function ExperienceStats({ then }: { then: Date }) {
   const t = useTranslations('ExperienceStats')
   return (
-    <section className="my-5 py-6 break-inside-avoid">
-      <h1 className="mb-3 text-lg leading-6 font-medium text-slate-700">
+    <section className="my-5 break-inside-avoid py-6">
+      <h1 className="mb-3 text-lg font-medium leading-6 text-slate-700">
         {t('title')}
       </h1>
-      <dl className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3 print:grid-cols-3">
+      <dl className="mt-5 grid grid-cols-1 gap-5 print:grid-cols-3 sm:grid-cols-3">
         {stats.map((item) => (
           <div
             key={item.name}
-            className="px-4 py-5 bg-slate-900 rounded-2xl overflow-hidden sm:p-6 print:p-6 relative group"
+            className="group relative overflow-hidden rounded-2xl bg-slate-900 px-4 py-5 print:p-6 sm:p-6"
           >
-            <dt className="text-sm font-medium text-slate-400 truncate">
+            <dt className="truncate text-sm font-medium text-slate-400">
               {item.name}
             </dt>
             <Since since={item.since} then={then} />
-            <span className="absolute top-1/2 -translate-y-6 right-4 mix-blend-screen opacity-25 transition-opacity transform-gpu group-hover:opacity-100">
-              <span className="inline-block relative h-12 w-12">
+            <span className="absolute top-1/2 right-4 -translate-y-6 transform-gpu opacity-25 mix-blend-screen transition-opacity group-hover:opacity-100">
+              <span className="relative inline-block h-12 w-12">
                 <Image src={item.logo} alt="" layout="fill" />
               </span>
             </span>
@@ -70,7 +70,7 @@ function Since({ since, then }: { since: Date; then: Date }) {
           </span>
         ),
         unit: (children) => (
-          <span className="inline-block text-3xl text-slate-400 ml-1">
+          <span className="ml-1 inline-block text-3xl text-slate-400">
             {children}
           </span>
         ),

@@ -29,32 +29,32 @@ export default memo(function UnlockButton({
   const t = useTranslations('UnlockButton')
 
   return (
-    <div className="ml-6 sm:ml-7 w-40">
+    <div className="ml-6 w-40 sm:ml-7">
       <div className="group w-0">
         <button
           id="unlock-button"
           type="button"
           className={cx(
-            'whitespace-nowrap text-sm group py-1 px-4 rounded-lg flex items-center justify-center relative border border-cyan-200/50 shadow shadow-cyan-100/50 bg-cyan-100 text-cyan-700 focus:outline-none ',
+            'group relative flex items-center justify-center whitespace-nowrap rounded-lg border border-cyan-200/50 bg-cyan-100 py-1 px-4 text-sm text-cyan-700 shadow shadow-cyan-100/50 focus:outline-none ',
             {
-              'transition transform-gpu group-hover:scale-110 hover:animate-bounce group-hover:animate-none':
+              'transform-gpu transition hover:animate-bounce group-hover:scale-110 group-hover:animate-none':
                 !unlocked,
-              'hover:border-cyan-300/50 active:border-cyan-400/50 hover:shadow-cyan-100/75 active:shadow-cyan-100/0 hover:bg-cyan-200 hover:text-cyan-800 active:bg-cyan-300 active:text-cyan-900 focus:scale-110 focus:border-cyan-400/50 focus:shadow-cyan-100/0 focus:text-cyan-900':
+              'hover:border-cyan-300/50 hover:bg-cyan-200 hover:text-cyan-800 hover:shadow-cyan-100/75 focus:scale-110 focus:border-cyan-400/50 focus:text-cyan-900 focus:shadow-cyan-100/0 active:border-cyan-400/50 active:bg-cyan-300 active:text-cyan-900 active:shadow-cyan-100/0':
                 !unlocked,
-              'opacity-60 cursor-default': unlocked,
+              'cursor-default opacity-60': unlocked,
             }
           )}
           onClick={unlocked ? undefined : () => setOpen(true)}
         >
           {unlocked ? (
-            <LockOpenIcon className="h-4 mr-1.5 -ml-0.5" />
+            <LockOpenIcon className="mr-1.5 -ml-0.5 h-4" />
           ) : (
             <>
               {!open && (
-                <div className="animate-ping pointer-events-none transition-colors absolute top-0.5 right-3.5 bottom-0.5 left-3.5 bg-cyan-100 rounded-lg group-hover:bg-opacity-0 group-active:bg-opacity-0 group-focus:bg-opacity-0 z-[-1] group-hover:animate-none group-active:animate-none group-focus:animate-none" />
+                <div className="pointer-events-none absolute top-0.5 right-3.5 bottom-0.5 left-3.5 z-[-1] animate-ping rounded-lg bg-cyan-100 transition-colors group-hover:animate-none group-hover:bg-opacity-0 group-focus:animate-none group-focus:bg-opacity-0 group-active:animate-none group-active:bg-opacity-0" />
               )}
-              <LockClosedIcon className="h-4 mr-1.5 -ml-0.5 group-hover:hidden group-active:hidden group-focus:hidden" />
-              <LockOpenIcon className="h-4 mr-1.5 -ml-0.5 hidden group-hover:block group-active:block group-focus:block" />
+              <LockClosedIcon className="mr-1.5 -ml-0.5 h-4 group-hover:hidden group-focus:hidden group-active:hidden" />
+              <LockOpenIcon className="mr-1.5 -ml-0.5 hidden h-4 group-hover:block group-focus:block group-active:block" />
             </>
           )}
           {unlocked ? t('unlocked') : t('unlock')}
@@ -94,15 +94,15 @@ export default memo(function UnlockButton({
                 </div>
               </div>
             </div>
-            <p className="text-slate-800 mt-4">{t('unlockedHelp')}</p>
+            <p className="mt-4 text-slate-800">{t('unlockedHelp')}</p>
             <button
               onClick={() => setOpen(false)}
               type="button"
               className={cx(
-                'mt-4 transition w-full inline-flex justify-center items-center px-5 py-2 border border-transparent rounded-lg text-sm font-medium text-white bg-cyan-600 focus:outline-none',
+                'mt-4 inline-flex w-full items-center justify-center rounded-lg border border-transparent bg-cyan-600 px-5 py-2 text-sm font-medium text-white transition focus:outline-none',
                 {
-                  'opacity-50 cursor-progress': loading,
-                  'hover:shadow-sm hover:shadow-cyan-100 hover:bg-cyan-700 active:bg-cyan-800 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-cyan-500':
+                  'cursor-progress opacity-50': loading,
+                  'hover:bg-cyan-700 hover:shadow-sm hover:shadow-cyan-100 focus-visible:ring-2 focus-visible:ring-cyan-500 focus-visible:ring-offset-2 active:bg-cyan-800':
                     !loading,
                 }
               )}
@@ -122,7 +122,7 @@ export default memo(function UnlockButton({
             }}
           >
             <p className="text-slate-800">{t('help')}</p>
-            <p className="text-slate-800 mt-4">
+            <p className="mt-4 text-slate-800">
               {t.rich('noPassword', {
                 link: (children) => (
                   <a
@@ -130,7 +130,7 @@ export default memo(function UnlockButton({
                     href="mailto:stipsan@gmail.com?subject=Requesting%20CV%20Password"
                   >
                     {children}
-                    <MailIcon className="inline h-5 -mt-1 ml-0.5 text-inherit" />
+                    <MailIcon className="-mt-1 ml-0.5 inline h-5 text-inherit" />
                   </a>
                 ),
               })}
@@ -142,7 +142,7 @@ export default memo(function UnlockButton({
               type="password"
               readOnly={loading}
               className={cx(
-                'block mt-4 w-full shadow-sm shadow-slate-400/25 focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm border-slate-300 rounded-md',
+                'mt-4 block w-full rounded-md border-slate-300 shadow-sm shadow-slate-400/25 focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm',
                 {
                   'animate-pulse': loading,
                   'animate-[shake_1s_ease-in-out]':
@@ -156,7 +156,7 @@ export default memo(function UnlockButton({
               onChange={(event) => setPassword(event.target.value)}
             />
             {error && (
-              <div className="rounded-md bg-red-100 mt-4 p-4">
+              <div className="mt-4 rounded-md bg-red-100 p-4">
                 <div className="flex">
                   <div className="flex-shrink-0">
                     <XCircleIcon
@@ -179,17 +179,17 @@ export default memo(function UnlockButton({
             <button
               type="submit"
               className={cx(
-                'mt-4 transition w-full inline-flex justify-center items-center px-5 py-2 border border-transparent rounded-lg text-sm font-medium text-white bg-cyan-600 focus:outline-none',
+                'mt-4 inline-flex w-full items-center justify-center rounded-lg border border-transparent bg-cyan-600 px-5 py-2 text-sm font-medium text-white transition focus:outline-none',
                 {
-                  'opacity-50 cursor-progress': loading,
-                  'hover:shadow-sm hover:shadow-cyan-100 hover:bg-cyan-700 active:bg-cyan-800 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-cyan-500':
+                  'cursor-progress opacity-50': loading,
+                  'hover:bg-cyan-700 hover:shadow-sm hover:shadow-cyan-100 focus-visible:ring-2 focus-visible:ring-cyan-500 focus-visible:ring-offset-2 active:bg-cyan-800':
                     !loading,
                 }
               )}
             >
               {loading ? (
                 <svg
-                  className="animate-spin -ml-1 mr-2 h-5 w-5 text-white"
+                  className="-ml-1 mr-2 h-5 w-5 animate-spin text-white"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -229,7 +229,7 @@ export function RedactedLabel() {
 
   return (
     <label
-      className="opacity-50 hover:opacity-100 transition-opacity cursor-pointer"
+      className="cursor-pointer opacity-50 transition-opacity hover:opacity-100"
       htmlFor="unlock-button"
     >
       {t('redacted')}

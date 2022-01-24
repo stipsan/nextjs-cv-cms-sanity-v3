@@ -17,7 +17,7 @@ export default memo(function ExperienceTimeline({
 
   return (
     <section className="py-6">
-      <h1 className="mb-3 text-lg leading-6 font-medium text-slate-700">
+      <h1 className="mb-3 text-lg font-medium leading-6 text-slate-700">
         {t('title')}
       </h1>
       <div className="flow-root">
@@ -37,7 +37,7 @@ export default memo(function ExperienceTimeline({
                       <figure
                         className={cx(
                           styles.dropShadowOutline,
-                          'h-12 w-12 flex items-center justify-center'
+                          'flex h-12 w-12 items-center justify-center'
                         )}
                       >
                         <Image
@@ -57,7 +57,7 @@ export default memo(function ExperienceTimeline({
                           <div className="text-sm">
                             <a
                               href={experience.href}
-                              className="hover:underline focus:outline-none focus-visible:underline font-medium text-slate-900"
+                              className="font-medium text-slate-900 hover:underline focus:outline-none focus-visible:underline"
                             >
                               {experience.company}
                             </a>
@@ -100,10 +100,10 @@ export default memo(function ExperienceTimeline({
                       <figure
                         className={cx(
                           styles.dropShadowOutline,
-                          'h-12 w-12 flex items-center justify-center'
+                          'flex h-12 w-12 items-center justify-center'
                         )}
                       >
-                        <IdentificationIcon className="rounded-full m-1 p-2 bg-slate-100 text-slate-600 w-full" />
+                        <IdentificationIcon className="m-1 w-full rounded-full bg-slate-100 p-2 text-slate-600" />
                       </figure>
 
                       <div className="min-w-0 flex-1">
@@ -114,18 +114,18 @@ export default memo(function ExperienceTimeline({
                           <div className="text-sm">
                             <a
                               href={t('changedNameLink')}
-                              className="hover:underline focus:outline-none focus-visible:underline group font-medium text-slate-900"
+                              className="group font-medium text-slate-900 hover:underline focus:outline-none focus-visible:underline"
                             >
                               {t.rich('changedNameFromTo', {
                                 from: experience.from,
                                 to: experience.to,
                                 del: (children) => (
-                                  <span className="line-through group-hover:no-underline decoration-2 decoration-pink-500/50">
+                                  <span className="line-through decoration-pink-500/50 decoration-2 group-hover:no-underline">
                                     {children}
                                   </span>
                                 ),
                                 b: (children) => (
-                                  <span className="underline group-hover:no-underline decoration-2 decoration-teal-500/50">
+                                  <span className="underline decoration-teal-500/50 decoration-2 group-hover:no-underline">
                                     {children}
                                   </span>
                                 ),

@@ -38,7 +38,7 @@ export default memo(function OpenSourceStats({
         stat: t.rich('firstStat', {
           years: differenceInYears(then, firstLibDate),
           unit: (children) => (
-            <span className="inline-block font-normal text-3xl text-slate-300 ml-0.5">
+            <span className="ml-0.5 inline-block text-3xl font-normal text-slate-300">
               {children}
             </span>
           ),
@@ -51,7 +51,7 @@ export default memo(function OpenSourceStats({
         stat: t.rich('lastStat', {
           stars: rsbsStars,
           unit: (children) => (
-            <span className="inline-block font-normal text-3xl text-slate-300 ml-0.5">
+            <span className="ml-0.5 inline-block text-3xl font-normal text-slate-300">
               {children}
             </span>
           ),
@@ -63,20 +63,20 @@ export default memo(function OpenSourceStats({
     [csivWeeklyDownloads, imDependants, intl, rsbsStars, t, then]
   )
   return (
-    <section className="my-5 py-6 relative break-inside-avoid">
-      <h1 className="mb-3 text-lg leading-6 font-medium text-slate-700">
+    <section className="relative my-5 break-inside-avoid py-6">
+      <h1 className="mb-3 text-lg font-medium leading-6 text-slate-700">
         {t('title')}
       </h1>
-      <dl className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 print:grid-cols-2">
+      <dl className="mt-5 grid grid-cols-1 gap-5 print:grid-cols-2 sm:grid-cols-2">
         {stats.map((item) => (
           <a
             key={item.name}
             href={item.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-4 py-5 transition bg-slate-900 hover:bg-slate-800 hover:shadow-lg hover:shadow-slate-500 active:bg-slate-900 active:shadow-slate-500/75 active:scale-95 rounded-2xl overflow-hidden sm:p-6 print:p-6 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-slate-800"
+            className="overflow-hidden rounded-2xl bg-slate-900 px-4 py-5 transition hover:bg-slate-800 hover:shadow-lg hover:shadow-slate-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-800 focus-visible:ring-offset-2 active:scale-95 active:bg-slate-900 active:shadow-slate-500/75 print:p-6 sm:p-6"
           >
-            <dt className="text-sm font-medium text-slate-400 truncate">
+            <dt className="truncate text-sm font-medium text-slate-400">
               {t(item.name)}
             </dt>
             <dd className="mt-1">

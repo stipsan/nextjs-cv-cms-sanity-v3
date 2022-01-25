@@ -8,7 +8,7 @@ const items = [
     role: 'Full Stack Engineer',
     company: 'Proxy',
     joined: '2021-01-04',
-    left: null,
+    left: '2022-01-31',
     location: 'San Francisco',
     flag: '🇺🇸',
     href: 'https://www.linkedin.com/company/proxy-technologies/',

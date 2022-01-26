@@ -5,7 +5,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "encrypt": "node encrypt"
+    "encrypt": "node encrypt",
+    "decrypt": "node decrypt"
   },
   "dependencies": {
     "@heroicons/react": "^1.0.5",

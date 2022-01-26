@@ -5,10 +5,12 @@ import KulturmeglerneLogo from 'public/kulturmeglerne.svg'
 import NinjaForgeLogo from 'public/ninjaforge.png'
 import ProThemerLogo from 'public/prothemer.png'
 import ProxyLogo from 'public/proxy.svg'
+import SanityLogo from 'public/sanity.png'
 import TimbleLogo from 'public/timble.svg'
 import YooLogo from 'public/yootheme.svg'
 
 const logos = {
+  sanity: SanityLogo,
   proxy: ProxyLogo,
   finn: FINNLogo,
   km: KulturmeglerneLogo,

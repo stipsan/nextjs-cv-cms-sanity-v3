@@ -1,7 +1,19 @@
 // Done in a separate file until nextjs gets better at stripping SSR code from the bundle
-import { intervalToDuration, parseISO } from 'date-fns'
+import { intervalToDuration, isPast, parseISO } from 'date-fns'
 
 const items = [
+  {
+    id: 'sanity',
+    type: 'worked',
+    role: 'Full Stack Developer, Applications',
+    company: 'Sanity',
+    joined: '2022-02-01',
+    left: null,
+    location: 'Oslo',
+    flag: '🇳🇴',
+    href: 'https://www.linkedin.com/company/sanity-io/',
+    mapUrl: 'http://maps.apple.com/?address=Grunerløkka,Oslo',
+  },
   {
     id: 'proxy',
     type: 'worked',
@@ -158,33 +170,40 @@ export async function getStaticProps({ locale }: { locale: string }) {
     year: 'numeric',
     month: 'short',
   })
-  const experiences = items.map((item) => {
-    if (item.type === 'changed-name') {
-      const { date } = item
-      return { ...item, date: formatter.format(parseISO(date)) }
-    }
-
-    const { joined, left, ...rest } = item
-    if (joined && left) {
-      const parsedJoined = parseISO(joined)
-      const parsedLeft = parseISO(left)
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'format' does not exist on type 'Intl.DateTimeFormat'.
-      const range = formatter.formatRange(parsedJoined, parsedLeft)
-      return { ...rest, range, duration: getDuration(parsedJoined, parsedLeft) }
-    }
-
-    // No left date means it's the current job
-    if (joined) {
-      const parsedJoined = parseISO(joined)
-      return {
-        ...item,
-        joined: formatter.format(parsedJoined),
-        duration: getDuration(parsedJoined, new Date()),
+  const experiences = items
+    // Don't need this anymore after I've started in the new position
+    .filter((item) => (item.joined ? isPast(parseISO(item.joined)) : null))
+    .map((item) => {
+      if (item.type === 'changed-name') {
+        const { date } = item
+        return { ...item, date: formatter.format(parseISO(date)) }
       }
-    }
 
-    return item
-  })
+      const { joined, left, ...rest } = item
+      if (joined && left) {
+        const parsedJoined = parseISO(joined)
+        const parsedLeft = parseISO(left)
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'format' does not exist on type 'Intl.DateTimeFormat'.
+        const range = formatter.formatRange(parsedJoined, parsedLeft)
+        return {
+          ...rest,
+          range,
+          duration: getDuration(parsedJoined, parsedLeft),
+        }
+      }
+
+      // No left date means it's the current job
+      if (joined) {
+        const parsedJoined = parseISO(joined)
+        return {
+          ...item,
+          joined: formatter.format(parsedJoined),
+          duration: getDuration(parsedJoined, new Date()),
+        }
+      }
+
+      return item
+    })
 
   return { experiences }
 }

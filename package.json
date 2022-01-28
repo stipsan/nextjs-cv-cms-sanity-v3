@@ -25,6 +25,7 @@
     "react-spring-bottom-sheet": "^3.4.0"
   },
   "devDependencies": {
+    "@types/node": "^17.0.13",
     "@types/react": "^17.0.38",
     "autoprefixer": "^10.4.2",
     "dotenv": "^14.0.0",

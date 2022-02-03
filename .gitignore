@@ -110,3 +110,4 @@ dist
 # Never commit these
 users.json
 data.json
+.vercel

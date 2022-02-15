@@ -42,6 +42,38 @@ export default createSchema({
       ],
     },
     {
+      title: 'Education',
+      name: 'education',
+      type: 'document',
+      fields: [
+        {
+          title: 'School',
+          name: 'school',
+          type: 'string',
+        },
+        {
+          title: 'Degree',
+          name: 'degree',
+          type: 'string',
+        },
+        {
+          title: 'Field of study',
+          name: 'field',
+          type: 'string',
+        },
+        {
+          title: 'Start date',
+          name: 'start',
+          type: 'date',
+        },
+        {
+          title: 'End date',
+          name: 'end',
+          type: 'date',
+        },
+      ],
+    },
+    {
       title: 'Experience',
       name: 'experience',
       type: 'document',

@@ -42,6 +42,57 @@ export default createSchema({
       ],
     },
     {
+      title: 'Experience',
+      name: 'experience',
+      type: 'document',
+      fields: [
+        {
+          title: 'Role',
+          name: 'role',
+          type: 'string',
+        },
+        {
+          title: 'Company',
+          name: 'company',
+          type: 'reference',
+          to: [{type: 'company'}]
+        },
+        {
+          title: 'Joined',
+          name: 'joined',
+          type: 'date',
+        },
+        {
+          title: 'Left',
+          name: 'left',
+          type: 'date',
+        },
+        {
+          title: 'Location',
+          name: 'location',
+          type: 'string',
+        },
+        {
+          title: 'Flag',
+          name: 'flag',
+          type: 'string',
+        },
+        {
+          title: 'Map URL',
+          name: 'mapUrl',
+          type: 'url',
+        },
+        {
+          title: 'Remote Work',
+          name: 'remote',
+          type: 'boolean',
+        },
+      ],
+      initialValue: {
+        remote: false
+      }
+    },
+    {
       title: 'Education',
       name: 'education',
       type: 'document',
@@ -65,23 +116,13 @@ export default createSchema({
           title: 'Start date',
           name: 'start',
           type: 'date',
+          options: { dateFormat: 'YYYY' },
         },
         {
           title: 'End date',
           name: 'end',
           type: 'date',
-        },
-      ],
-    },
-    {
-      title: 'Experience',
-      name: 'experience',
-      type: 'document',
-      fields: [
-        {
-          title: 'Role',
-          name: 'role',
-          type: 'string',
+          options: { dateFormat: 'YYYY' },
         },
       ],
     },

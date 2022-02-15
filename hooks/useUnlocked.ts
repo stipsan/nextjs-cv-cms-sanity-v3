@@ -16,6 +16,7 @@ export type Unlocked = {
       phone: string
       phoneUrl: string
       email: string
+      logo: { src: string; height: number; width: number }
     }[]
   }
 }

@@ -6,7 +6,6 @@ import { memo } from 'react'
 
 import { type Experiences } from './ExperienceTimeline.getStaticProps'
 import styles from './ExperienceTimeline.module.css'
-import logos from './logos'
 
 export default memo(function ExperienceTimeline({
   experiences,
@@ -40,13 +39,13 @@ export default memo(function ExperienceTimeline({
                           'flex h-12 w-12 items-center justify-center'
                         )}
                       >
-                        <Image
+                        {/*<Image
                           src={logos[experience.id]}
                           alt=""
                           loading="eager"
                           height={96}
                           width={96}
-                        />
+                        />*/}
                       </figure>
 
                       <div className="min-w-0 flex-1">

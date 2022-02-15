@@ -3,7 +3,17 @@ import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { memo } from 'react'
 
-import logos from './logos'
+/*
+  *[_type == 'company' && slug.current in $companies].logo.asset->{
+    "src": url,
+    "height": metadata.dimensions.height,
+    "width": metadata.dimensions.width
+  }
+
+  {
+    "companies": ["slug.current"]
+  }
+*/
 
 export default memo(function References({
   unlocked,
@@ -31,12 +41,7 @@ export default memo(function References({
                     : 'h-24 w-24 pt-4'
                 }
               >
-                <Image
-                  src={logos[reference.id]}
-                  alt=""
-                  height={96}
-                  width={96}
-                />
+                <Image src={reference.logo} alt="" height={96} width={96} />
               </figure>
               <h2 className="mt-5 text-lg font-medium text-slate-800">
                 {reference.name}

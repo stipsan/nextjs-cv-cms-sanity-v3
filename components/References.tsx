@@ -3,18 +3,6 @@ import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { memo } from 'react'
 
-/*
-  *[_type == 'company' && slug.current in $companies].logo.asset->{
-    "src": url,
-    "height": metadata.dimensions.height,
-    "width": metadata.dimensions.width
-  }
-
-  {
-    "companies": ["slug.current"]
-  }
-*/
-
 export default memo(function References({
   unlocked,
 }: Pick<UnlockProps, 'unlocked'>) {

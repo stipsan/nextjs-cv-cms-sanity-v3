@@ -8,8 +8,8 @@
     "build": "npm run build:sanity && npm run build:web",
     "build:web": "next build",
     "start:web": "next start",
-    "build:sanity": "(cd studio && npm run build -- ../public/studio -y)",
-    "start:sanity": "cp .env ./studio/.env.development && (cd studio && npm start)",
+    "build:sanity": "(cd studio && sanity build ../public/studio -y)",
+    "start:sanity": "cp .env ./studio/.env.development && (cd studio && sanity start)",
     "lint": "next lint",
     "encrypt": "node encrypt",
     "decrypt": "node decrypt"

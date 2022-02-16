@@ -55,7 +55,7 @@ export default createSchema({
           title: 'Company',
           name: 'company',
           type: 'reference',
-          to: [{type: 'company'}]
+          to: [{ type: 'company' }],
         },
         {
           title: 'Joined',
@@ -89,8 +89,8 @@ export default createSchema({
         },
       ],
       initialValue: {
-        remote: false
-      }
+        remote: false,
+      },
     },
     {
       title: 'Education',

@@ -10,7 +10,6 @@
     "start:web": "next start",
     "build:sanity": "(cd studio && npm run build ../public/studio -y)",
     "start:sanity": "cp .env ./studio/.env.development && (cd studio && npm start)",
-    "postinstall": "(cd studio && npm ci)",
     "lint": "next lint",
     "encrypt": "node encrypt",
     "decrypt": "node decrypt"

@@ -31,12 +31,12 @@ export default memo(function References({
         >
           {unlocked.data.references.map((reference) => (
             <li
-              key={reference.id}
+              key={reference.company}
               className="flex flex-col items-center justify-center overflow-hidden rounded-2xl bg-white px-4 py-5 transition sm:p-6"
             >
               <figure
                 className={
-                  reference.id === 'proxy'
+                  reference.company === 'proxy'
                     ? 'mb-4 h-20 w-20 pt-2'
                     : 'h-24 w-24 pt-4'
                 }

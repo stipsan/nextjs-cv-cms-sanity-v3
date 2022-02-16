@@ -1,6 +1,29 @@
 // Done in a separate file until nextjs gets better at stripping SSR code from the bundle
 import { intervalToDuration, isPast, parseISO } from 'date-fns'
 
+/*
+{
+  "experience": *[_type == 'experience']{
+    _id, 
+    role, 
+    "company": company->name, 
+    "href": company->linkedin, 
+    "logo": company->logo.asset->{
+      "src": url,
+      "height": metadata.dimensions.height,
+      "width": metadata.dimensions.width
+    },
+    joined,
+    left,
+    location,
+    flag,
+    mapUrl,
+    remote
+  }, 
+  "education": *[_type == 'education']{_id,school,degree,field,start,end}
+}
+*/
+
 const items = [
   {
     id: 'sanity',

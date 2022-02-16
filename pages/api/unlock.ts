@@ -1,11 +1,19 @@
 import Cryptr from 'cryptr'
 import type { Unlocked } from 'hooks/useUnlocked'
+import { sanityClient } from 'lib/sanity.server'
 import parsePhoneNumber from 'libphonenumber-js'
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { groq } from 'next-sanity'
 
 import encrypted from '../../encrypted.json'
 
 type Data = Unlocked | { error: string }
+
+const logosQuery = groq`*[_type == 'company' && slug.current in $companies]{"slug": slug.current, ...logo.asset->{
+  "src": url,
+  "height": metadata.dimensions.height,
+  "width": metadata.dimensions.width
+}}`
 
 export default async function handler(
   req: NextApiRequest,
@@ -37,11 +45,24 @@ export default async function handler(
           data.phone = phoneNumber.formatInternational()
         }
         if (data.references) {
+          const companies = data.references.reduce(
+            (companies, reference) => companies.concat(reference.company),
+            []
+          )
+          const logos =
+            (await sanityClient.fetch(logosQuery, { companies })) || []
+          const logosMap = logos.reduce(
+            (acc, { slug, ...logo }) => Object.assign(acc, { [slug]: logo }),
+            {}
+          )
           data.references.forEach((reference) => {
             if (reference.phone) {
               const phoneNumber = parsePhoneNumber(reference.phone)
               reference.phoneUrl = phoneNumber.getURI()
               reference.phone = phoneNumber.formatInternational()
+            }
+            if (reference.company in logosMap) {
+              reference.logo = logosMap[reference.company]
             }
           })
         }

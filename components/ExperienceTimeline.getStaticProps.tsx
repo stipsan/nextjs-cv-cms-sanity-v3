@@ -1,8 +1,8 @@
 // Done in a separate file until nextjs gets better at stripping SSR code from the bundle
 import { intervalToDuration, parseISO } from 'date-fns'
 import { sanityClient } from 'lib/sanity.server'
-import { groq } from 'next-sanity'
 import orderBy from 'lodash.orderby'
+import { groq } from 'next-sanity'
 
 const experienceQuery = groq`*[_type == 'experience']{
   _id, 
@@ -52,7 +52,7 @@ type WorkExperience = {
   }
 }
 type NameChangeExperience = {
-  id: string
+  _id: string
   type: 'changed-name'
   date: string
   from: string

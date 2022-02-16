@@ -22,7 +22,7 @@ export default memo(function ExperienceTimeline({
       <div className="flow-root">
         <ul role="list" className="-mb-8">
           {experiences.map((experience, experienceIdx) => (
-            <li key={experience.id} className="break-inside-avoid">
+            <li key={experience._id} className="break-inside-avoid">
               <div className="relative pb-8">
                 {experienceIdx !== experiences.length - 1 ? (
                   <span
@@ -39,13 +39,13 @@ export default memo(function ExperienceTimeline({
                           'flex h-12 w-12 items-center justify-center'
                         )}
                       >
-                        {/*<Image
-                          src={logos[experience.id]}
+                        <Image
+                          src={experience.logo}
                           alt=""
                           loading="eager"
                           height={96}
                           width={96}
-                        />*/}
+                        />
                       </figure>
 
                       <div className="min-w-0 flex-1">

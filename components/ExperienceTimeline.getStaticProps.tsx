@@ -1,7 +1,8 @@
 // Done in a separate file until nextjs gets better at stripping SSR code from the bundle
-import { intervalToDuration, isPast, parseISO } from 'date-fns'
+import { intervalToDuration, parseISO } from 'date-fns'
 import { sanityClient } from 'lib/sanity.server'
 import { groq } from 'next-sanity'
+import orderBy from 'lodash.orderby'
 
 const experienceQuery = groq`*[_type == 'experience']{
   _id, 
@@ -23,7 +24,7 @@ const experienceQuery = groq`*[_type == 'experience']{
 
 const staticItems = [
   {
-    id: 'sd',
+    _id: 'sd',
     type: 'changed-name',
     date: '2018-06-12',
     from: 'Stian Didriksen',
@@ -32,7 +33,7 @@ const staticItems = [
 ]
 
 type WorkExperience = {
-  id: string
+  _id: string
   type: 'worked'
   role: string
   company: string
@@ -44,6 +45,7 @@ type WorkExperience = {
   mapUrl: string
   remote?: boolean
   range?: string
+  logo: { src: string; height: number; width: number }
   duration?: {
     years: number
     months: number
@@ -65,44 +67,45 @@ export async function getStaticProps({ locale }: { locale: string }) {
     month: 'short',
   })
   const results = await sanityClient.fetch(experienceQuery)
-  const items = [
-    ...results.map((result) => ({ ...result, type: 'worked' })),
-    staticItems,
-  ]
-  const experiences = items
-    // Don't need this anymore after I've started in the new position
-    .filter((item) => (item.joined ? isPast(parseISO(item.joined)) : null))
-    .map((item) => {
-      if (item.type === 'changed-name') {
-        const { date } = item
-        return { ...item, date: formatter.format(parseISO(date)) }
-      }
+  const items = orderBy(
+    [
+      ...results.map((result) => ({ ...result, type: 'worked' })),
+      ...staticItems,
+    ],
+    (item) => new Date(item.left || item.joined || item.date),
+    'desc'
+  )
+  const experiences = items.map((item) => {
+    if (item.type === 'changed-name') {
+      const { date } = item
+      return { ...item, date: formatter.format(parseISO(date)) }
+    }
 
-      const { joined, left, ...rest } = item
-      if (joined && left) {
-        const parsedJoined = parseISO(joined)
-        const parsedLeft = parseISO(left)
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'format' does not exist on type 'Intl.DateTimeFormat'.
-        const range = formatter.formatRange(parsedJoined, parsedLeft)
-        return {
-          ...rest,
-          range,
-          duration: getDuration(parsedJoined, parsedLeft),
-        }
+    const { joined, left, ...rest } = item
+    if (joined && left) {
+      const parsedJoined = parseISO(joined)
+      const parsedLeft = parseISO(left)
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'format' does not exist on type 'Intl.DateTimeFormat'.
+      const range = formatter.formatRange(parsedJoined, parsedLeft)
+      return {
+        ...rest,
+        range,
+        duration: getDuration(parsedJoined, parsedLeft),
       }
+    }
 
-      // No left date means it's the current job
-      if (joined) {
-        const parsedJoined = parseISO(joined)
-        return {
-          ...item,
-          joined: formatter.format(parsedJoined),
-          duration: getDuration(parsedJoined, new Date()),
-        }
+    // No left date means it's the current job
+    if (joined) {
+      const parsedJoined = parseISO(joined)
+      return {
+        ...item,
+        joined: formatter.format(parsedJoined),
+        duration: getDuration(parsedJoined, new Date()),
       }
+    }
 
-      return item
-    })
+    return item
+  })
 
   return { experiences }
 }

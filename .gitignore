@@ -111,3 +111,4 @@ dist
 users.json
 data.json
 .vercel
+public/studio/*

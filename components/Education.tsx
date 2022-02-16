@@ -1,6 +1,8 @@
 import { useTranslations } from 'next-intl'
 import { memo } from 'react'
 
+// *[_type == 'education']{_id,school,degree,field,start,end}
+
 const activityItems = [
   {
     id: 1,

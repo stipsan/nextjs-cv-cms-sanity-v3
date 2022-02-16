@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    { "source": "/studio/(.*)", "destination": "/studio/index.html" }
+  ],
+  "github": {
+    "silent": true
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "street": "695 Minna St",
+  "postalCode": "CA 94103",
+  "phone": "+14155550100",
+  "references": [
+    {
+      "company": "sanity",
+      "name": "John Doe",
+      "role": "Recruiter",
+      "phone": "+12065550100",
+      "email": "hello@sanity.io"
+    }
+  ]
+}

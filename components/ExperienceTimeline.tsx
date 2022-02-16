@@ -6,7 +6,6 @@ import { memo } from 'react'
 
 import { type Experiences } from './ExperienceTimeline.getStaticProps'
 import styles from './ExperienceTimeline.module.css'
-import logos from './logos'
 
 export default memo(function ExperienceTimeline({
   experiences,
@@ -23,7 +22,7 @@ export default memo(function ExperienceTimeline({
       <div className="flow-root">
         <ul role="list" className="-mb-8">
           {experiences.map((experience, experienceIdx) => (
-            <li key={experience.id} className="break-inside-avoid">
+            <li key={experience._id} className="break-inside-avoid">
               <div className="relative pb-8">
                 {experienceIdx !== experiences.length - 1 ? (
                   <span
@@ -41,7 +40,7 @@ export default memo(function ExperienceTimeline({
                         )}
                       >
                         <Image
-                          src={logos[experience.id]}
+                          src={experience.logo}
                           alt=""
                           loading="eager"
                           height={96}

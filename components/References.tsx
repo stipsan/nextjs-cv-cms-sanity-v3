@@ -3,8 +3,6 @@ import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { memo } from 'react'
 
-import logos from './logos'
-
 export default memo(function References({
   unlocked,
 }: Pick<UnlockProps, 'unlocked'>) {
@@ -21,22 +19,17 @@ export default memo(function References({
         >
           {unlocked.data.references.map((reference) => (
             <li
-              key={reference.id}
+              key={reference.company}
               className="flex flex-col items-center justify-center overflow-hidden rounded-2xl bg-white px-4 py-5 transition sm:p-6"
             >
               <figure
                 className={
-                  reference.id === 'proxy'
+                  reference.company === 'proxy'
                     ? 'mb-4 h-20 w-20 pt-2'
                     : 'h-24 w-24 pt-4'
                 }
               >
-                <Image
-                  src={logos[reference.id]}
-                  alt=""
-                  height={96}
-                  width={96}
-                />
+                <Image src={reference.logo} alt="" height={96} width={96} />
               </figure>
               <h2 className="mt-5 text-lg font-medium text-slate-800">
                 {reference.name}

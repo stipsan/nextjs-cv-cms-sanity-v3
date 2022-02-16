@@ -10,12 +10,13 @@ export type Unlocked = {
     phone: string
     phoneUrl: string
     references: {
-      id: string
+      company: string
       name: string
       role: string
       phone: string
       phoneUrl: string
       email: string
+      logo: { src: string; height: number; width: number }
     }[]
   }
 }

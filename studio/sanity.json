@@ -1,7 +1,8 @@
 {
   "root": true,
   "project": {
-    "name": "CV"
+    "name": "CV",
+    "basePath": "/studio"
   },
   "api": {
     "projectId": "sh40okwp",

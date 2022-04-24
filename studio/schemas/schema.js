@@ -38,6 +38,7 @@ export default createSchema({
           type: 'image',
           description:
             'The logo will need render in a timeline that uses a CSS drop-shadow effect to create a white outline. Thus the opacity of the logo must be deliberate in order for it to look great. And generally square logos look better.',
+          options: { hotspot: true },
         },
       ],
     },

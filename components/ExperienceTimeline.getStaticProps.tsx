@@ -85,7 +85,6 @@ export async function getStaticProps({ locale }: { locale: string }) {
     if (joined && left) {
       const parsedJoined = parseISO(joined)
       const parsedLeft = parseISO(left)
-      // @ts-expect-error ts-migrate(2339) FIXME: Property 'format' does not exist on type 'Intl.DateTimeFormat'.
       const range = formatter.formatRange(parsedJoined, parsedLeft)
       return {
         ...rest,

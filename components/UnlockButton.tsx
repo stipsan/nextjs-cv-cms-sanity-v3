@@ -29,8 +29,8 @@ export default memo(function UnlockButton({
   const t = useTranslations('UnlockButton')
 
   return (
-    <div className="ml-6 w-40 sm:ml-7">
-      <div className="group w-0">
+    <div className="w-40 ml-6 sm:ml-7">
+      <div className="w-0 group">
         <button
           id="unlock-button"
           type="button"
@@ -53,8 +53,7 @@ export default memo(function UnlockButton({
               {!open && (
                 <div className="pointer-events-none absolute top-0.5 right-3.5 bottom-0.5 left-3.5 z-[-1] animate-ping rounded-lg bg-cyan-100 transition-colors group-hover:animate-none group-hover:bg-opacity-0 group-focus:animate-none group-focus:bg-opacity-0 group-active:animate-none group-active:bg-opacity-0" />
               )}
-              <LockClosedIcon className="mr-1.5 -ml-0.5 h-4 group-hover:hidden group-focus:hidden group-active:hidden" />
-              <LockOpenIcon className="mr-1.5 -ml-0.5 hidden h-4 group-hover:block group-focus:block group-active:block" />
+              <LockClosedIcon className="mr-1.5 -ml-0.5 h-4" />
             </>
           )}
           {unlocked ? t('unlocked') : t('unlock')}
@@ -78,12 +77,12 @@ export default memo(function UnlockButton({
         }}
       >
         {unlocked ? (
-          <div className="px-4 pb-4 pt-4">
-            <div className="rounded-md bg-green-50 p-4">
+          <div className="px-4 pt-4 pb-4">
+            <div className="p-4 rounded-md bg-green-50">
               <div className="flex">
                 <div className="flex-shrink-0">
                   <SparklesIcon
-                    className="h-5 w-5 text-green-400"
+                    className="w-5 h-5 text-green-400"
                     aria-hidden="true"
                   />
                 </div>
@@ -107,13 +106,13 @@ export default memo(function UnlockButton({
                 }
               )}
             >
-              <CheckIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
+              <CheckIcon className="w-5 h-5 mr-2 -ml-1" aria-hidden="true" />
               {t('ok')}
             </button>
           </div>
         ) : (
           <form
-            className="px-4 pb-4 pt-4"
+            className="px-4 pt-4 pb-4"
             onSubmit={(event) => {
               event.preventDefault()
               if (!loading) {
@@ -156,11 +155,11 @@ export default memo(function UnlockButton({
               onChange={(event) => setPassword(event.target.value)}
             />
             {error && (
-              <div className="mt-4 rounded-md bg-red-100 p-4">
+              <div className="p-4 mt-4 bg-red-100 rounded-md">
                 <div className="flex">
                   <div className="flex-shrink-0">
                     <XCircleIcon
-                      className="h-5 w-5 text-red-500"
+                      className="w-5 h-5 text-red-500"
                       aria-hidden="true"
                     />
                   </div>
@@ -189,7 +188,7 @@ export default memo(function UnlockButton({
             >
               {loading ? (
                 <svg
-                  className="-ml-1 mr-2 h-5 w-5 animate-spin text-white"
+                  className="w-5 h-5 mr-2 -ml-1 text-white animate-spin"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -210,7 +209,7 @@ export default memo(function UnlockButton({
                 </svg>
               ) : (
                 <LockOpenIcon
-                  className="-ml-1 mr-2 h-5 w-5"
+                  className="w-5 h-5 mr-2 -ml-1"
                   aria-hidden="true"
                 />
               )}
@@ -229,7 +228,7 @@ export function RedactedLabel() {
 
   return (
     <label
-      className="cursor-pointer opacity-50 transition-opacity hover:opacity-100"
+      className="transition-opacity opacity-50 cursor-pointer hover:opacity-100"
       htmlFor="unlock-button"
     >
       {t('redacted')}

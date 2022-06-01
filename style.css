@@ -1,3 +1,13 @@
+html, body, #__next {
+  height: 100%;
+  overscroll-behavior: none;
+}
+
+/* override tailwind reset */
+:root svg {
+  display: inline;
+}
+
 @keyframes shake {
   10%,
   90% {

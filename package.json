@@ -2,11 +2,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm run build:sanity && npm run build:web",
-    "build:web": "next build",
-    "start:web": "next start",
-    "build:sanity": "(cd studio && sanity build ../public/studio -y)",
-    "start:sanity": "cp .env ./studio/.env.development && (cd studio && sanity start)",
+    "build": "next build",
+    "start": "next start",
     "lint": "next lint",
     "encrypt": "node encrypt",
     "decrypt": "node decrypt"

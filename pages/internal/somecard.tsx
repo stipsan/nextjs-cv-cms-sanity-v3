@@ -65,7 +65,7 @@ export default function SocialMediaCard() {
               height={256}
               width={256}
             />
-            <span className="absolute top-0 right-0 bottom-0 left-0 block rounded-full bg-cyan-700 opacity-70 mix-blend-screen" />
+            <span className="absolute top-0 bottom-0 left-0 right-0 block rounded-full bg-cyan-700 opacity-70 mix-blend-screen" />
           </div>
           <div className="flex flex-col pl-6 pr-12 text-4xl font-medium leading-10 text-cyan-100">
             <div className="bg-gradient-to-r from-sky-100 to-teal-200 bg-clip-text text-transparent">

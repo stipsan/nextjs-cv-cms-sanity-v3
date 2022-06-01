@@ -53,8 +53,7 @@ export default memo(function UnlockButton({
               {!open && (
                 <div className="pointer-events-none absolute top-0.5 right-3.5 bottom-0.5 left-3.5 z-[-1] animate-ping rounded-lg bg-cyan-100 transition-colors group-hover:animate-none group-hover:bg-opacity-0 group-focus:animate-none group-focus:bg-opacity-0 group-active:animate-none group-active:bg-opacity-0" />
               )}
-              <LockClosedIcon className="mr-1.5 -ml-0.5 h-4 group-hover:hidden group-focus:hidden group-active:hidden" />
-              <LockOpenIcon className="mr-1.5 -ml-0.5 hidden h-4 group-hover:block group-focus:block group-active:block" />
+              <LockClosedIcon className="mr-1.5 -ml-0.5 h-4" />
             </>
           )}
           {unlocked ? t('unlocked') : t('unlock')}
@@ -78,7 +77,7 @@ export default memo(function UnlockButton({
         }}
       >
         {unlocked ? (
-          <div className="px-4 pb-4 pt-4">
+          <div className="px-4 pt-4 pb-4">
             <div className="rounded-md bg-green-50 p-4">
               <div className="flex">
                 <div className="flex-shrink-0">
@@ -107,13 +106,13 @@ export default memo(function UnlockButton({
                 }
               )}
             >
-              <CheckIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
+              <CheckIcon className="mr-2 -ml-1 h-5 w-5" aria-hidden="true" />
               {t('ok')}
             </button>
           </div>
         ) : (
           <form
-            className="px-4 pb-4 pt-4"
+            className="px-4 pt-4 pb-4"
             onSubmit={(event) => {
               event.preventDefault()
               if (!loading) {
@@ -189,7 +188,7 @@ export default memo(function UnlockButton({
             >
               {loading ? (
                 <svg
-                  className="-ml-1 mr-2 h-5 w-5 animate-spin text-white"
+                  className="mr-2 -ml-1 h-5 w-5 animate-spin text-white"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -210,7 +209,7 @@ export default memo(function UnlockButton({
                 </svg>
               ) : (
                 <LockOpenIcon
-                  className="-ml-1 mr-2 h-5 w-5"
+                  className="mr-2 -ml-1 h-5 w-5"
                   aria-hidden="true"
                 />
               )}

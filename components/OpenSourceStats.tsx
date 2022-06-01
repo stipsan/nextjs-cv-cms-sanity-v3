@@ -20,46 +20,47 @@ export default memo(function OpenSourceStats({
   const t = useTranslations('OpenSourceStats')
   const intl = useIntl()
   const stats = useMemo(
-    () => [
-      {
-        name: 'im',
-        stat: intl.formatNumber(imDependants),
-        unit: t('repos'),
-        url: 'https://github.com/stipsan/ioredis-mock/network/dependents',
-      },
-      {
-        name: 'csiv',
-        stat: intl.formatNumber(csivWeeklyDownloads),
-        unit: t('monthly'),
-        url: 'https://www.npmjs.com/package/compute-scroll-into-view',
-      },
-      {
-        name: 'first',
-        stat: t.rich('firstStat', {
-          years: differenceInYears(then, firstLibDate),
-          unit: (children) => (
-            <span className="ml-0.5 inline-block text-3xl font-normal text-slate-300">
-              {children}
-            </span>
-          ),
-        }),
-        unit: t('yearsAgo'),
-        url: 'https://mootools.net/forge/p/string_inflector',
-      },
-      {
-        name: 'last',
-        stat: t.rich('lastStat', {
-          stars: rsbsStars,
-          unit: (children) => (
-            <span className="ml-0.5 inline-block text-3xl font-normal text-slate-300">
-              {children}
-            </span>
-          ),
-        }),
-        unit: t('lastSubtext'),
-        url: 'https://github.com/stipsan/react-spring-bottom-sheet/stargazers',
-      },
-    ],
+    () =>
+      [
+        {
+          name: 'im',
+          stat: intl.formatNumber(imDependants),
+          unit: t('repos'),
+          url: 'https://github.com/stipsan/ioredis-mock/network/dependents',
+        },
+        {
+          name: 'csiv',
+          stat: intl.formatNumber(csivWeeklyDownloads),
+          unit: t('monthly'),
+          url: 'https://www.npmjs.com/package/compute-scroll-into-view',
+        },
+        {
+          name: 'first',
+          stat: t.rich('firstStat', {
+            years: differenceInYears(then, firstLibDate),
+            unit: (children) => (
+              <span className="ml-0.5 inline-block text-3xl font-normal text-slate-300">
+                {children}
+              </span>
+            ),
+          }),
+          unit: t('yearsAgo'),
+          url: 'https://mootools.net/forge/p/string_inflector',
+        },
+        {
+          name: 'last',
+          stat: t.rich('lastStat', {
+            stars: rsbsStars,
+            unit: (children) => (
+              <span className="ml-0.5 inline-block text-3xl font-normal text-slate-300">
+                {children}
+              </span>
+            ),
+          }),
+          unit: t('lastSubtext'),
+          url: 'https://github.com/stipsan/react-spring-bottom-sheet/stargazers',
+        },
+      ] as const,
     [csivWeeklyDownloads, imDependants, intl, rsbsStars, t, then]
   )
   return (

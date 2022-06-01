@@ -1,6 +1,5 @@
 module.exports = {
   compiler: { styledComponents: true },
-  swcMinify: true,
   i18n: {
     locales: ['en', 'no'],
     defaultLocale: 'en',

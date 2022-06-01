@@ -1,5 +1,5 @@
 module.exports = {
-  compiler: {styledComponents: true},
+  compiler: { styledComponents: true },
   swcMinify: true,
   i18n: {
     locales: ['en', 'no'],
@@ -7,7 +7,7 @@ module.exports = {
   },
   images: {
     domains: ['cdn.sanity.io'],
-    formats: ['image/avif', 'image/webp']
+    formats: ['image/avif', 'image/webp'],
   },
   async redirects() {
     return [

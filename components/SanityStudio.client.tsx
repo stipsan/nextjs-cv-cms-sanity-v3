@@ -1,8 +1,7 @@
 import { useRouter } from 'next/router'
-import { lazy, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { createConfig, Studio } from 'sanity'
-// const { deskTool } = require(require.resolve('sanity/lib/cjs/_exports/desk.js'))
-// import { deskTool } from 'sanity/desk'
+import { deskTool } from 'sanity/desk'
 
 export default function SanityStudio() {
   const router = useRouter()
@@ -12,7 +11,7 @@ export default function SanityStudio() {
     () =>
       createConfig({
         basePath,
-        // plugins: [deskTool()],
+        plugins: [deskTool()],
         name: 'CV',
         projectId: 'sh40okwp',
         dataset: 'production',

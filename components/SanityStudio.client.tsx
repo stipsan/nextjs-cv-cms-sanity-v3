@@ -4,8 +4,8 @@ import { createConfig, Studio } from 'sanity'
 import { deskTool } from 'sanity/desk'
 
 export default function SanityStudio() {
-  const router = useRouter()
-  const [basePath] = useState(() => router.route.split('/[...tool]')?.[0])
+  const { route } = useRouter()
+  const [basePath] = useState(() => route.split('/[[...tool]]')?.[0])
   // useState as basePath is only used initially and don't matter on re-renders
   const config = useMemo(
     () =>

@@ -1,9 +1,6 @@
-import dynamic from 'next/dynamic'
-
-const Studio = dynamic(() => import('components/SanityStudio.client'), {
-  ssr: false,
-})
+import { Studio } from 'sanity'
+import config from 'sanity.config'
 
 export default function StudioPage() {
-  return <Studio />
+  return <Studio config={config} />
 }

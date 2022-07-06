@@ -4,20 +4,23 @@ import { type NextRequest, NextResponse } from 'next/server'
 // path segments in `basePath`. In other words, two workspaces with basePath `/en/studio` and '/no/studio' is allowed
 // while `/studio` and '/no/studio' is not
 
-const PUBLIC_FILE = /\.(.*)$/
+export const config = {
+  matcher: '/studio/:tool*',
+}
 
 export function middleware(request: NextRequest) {
-  const shouldHandleLocale =
-    !PUBLIC_FILE.test(request.nextUrl.pathname) &&
-    !request.nextUrl.pathname.includes('/api/') &&
-    request.nextUrl.pathname.includes('/studio/') &&
-    request.nextUrl.locale === 'default'
-
-  if (shouldHandleLocale) {
+  // @TODO come back to this later and figure out how to make it work without causing an infinite redirect loop
+  /*
+  const { pathname } = new URL(request.url)
+  if (
+    pathname.endsWith(request.nextUrl.pathname) &&
+    !pathname.endsWith(`${request.nextUrl.locale}${request.nextUrl.pathname}`)
+  ) {
     const url = request.nextUrl.clone()
-    url.pathname = `/en${request.nextUrl.pathname}`
+    url.pathname = `/${request.nextUrl.locale}${request.nextUrl.pathname}`
     return NextResponse.redirect(url)
   }
+  // */
 
   return undefined
 }

@@ -1,12 +1,17 @@
 import { createConfig } from 'sanity'
 import { deskTool } from 'sanity/desk'
 
+const plugins = [deskTool()]
+// @TODO load these from dotenv
+const projectId = 'sh40okwp'
+const dataset = 'production'
+
 const config = createConfig({
   basePath: '/studio',
-  plugins: [deskTool()],
   name: 'CV',
-  projectId: 'sh40okwp',
-  dataset: 'production',
+  plugins: [deskTool()],
+  projectId,
+  dataset,
   schema: {
     types: [
       {

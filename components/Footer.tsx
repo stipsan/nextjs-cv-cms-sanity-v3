@@ -66,7 +66,7 @@ export default memo(function Footer({
   )
 
   return (
-    <footer className="mt-5 mb-6 py-6 text-center text-xs print:mb-0 print:pb-0">
+    <footer className="py-6 mt-5 mb-6 text-xs text-center print:mb-0 print:pb-0">
       {generated}
       <RelativeWhen
         date={buildDate}
@@ -74,7 +74,7 @@ export default memo(function Footer({
         dateJson={buildDate.toJSON()}
         dateAbsolute={date}
       />
-      <div className="mt-3 grid grid-flow-col justify-center gap-3">
+      <div className="grid justify-center grid-flow-col gap-3 mt-3">
         <Tag name="next" version={next} url="https://nextjs.org/" />
         <Tag name="react" version={react} url="https://reactjs.org/" />
         <Tag
@@ -136,7 +136,7 @@ const Tag = ({
     rel="noopener noreferrer"
   >
     <span className="inline-block px-2 py-1">{name}</span>
-    <span className="inline-block rounded-r bg-cyan-700 px-2 py-1 text-slate-50">
+    <span className="inline-block px-2 py-1 rounded-r bg-cyan-700 text-slate-50">
       {version}
     </span>
   </a>

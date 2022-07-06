@@ -1,7 +1,5 @@
 module.exports = {
   experimental: {
-    runtime: 'nodejs',
-    serverComponents: true,
     browsersListForSwc: true,
     legacyBrowsers: false,
   },

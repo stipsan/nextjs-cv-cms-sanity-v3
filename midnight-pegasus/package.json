@@ -1,0 +1,36 @@
+{
+  "name": "@stipsan/midnight-pegasus",
+  "version": "0.4.0",
+  "license": "MIT",
+  "author": "Cody Olsen <stipsan@gmail.com>",
+  "sideEffects": false,
+  "type": "module",
+  "main": "dist/index.mjs",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": "./dist/index.mjs"
+  },
+  "scripts": {
+    "build": "esbuild --bundle --format=esm --platform=browser --outfile=dist/index.mjs --target=es2018 --minify --sourcemap index.ts",
+    "prebuild": "rimraf dist",
+    "prepublishOnly": "npm run build",
+    "test": "npm run build && npx serve dist --cors"
+  },
+  "devDependencies": {
+    "@parcel/packager-ts": "^2.6.0",
+    "@parcel/transformer-typescript-types": "^2.6.0",
+    "esbuild": "^0.14.43",
+    "rimraf": "^3.0.2",
+    "sanity": "^2.29.5-midnight-pegasus.998",
+    "typescript": "^4.7.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0"
+  }
+}

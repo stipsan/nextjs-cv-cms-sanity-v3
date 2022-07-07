@@ -15,6 +15,7 @@ const handler = async (req: NextRequest) => {
     })
   }
 
+  const start = new Date()
   const res = await fetch(
     `https://api.github.com/repos/${github.repository}/actions/workflows/manual.yml/dispatches`,
     {
@@ -49,6 +50,9 @@ const handler = async (req: NextRequest) => {
       status: 200,
       headers: {
         'content-type': 'application/json',
+        'server-timing': `fetch;desc="GitHub API Fetch";dur=${
+          new Date().getTime() - start.getTime()
+        }`,
       },
     }
   )

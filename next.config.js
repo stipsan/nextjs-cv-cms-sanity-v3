@@ -1,13 +1,6 @@
 // @ts-check
 
-// @TODO move intl config into intl.config.mjs and share it with sanity.config.ts
-/**
- * @type {import('next').NextConfig['i18n']}
- **/
-const i18n = {
-  locales: ['en', 'no'],
-  defaultLocale: 'en',
-}
+const i18n = require('./intl.config.cjs')
 
 /**
  * @type {import('next').NextConfig}

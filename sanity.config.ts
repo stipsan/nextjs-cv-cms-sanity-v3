@@ -1,56 +1,78 @@
+import {
+  getFilteredDocumentTypeListItems,
+  IdStructure,
+  withDocumentI18nPlugin,
+} from '@sanity/document-internationalization'
 import { CogIcon, LockIcon } from '@sanity/icons'
 import { createConfig } from 'sanity'
 import { deskTool } from 'sanity/desk'
 
-// @TODO env.config.mjs
-const projectId = 'sh40okwp'
-const dataset = 'production'
+import { sanity as sanityConfig } from './env.config.mjs'
+import i18n from './intl.config.cjs'
 
+const { projectId, dataset } = sanityConfig
 const STRUCTURE_CUSTOM_TYPES = ['settings', 'secrets']
 
 const config = createConfig({
   basePath: '/studio',
   name: 'CV',
-  plugins: [
-    deskTool({
-      structure: (S, context) => {
-        // The `Settings` root list item
-        const settingsListItem = S.listItem()
-          .title('Settings')
-          .icon(CogIcon)
-          .child(
-            S.editor()
-              .id('settings')
-              .title('Settings')
-              .schemaType('settings')
-              .documentId('settings')
-          )
-        // Like Settings but private, prefixing with `private.` ensures it can't be queried unless by an authenticated user with access to the dataset, like drafts
-        const secretsListItem = S.listItem()
-          .title('Secrets')
-          .icon(LockIcon)
-          .child(
-            S.editor()
-              .id('secrets')
-              .schemaType('secrets')
-              .documentId('private.secrets')
-          )
-
-        // The default root list items (except custom ones)
-        const defaultListItems = S.documentTypeListItems().filter(
-          (listItem: any) => !STRUCTURE_CUSTOM_TYPES.includes(listItem.getId())
+  document: {
+    newDocumentOptions: (prev, { creationContext }) => {
+      if (creationContext.type === 'global') {
+        return prev.filter(
+          (templateItem) =>
+            templateItem.templateId !== 'settings' &&
+            templateItem.templateId !== 'secrets'
         )
+      }
 
-        return S.list()
-          .title('Content')
-          .items([
-            settingsListItem,
-            secretsListItem,
-            S.divider(),
-            ...defaultListItems,
-          ])
-      },
-      /*
+      return prev
+    },
+  },
+  plugins: withDocumentI18nPlugin(
+    (pluginConfig) => [
+      deskTool({
+        structure: (S, { schema }) => {
+          // The `Settings` root list item
+          const settingsListItem = S.listItem()
+            .title('Settings')
+            .icon(CogIcon)
+            .child(
+              S.document()
+                .schemaType('settings')
+                .documentId('settings')
+                .title('why')
+                .views([S.view.form(), S.view.form().id('foo').title('Hi')])
+            )
+          // Like Settings but private, prefixing with `private.` ensures it can't be queried unless by an authenticated user with access to the dataset, like drafts
+          const secretsListItem = S.listItem()
+            .title('Secrets')
+            .icon(LockIcon)
+            .child(
+              S.document()
+                .id('secrets')
+                .schemaType('secrets')
+                .documentId('private.secrets')
+                .title('Secret title')
+            )
+
+          // The default root list items (except custom ones)
+          const defaultListItems = getFilteredDocumentTypeListItems({
+            S,
+            schema,
+            config: pluginConfig,
+          }).filter((listItem) => !STRUCTURE_CUSTOM_TYPES.includes(listItem.id))
+
+          return S.list()
+            .title('Content')
+            .items([
+              settingsListItem,
+              secretsListItem,
+              S.divider(),
+              ...defaultListItems,
+            ])
+        },
+        /*
       defaultDocumentNode: (S, { schemaType, documentId }) => {
         if (documentId === 'settings') {
           return S.document()
@@ -59,8 +81,15 @@ const config = createConfig({
         }
       },
       // */
-    }),
-  ],
+      }),
+    ],
+    {
+      includeDeskTool: false,
+      base: i18n.defaultLocale,
+      languages: i18n.locales,
+      idStructure: IdStructure.SUBPATH,
+    }
+  ),
   projectId,
   dataset,
   schema: {
@@ -69,6 +98,8 @@ const config = createConfig({
         title: 'Settings',
         name: 'settings',
         type: 'document',
+        // @ts-expect-error -- typings don't understand i18n yet
+        i18n: true,
         fields: [
           {
             title: 'Profile',
@@ -78,6 +109,11 @@ const config = createConfig({
               {
                 title: 'Name',
                 name: 'name',
+                type: 'string',
+              },
+              {
+                title: 'Role',
+                name: 'role',
                 type: 'string',
               },
             ],
@@ -138,6 +174,8 @@ const config = createConfig({
         title: 'Experience',
         name: 'experience',
         type: 'document',
+        // @ts-expect-error -- typings don't understand i18n yet
+        i18n: true,
         fields: [
           {
             title: 'Role',
@@ -189,6 +227,8 @@ const config = createConfig({
         title: 'Education',
         name: 'education',
         type: 'document',
+        // @ts-expect-error -- typings don't understand i18n yet
+        i18n: true,
         fields: [
           {
             title: 'School',

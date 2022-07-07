@@ -26,7 +26,7 @@ const handler = async (req: NextRequest) => {
       },
       body: JSON.stringify({
         ref: github.ref,
-        inputs: { name: 'Edge' },
+        inputs: { documentId: searchParams.get('documentId') },
       }),
     }
   )

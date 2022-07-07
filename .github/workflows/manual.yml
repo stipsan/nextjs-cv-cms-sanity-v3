@@ -22,7 +22,9 @@ jobs:
         if: ${{ github.event.inputs.documentId == 'settings' }}
         env:
           SANITY_API_TOKEN: ${{ secrets.SANITY_API_TOKEN }}
+          SANITY_API_WRITE_TOKEN: ${{ secrets.SANITY_API_WRITE_TOKEN }}
       - run: node scripts/helloSecrets
         if: ${{ github.event.inputs.documentId == 'private.secrets' }}
         env:
           SANITY_API_TOKEN: ${{ secrets.SANITY_API_TOKEN }}
+          SANITY_API_WRITE_TOKEN: ${{ secrets.SANITY_API_WRITE_TOKEN }}

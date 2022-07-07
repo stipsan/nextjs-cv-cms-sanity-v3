@@ -19,6 +19,6 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - run: node scripts/helloSettings
-        if: ${{ github.event.inputs.documentId == "settings" }}
+        if: ${{ github.event.inputs.documentId == 'settings' }}
       - run: node scripts/helloSecrets
-        if: ${{ github.event.inputs.documentId == "private.secrets" }}
+        if: ${{ github.event.inputs.documentId == 'private.secrets' }}

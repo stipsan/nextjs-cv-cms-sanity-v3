@@ -38,8 +38,14 @@ async function main() {
     return 0
   }
 
+  const writeToken = process.env.SANITY_API_WRITE_TOKEN
+  if (!writeToken) {
+    throw new TypeError(`Missing SANITY_API_WRITE_TOKEN`)
+  }
+  const writeClient = client.withConfig({ token: writeToken })
+
   console.log(`Patching ${data._id} with "hello": "Edge"`)
-  await client.patch(data._id).set({ hello: 'Edge' }).commit()
+  await writeClient.patch(data._id).set({ hello: 'Edge' }).commit()
   console.log('Done!')
 
   return 0

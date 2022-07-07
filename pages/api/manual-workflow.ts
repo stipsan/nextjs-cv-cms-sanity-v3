@@ -58,4 +58,13 @@ const handler = async (req: NextRequest) => {
   )
 }
 
+// @TODO @sanity/webhook isn't ready for the edge yet
+async function readBody(readable) {
+  const chunks = []
+  for await (const chunk of readable) {
+    chunks.push(typeof chunk === 'string' ? Buffer.from(chunk) : chunk)
+  }
+  return Buffer.concat(chunks).toString('utf8')
+}
+
 export default handler

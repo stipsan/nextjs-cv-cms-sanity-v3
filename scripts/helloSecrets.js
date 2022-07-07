@@ -31,7 +31,7 @@ async function main() {
     throw new Error('Missing _id!')
   }
 
-  if (data?.hello !== 'Edge') {
+  if (data?.hello === 'Edge') {
     console.log(
       'Skipping, as "hello" is already "Edge" in the published document'
     )

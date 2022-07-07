@@ -71,9 +71,16 @@ const config = createConfig({
         type: 'document',
         fields: [
           {
-            title: 'Name',
-            name: 'name',
-            type: 'string',
+            title: 'Profile',
+            name: 'profile',
+            type: 'object',
+            fields: [
+              {
+                title: 'Name',
+                name: 'name',
+                type: 'string',
+              },
+            ],
           },
           {
             title: 'Hello',

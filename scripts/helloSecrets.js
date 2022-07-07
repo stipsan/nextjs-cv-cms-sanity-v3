@@ -32,10 +32,15 @@ async function main() {
   }
 
   if (data?.hello !== 'Edge') {
+    console.log(
+      'Skipping, as "hello" is already "Edge" in the published document'
+    )
     return 0
   }
 
+  console.log(`Patching ${data._id} with "hello": "Edge"`)
   await client.patch(data._id).set({ hello: 'Edge' }).commit()
+  console.log('Done!')
 
   return 0
 }

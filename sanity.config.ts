@@ -1,19 +1,101 @@
 import { createConfig } from 'sanity'
 import { deskTool } from 'sanity/desk'
+import { CogIcon, LockIcon } from '@sanity/icons'
 
-const plugins = [deskTool()]
 // @TODO load these from dotenv
 const projectId = 'sh40okwp'
 const dataset = 'production'
 
+const STRUCTURE_CUSTOM_TYPES = ['settings', 'secrets']
+
 const config = createConfig({
   basePath: '/studio',
   name: 'CV',
-  plugins: [deskTool()],
+  plugins: [
+    deskTool({
+      structure: (S, context) => {
+        // The `Settings` root list item
+        const settingsListItem = S.listItem()
+          .title('Settings')
+          .icon(CogIcon)
+          .child(
+            S.editor()
+              .id('settings')
+              .title('Settings')
+              .schemaType('settings')
+              .documentId('settings')
+          )
+        // Like Settings but private, prefixing with `private.` ensures it can't be queried unless by an authenticated user with access to the dataset, like drafts
+        const secretsListItem = S.listItem()
+          .title('Secrets')
+          .icon(LockIcon)
+          .child(
+            S.editor()
+              .id('secrets')
+              .schemaType('secrets')
+              .documentId('private.secrets')
+          )
+
+        // The default root list items (except custom ones)
+        const defaultListItems = S.documentTypeListItems().filter(
+          (listItem: any) => !STRUCTURE_CUSTOM_TYPES.includes(listItem.getId())
+        )
+
+        return S.list()
+          .title('Content')
+          .items([
+            settingsListItem,
+            secretsListItem,
+            S.divider(),
+            ...defaultListItems,
+          ])
+      },
+      /*
+      defaultDocumentNode: (S, { schemaType, documentId }) => {
+        if (documentId === 'settings') {
+          return S.document()
+            .title('why')
+            .views([S.view.form(), S.view.form().title('Hi')])
+        }
+      },
+      // */
+    }),
+  ],
   projectId,
   dataset,
   schema: {
     types: [
+      {
+        title: 'Settings',
+        name: 'settings',
+        type: 'document',
+        fields: [
+          {
+            title: 'Name',
+            name: 'name',
+            type: 'string',
+          },
+          {
+            title: 'Hello',
+            name: 'hello',
+            type: 'string',
+            description: 'Publish this to anything but "Edge"',
+          },
+        ],
+      },
+      {
+        title: 'Secrets',
+        name: 'secrets',
+        type: 'document',
+        fields: [
+          {
+            title: 'Hello',
+            name: 'hello',
+            type: 'string',
+            description: 'Publish this to anything but "Edge"',
+          },
+        ],
+      },
       {
         title: 'Company',
         name: 'company',

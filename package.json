@@ -6,7 +6,8 @@
     "start": "next start",
     "lint": "next lint",
     "encrypt": "node encrypt",
-    "decrypt": "node decrypt"
+    "decrypt": "node decrypt",
+    "test:workflow": "node -r dotenv/config scripts/manualWorkflow.mjs"
   },
   "dependencies": {
     "@heroicons/react": "^1.0.6",

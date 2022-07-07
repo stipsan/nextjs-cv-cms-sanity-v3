@@ -1,8 +1,8 @@
+import { CogIcon, LockIcon } from '@sanity/icons'
 import { createConfig } from 'sanity'
 import { deskTool } from 'sanity/desk'
-import { CogIcon, LockIcon } from '@sanity/icons'
 
-// @TODO load these from dotenv
+// @TODO env.config.mjs
 const projectId = 'sh40okwp'
 const dataset = 'production'
 

@@ -4,7 +4,11 @@
 const createSanityClient =
   require('@sanity/client')?.default || require('@sanity/client')
 
-async function main() {
+async function main({ argv }) {
+  // @TODO use argv to maybe
+  // - run: node scripts/helloSecrets ${{ github.event.inputs.documentId }}
+  // just so it's easier to reuse
+  // maybe use https://github.com/vercel/arg to parse the args
   const { sanity: sanityConfig } = await import('../env.config.mjs')
 
   const { projectId, dataset, apiVersion, useCdn, token } = sanityConfig
@@ -51,7 +55,7 @@ async function main() {
   return 0
 }
 
-main()
+main(process)
   .then(process.exit)
   .catch((err) => {
     console.error(err)

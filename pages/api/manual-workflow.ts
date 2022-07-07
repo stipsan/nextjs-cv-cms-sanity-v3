@@ -59,6 +59,7 @@ const handler = async (req: NextRequest) => {
 }
 
 // @TODO @sanity/webhook isn't ready for the edge yet
+// @TODO make a is-sanity-webhook-valid package that is edge ready
 async function readBody(readable) {
   const chunks = []
   for await (const chunk of readable) {

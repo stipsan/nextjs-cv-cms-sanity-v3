@@ -7,7 +7,9 @@
     "lint": "next lint",
     "encrypt": "node encrypt",
     "decrypt": "node decrypt",
-    "test:workflow": "node -r dotenv/config scripts/manualWorkflow.mjs"
+    "test:workflow": "node -r dotenv/config scripts/manualWorkflow.mjs",
+    "test:hello:settings": "node -r dotenv/config scripts/helloSettings",
+    "test:hello:secrets": "node -r dotenv/config scripts/helloSecrets"
   },
   "dependencies": {
     "@heroicons/react": "^1.0.6",

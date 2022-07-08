@@ -9,7 +9,7 @@ on:
         required: true
 
 jobs:
-  hello:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -18,6 +18,17 @@ jobs:
           node-version: lts/*
           cache: 'npm'
       - run: npm ci
+  lint:
+    needs: build
+    steps:
+      - run: npm run lint
+  test:
+    needs: build
+    steps:
+      - run: npm run build
+  deploy:
+    needs: [lint, test]
+    steps:
       - run: npm run cli:createSocialImage ${{ github.event.inputs.documentId }}
         env:
           SANITY_API_TOKEN: ${{ secrets.SANITY_API_TOKEN }}

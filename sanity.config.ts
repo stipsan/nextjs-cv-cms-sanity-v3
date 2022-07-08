@@ -191,21 +191,34 @@ const config = createConfig({
                     name: 'alt',
                     type: 'string',
                   },
+                  // eyebrow, name, pronouns and role are duplicated here to keep track of when the graphic needs to be recreated whenever something is edited
                   {
+                    title: 'auto.eyebrow',
                     name: 'eyebrow',
                     type: 'string',
+                    hidden: ({ document }) =>
+                      (document?.social as any)?.mode === 'manual',
                   },
                   {
+                    title: 'auto.name',
                     name: 'name',
                     type: 'string',
+                    hidden: ({ document }) =>
+                      (document?.social as any)?.mode === 'manual',
                   },
                   {
+                    title: 'auto.pronouns',
                     name: 'pronouns',
                     type: 'string',
+                    hidden: ({ document }) =>
+                      (document?.social as any)?.mode === 'manual',
                   },
                   {
+                    title: 'auto.role',
                     name: 'role',
                     type: 'string',
+                    hidden: ({ document }) =>
+                      (document?.social as any)?.mode === 'manual',
                   },
                 ],
                 // @TODO figure out how to type this

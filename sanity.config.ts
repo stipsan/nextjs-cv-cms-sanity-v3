@@ -1,6 +1,5 @@
 import {
   getFilteredDocumentTypeListItems,
-  IdStructure,
   withDocumentI18nPlugin,
 } from '@sanity/document-internationalization'
 import { CogIcon, EditIcon, LockIcon, UserIcon } from '@sanity/icons'
@@ -113,7 +112,6 @@ const config = createConfig({
       includeDeskTool: false,
       base: i18n.defaultLocale,
       languages: i18n.locales,
-      idStructure: IdStructure.SUBPATH,
     }
   ),
   projectId,

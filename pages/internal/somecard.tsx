@@ -38,7 +38,7 @@ export async function getStaticProps({ locale, defaultLocale }) {
         profile { name, role, pronouns }
       }
     `,
-    { id: locale === defaultLocale ? 'settings' : `i18n.settings.${locale}` }
+    { id: locale === defaultLocale ? 'settings' : `settings__i18n_${locale}` }
   )
 
   return {

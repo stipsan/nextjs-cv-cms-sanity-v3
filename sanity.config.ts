@@ -145,6 +145,48 @@ const config = createConfig({
                 name: 'pronouns',
                 type: 'string',
               },
+              {
+                title: 'Country',
+                name: 'country',
+                type: 'string',
+              },
+            ],
+          },
+          {
+            title: 'Labels',
+            name: 'label',
+            type: 'object',
+            fields: [
+              {
+                title: 'Address',
+                name: 'address',
+                type: 'string',
+              },
+              {
+                title: 'Email',
+                name: 'email',
+                type: 'string',
+              },
+              {
+                title: 'Phone',
+                name: 'phone',
+                type: 'string',
+              },
+              {
+                title: 'About',
+                name: 'about',
+                type: 'string',
+              },
+              {
+                title: 'Print',
+                name: 'print',
+                type: 'string',
+              },
+              {
+                title: 'Latest',
+                name: 'latest',
+                type: 'string',
+              },
             ],
           },
           {

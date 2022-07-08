@@ -1,3 +1,4 @@
+import createSanityClient from '@sanity/client'
 import Education from 'components/Education'
 import ExperienceStats from 'components/ExperienceStats'
 import ExperienceTimeline from 'components/ExperienceTimeline'
@@ -11,6 +12,7 @@ import { getStaticProps as getStaticOpenSourceStatsProps } from 'components/Open
 import ProfileCard from 'components/ProfileCard'
 import References from 'components/References'
 import UnlockButton from 'components/UnlockButton'
+import { sanity as sanityConfig } from 'env.config.mjs'
 import useUnlocked from 'hooks/useUnlocked'
 import Head from 'next/head'
 import { useTranslations } from 'next-intl'
@@ -72,7 +74,8 @@ export default function Index({
   )
 }
 
-export async function getStaticProps({ locale, locales }) {
+export async function getStaticProps({ locale, locales, defaultLocale }) {
+  const client = createSanityClient(sanityConfig)
   const [
     { displayNames },
     { default: shared },
@@ -80,6 +83,7 @@ export async function getStaticProps({ locale, locales }) {
     { next, react, tailwind },
     { csivWeeklyDownloads, imDependants, rsbsStars },
     { experiences },
+    data,
   ] = await Promise.all([
     getStaticLocaleSwitchProps({ locales }),
     import('messages/en.json'),
@@ -87,8 +91,35 @@ export async function getStaticProps({ locale, locales }) {
     getStaticFooterProps(),
     getStaticOpenSourceStatsProps(),
     getStaticExperienceTimelineProps({ locale }),
+    client.fetch(/* groq */ `*[_id == $id][0]`, {
+      id: locale === defaultLocale ? 'settings' : `settings__i18n_${locale}`,
+    }),
   ])
   const messages = { ...shared, ...local }
+
+  // @TODO move away from next-intl and use a simpler data shape in the future
+  // until then we're patching messages
+  Object.assign(messages.ProfileCard, {
+    name: data?.profile?.name || 'Missing name',
+    role: data?.profile?.role || 'Missing role',
+    title: data?.a11y?.profileCardTitle || messages.ProfileCard.title,
+    metaTitle: data?.meta?.title || messages.ProfileCard.metaTitle,
+    metaDescription:
+      data?.meta?.description || messages.ProfileCard.metaDescription,
+    imageAlt: messages.ProfileCard.imageAlt,
+    address: data?.label?.address || messages.ProfileCard.address,
+    country:data?.profile?.country|| messages.ProfileCard.country,
+    email: data?.label?.email || messages.ProfileCard.email,
+    phone: data?.label?.phone || messages.ProfileCard.phone,
+    subheading: messages.ProfileCard.subheading,
+    pronouns: data?.profile?.pronouns || 'Missing pronouns',
+    about:data?.label?.about ||  messages.ProfileCard.about,
+    profile: messages.ProfileCard.profile,
+    print:data?.label?.print ||  messages.ProfileCard.print,
+    latest: data?.label?.latest || messages.ProfileCard.latest,
+    twitterImageAlt: messages.ProfileCard.twitterImageAlt,
+  })
+
   const now = new Date().getTime()
   return {
     props: {

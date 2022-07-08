@@ -22,7 +22,6 @@
   },
   "ProfileCard": {
     "title": "Profile Overview",
-    "metaTitle": "Cody Olsen's CV",
     "metaDescription": "Full Stack JavaScript Developer & UI designer, passionate about UX & A11Y 💖",
     "imageAlt": "Picture of Cody's face",
     "subheading": "<b>{age}</b> years young, born in <time>{birthday, date}</time>",

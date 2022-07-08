@@ -1,0 +1,24 @@
+name: Create Social Image
+
+on:
+  workflow_dispatch:
+    inputs:
+      documentId:
+        description: 'Either "settings" or a translation id, for example for norwegian use "settings__i18n_no"'
+        default: 'settings'
+        required: true
+
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run cli:createSocialImage ${{ github.event.inputs.documentId }}
+        env:
+          SANITY_API_TOKEN: ${{ secrets.SANITY_API_TOKEN }}
+          SANITY_API_WRITE_TOKEN: ${{ secrets.SANITY_API_WRITE_TOKEN }}

@@ -1,14 +1,33 @@
-// @ts-check
+/**
+ * This creates and uploads a social image graphic to Sanity:
+ * 1. Check if creating a new graphic is necessary, unless `force = true`
+ * 2. Check if puppeteer can be used.
+ * 3. Render the graphic.
+ * 4. Screenshot and upload.
+ */
 
-// This weird || dance is to make TypeScript happy as there is a bug in the type defs
-const createSanityClient =
-  require('@sanity/client')?.default || require('@sanity/client')
+import createSanityClient from '@sanity/client'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 async function main({ argv }) {
-  // @TODO use argv to maybe
-  // - run: node scripts/helloSettings ${{ github.event.inputs.documentId }}
-  // just so it's easier to reuse
-  // maybe use https://github.com/vercel/arg to parse the args
+  // @TODO maybe use https://github.com/vercel/arg to parse the args
+  const [, , documentId] = argv
+
+  if (!documentId) {
+    throw new TypeError('No documentId provided')
+  }
+
+  if (
+    documentId !== 'settings' &&
+    !documentId.startsWith?.('settings__i18n_')
+  ) {
+    throw new TypeError(
+      'documentId must be either "settings" or start with "settings__i18n_"'
+    )
+  }
+
   const { sanity: sanityConfig } = await import('../env.config.mjs')
 
   const { projectId, dataset, apiVersion, useCdn, token } = sanityConfig
@@ -25,10 +44,13 @@ async function main({ argv }) {
     token,
   })
 
-  const data = await client.fetch(/* groq */ `*[_id == "settings"][0]{
+  const data = await client.fetch(
+    /* groq */ `*[_id == $id][0]{
       _id,
       hello,
-    }`)
+    }`,
+    { id: documentId }
+  )
   console.log(data)
 
   if (!data?._id) {

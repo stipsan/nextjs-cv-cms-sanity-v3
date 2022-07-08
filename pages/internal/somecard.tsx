@@ -10,7 +10,7 @@ export default function SocialMediaCardPage({ data }) {
 
   return (
     <div
-      className="flex items-center justify-center w-full h-screen overflow-auto bg-black cursor-pointer group"
+      className="group flex h-screen w-full cursor-pointer items-center justify-center overflow-auto bg-black"
       title="Click to switch locale"
       onClick={() =>
         router.push(router.route, router.route, {

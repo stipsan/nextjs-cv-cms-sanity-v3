@@ -305,6 +305,7 @@ const config = createConfig({
         title: 'Secrets',
         name: 'secrets',
         type: 'document',
+        preview: { prepare: () => ({ title: 'Secrets' }) },
         fields: [
           {
             title: 'Hello',

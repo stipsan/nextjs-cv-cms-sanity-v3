@@ -3,12 +3,13 @@ import {
   IdStructure,
   withDocumentI18nPlugin,
 } from '@sanity/document-internationalization'
-import { CogIcon, LockIcon } from '@sanity/icons'
+import { CogIcon, EditIcon, LockIcon, UserIcon } from '@sanity/icons'
 import { createConfig } from 'sanity'
 import { deskTool } from 'sanity/desk'
 
+import SocialMediaCardPreview from './components/SocialMediaCardPreview'
 import { sanity as sanityConfig } from './env.config.mjs'
-import i18n from './intl.config.cjs'
+import i18n from './intl.config.json'
 
 const { projectId, dataset } = sanityConfig
 const STRUCTURE_CUSTOM_TYPES = ['settings', 'secrets']
@@ -17,6 +18,24 @@ const config = createConfig({
   basePath: '/studio',
   name: 'CV',
   document: {
+    /* @TODO setup this later when secrets are implemented
+    productionUrl: async (prev, context) => {
+      debugger
+      return 'https://cv.creativecody.dev/'
+    },
+    // */
+    actions: (prev, { schemaType }) => {
+      if (schemaType === 'secrets') {
+        return prev.filter(({ action }) => action !== 'duplicate')
+      }
+      if (schemaType === 'settings') {
+        return prev.filter(
+          ({ action }) => action !== 'unpublish' && action !== 'duplicate'
+        )
+      }
+
+      return prev
+    },
     newDocumentOptions: (prev, { creationContext }) => {
       if (creationContext.type === 'global') {
         return prev.filter(
@@ -41,8 +60,14 @@ const config = createConfig({
               S.document()
                 .schemaType('settings')
                 .documentId('settings')
-                .title('why')
-                .views([S.view.form(), S.view.form().id('foo').title('Hi')])
+                .views([
+                  S.view.form().icon(EditIcon),
+                  S.view
+                    .component(SocialMediaCardPreview)
+                    .icon(UserIcon)
+                    .id('somecard')
+                    .title('Social preview'),
+                ])
             )
           // Like Settings but private, prefixing with `private.` ensures it can't be queried unless by an authenticated user with access to the dataset, like drafts
           const secretsListItem = S.listItem()
@@ -174,8 +199,6 @@ const config = createConfig({
         title: 'Experience',
         name: 'experience',
         type: 'document',
-        // @ts-expect-error -- typings don't understand i18n yet
-        i18n: true,
         fields: [
           {
             title: 'Role',
@@ -227,8 +250,6 @@ const config = createConfig({
         title: 'Education',
         name: 'education',
         type: 'document',
-        // @ts-expect-error -- typings don't understand i18n yet
-        i18n: true,
         fields: [
           {
             title: 'School',

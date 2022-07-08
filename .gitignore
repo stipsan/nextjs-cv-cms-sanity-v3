@@ -116,3 +116,4 @@ data.json
 .vercel
 public/studio/*
 studio/.env.development
+.sanity

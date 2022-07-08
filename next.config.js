@@ -1,6 +1,6 @@
 // @ts-check
 
-const i18n = require('./intl.config.cjs')
+const i18n = require('./intl.config.json')
 
 /**
  * @type {import('next').NextConfig}

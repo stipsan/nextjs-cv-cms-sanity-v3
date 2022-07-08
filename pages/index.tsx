@@ -69,7 +69,13 @@ export default function Index({
         />
         <References unlocked={unlocked} />
         <Education />
-        <Footer then={then} next={next} react={react} tailwind={tailwind} sanity={sanity} />
+        <Footer
+          then={then}
+          next={next}
+          react={react}
+          tailwind={tailwind}
+          sanity={sanity}
+        />
       </main>
     </>
   )

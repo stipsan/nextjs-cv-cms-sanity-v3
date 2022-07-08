@@ -153,8 +153,73 @@ const config = createConfig({
             ],
           },
           {
+            title: 'Social',
+            name: 'social',
+            type: 'object',
+            description:
+              'Stand out from the crowd of CV links by adding a beatiful image with a brief summary of your profile',
+            fields: [
+              {
+                title: 'Mode',
+                name: 'mode',
+                type: 'string',
+                initialValue: 'auto',
+                options: {
+                  list: [
+                    { title: 'Auto', value: 'auto' },
+                    { title: 'Manual', value: 'manual' },
+                  ],
+                  layout: 'radio',
+                  direction: 'horizontal',
+                },
+              },
+              {
+                title: 'Image',
+                name: 'image',
+                type: 'image',
+                options: {
+                  // Save some resources by not processing the image as we know we won't be using blurhash or lqip
+                  //https://www.sanity.io/docs/image-metadata
+                  metadata: ['palette'],
+                  hotspot: true,
+                  // Only care about excluding SVG tbh, but since input[type="file"].accept only lets us specify an allowlist it's necessary to best-guess
+                  accept: ['image/jpeg', 'image/png'],
+                },
+                fields: [
+                  {
+                    title: 'Alt text',
+                    name: 'alt',
+                    type: 'string',
+                  },
+                  {
+                    name: 'eyebrow',
+                    type: 'string',
+                  },
+                  {
+                    name: 'name',
+                    type: 'string',
+                  },
+                  {
+                    name: 'pronouns',
+                    type: 'string',
+                  },
+                  {
+                    name: 'role',
+                    type: 'string',
+                  },
+                ],
+                // @TODO figure out how to type this
+                hidden: ({ document }) => !(document?.social as any)?.mode,
+                readOnly: ({ document }) =>
+                  (document?.social as any)?.mode === 'auto',
+              },
+            ],
+          },
+          {
             title: 'Labels',
             name: 'label',
+            description:
+              "Translate UI text, don't put content here, unless you really want to!",
             type: 'object',
             fields: [
               {
@@ -203,6 +268,13 @@ const config = createConfig({
                 title: 'Description',
                 name: 'description',
                 type: 'string',
+              },
+              {
+                title: 'Twitter',
+                name: 'twitter',
+                type: 'string',
+                description: 'Just the @username, not the URL',
+                // @TODO validate if the handle is prefixed with @
               },
             ],
           },

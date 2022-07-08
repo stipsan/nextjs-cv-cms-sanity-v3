@@ -141,6 +141,11 @@ const config = createConfig({
                 name: 'role',
                 type: 'string',
               },
+              {
+                title: 'Pronouns',
+                name: 'pronouns',
+                type: 'string',
+              },
             ],
           },
           {

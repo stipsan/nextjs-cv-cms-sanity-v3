@@ -22,8 +22,6 @@
   },
   "ProfileCard": {
     "title": "Personalia",
-    "metaTitle": "Cody Olsens CV",
-    "metaDescription": "Fullstack JavaScript-utvikler og UI-designer, brenner for UX og A11Y 💖",
     "imageAlt": "Bilde av Cody's ansikt",
     "subheading": "<b>{age}</b> år ung, født i <time>{birthday, date}</time>",
     "profile": "I'm a Full Stack JavaScript developer and a UI designer. <br />I have a background in graphic design, iconography, motion design, and UX. I started learning JS when I was 18 and haven't stopped since. <br /><br />I'm active in the Open Source Community and maintain a few packages of my own. <br /><br />I care a lot about Accessibility and often take the initiative in implementing fixes. I've also led workshops to train staff to test the user experience for people relying on assistive tech. Teach them how to navigate by keyboard only, use a Screen Reader, design for color blindness, and more. <br /><br />I don't mind taking one for the team and doing work nobody wants to do, as long as I get to design or animate something now and then 😉",

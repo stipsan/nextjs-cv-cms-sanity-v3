@@ -166,7 +166,7 @@ const Tag = ({
   >
     <span className="inline-block px-2 py-1">{name}</span>
     <span className="inline-block rounded-r bg-cyan-700 px-2 py-1 text-slate-50">
-      {version}
+      v{version.split('.')[0]}
     </span>
   </a>
 )

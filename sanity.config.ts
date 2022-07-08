@@ -293,12 +293,6 @@ const config = createConfig({
               },
             ],
           },
-          {
-            title: 'Hello',
-            name: 'hello',
-            type: 'string',
-            description: 'Publish this to anything but "Edge"',
-          },
         ],
       },
       {

@@ -25,6 +25,7 @@ export default function Index({
   next,
   react,
   tailwind,
+  sanity,
   csivWeeklyDownloads,
   imDependants,
   rsbsStars,
@@ -68,7 +69,7 @@ export default function Index({
         />
         <References unlocked={unlocked} />
         <Education />
-        <Footer then={then} next={next} react={react} tailwind={tailwind} />
+        <Footer then={then} next={next} react={react} tailwind={tailwind} sanity={sanity} />
       </main>
     </>
   )
@@ -80,7 +81,7 @@ export async function getStaticProps({ locale, locales, defaultLocale }) {
     { displayNames },
     { default: shared },
     { default: local },
-    { next, react, tailwind },
+    { next, react, tailwind, sanity },
     { csivWeeklyDownloads, imDependants, rsbsStars },
     { experiences },
     data,
@@ -128,6 +129,7 @@ export async function getStaticProps({ locale, locales, defaultLocale }) {
       next,
       react,
       tailwind,
+      sanity,
       csivWeeklyDownloads,
       rsbsStars,
       imDependants,

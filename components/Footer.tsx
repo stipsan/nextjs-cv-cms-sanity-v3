@@ -8,12 +8,14 @@ type FooterProps = {
   next: string
   react: string
   tailwind: string
+  sanity: string
 }
 export default memo(function Footer({
   then,
   next,
   react,
   tailwind,
+  sanity,
 }: FooterProps) {
   const t = useTranslations('Footer')
   const intl = useIntl()
@@ -77,6 +79,7 @@ export default memo(function Footer({
       <div className="mt-3 grid grid-flow-col justify-center gap-3">
         <Tag name="next" version={next} url="https://nextjs.org/" />
         <Tag name="react" version={react} url="https://reactjs.org/" />
+        <Tag name="sanity" version={sanity} url="https://sanity.io/" />
         <Tag
           name="tailwind"
           version={tailwind}

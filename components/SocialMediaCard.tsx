@@ -59,8 +59,8 @@ export default function SocialMediaCard({
       }}
       onClick={(event) => event.stopPropagation()}
     >
-      <article className="flex items-center p-10 space-x-5 rounded-full bg-black/50 backdrop-blur-xl backdrop-saturate-200">
-        <div className="relative flex-shrink-0 block w-64 h-64 mx-auto rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2">
+      <article className="flex items-center space-x-5 rounded-full bg-black/50 p-10 backdrop-blur-xl backdrop-saturate-200">
+        <div className="relative mx-auto block h-64 w-64 flex-shrink-0 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2">
           <Image
             className="rounded-full "
             src={headshot}
@@ -72,13 +72,13 @@ export default function SocialMediaCard({
           <span className="absolute top-0 bottom-0 left-0 right-0 block rounded-full bg-cyan-700 opacity-70 mix-blend-screen" />
         </div>
         <div className="flex flex-col pl-6 pr-12 text-4xl font-medium leading-10 text-cyan-100">
-          <div className="text-transparent bg-gradient-to-r from-sky-100 to-teal-200 bg-clip-text">
+          <div className="bg-gradient-to-r from-sky-100 to-teal-200 bg-clip-text text-transparent">
             {eyebrow}
           </div>
-          <div className="pt-3 pb-6 font-bold text-transparent bg-gradient-to-r from-sky-100 to-teal-400 bg-clip-text text-9xl">
+          <div className="bg-gradient-to-r from-sky-100 to-teal-400 bg-clip-text pt-3 pb-6 text-9xl font-bold text-transparent">
             {name}
           </div>
-          <div className="text-transparent bg-gradient-to-r from-sky-100 to-teal-400 bg-clip-text">
+          <div className="bg-gradient-to-r from-sky-100 to-teal-400 bg-clip-text text-transparent">
             {pronouns} • {role}
           </div>
         </div>

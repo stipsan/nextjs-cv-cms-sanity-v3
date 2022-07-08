@@ -1,4 +1,6 @@
+import createSanityClient from '@sanity/client'
 import SocialMediaCard from 'components/SocialMediaCard'
+import { sanity as sanityConfig } from 'env.config.mjs'
 import { useRouter } from 'next/router'
 import { useTranslations } from 'next-intl'
 import headshot from 'public/headshot.jpeg'
@@ -19,9 +21,9 @@ export default function SocialMediaCardPage({ data }) {
       }
     >
       <SocialMediaCard
-        className='w-[1280px] transition-transform duration-500 transform-gpu active:scale-50'
+        className="w-[1280px] transform-gpu transition-transform duration-500 active:scale-50"
         eyebrow={data?.eyebrow}
-        name={data?.name}
+        name={t('name')}
         headshot={headshot}
         pronouns={t('pronouns')}
         role={t('role')}
@@ -31,25 +33,46 @@ export default function SocialMediaCardPage({ data }) {
 }
 
 export async function getStaticProps({ locale }) {
+  const { projectId, dataset, apiVersion, useCdn, token } = sanityConfig
+  const client = createSanityClient({
+    projectId,
+    dataset,
+    apiVersion,
+    useCdn,
+    token,
+  })
+  const [en, no] = await Promise.all([
+    client.fetch(/* groq */ `
+      *[_id == "settings"][0]{
+        profile { name, role, pronouns }
+      }`),
+    client.fetch(/* groq */ `
+      *[_id == "i18n.settings.no"][0]{
+        profile { name, role, pronouns }
+      }`),
+  ])
+
   const messages = {
     en: {
       SocialMediaCard: {
-        pronouns: 'He/him',
-        role: 'Full Stack Engineer',
+        name: en?.profile?.name || 'Untitled',
+        pronouns: en?.profile?.pronouns || 'They/them',
+        role: en?.profile?.role || 'Unemployed',
       },
     },
     no: {
       SocialMediaCard: {
-        pronouns: 'Han/ham',
-        role: 'Fullstack Utvikler',
+        name: no?.profile?.name || 'Uten navn',
+        pronouns: no?.profile?.pronouns || 'Hen',
+        role: no?.profile?.role || 'Arbeidsledig',
       },
     },
   }
-
+  debugger
   return {
     props: {
       messages: messages[locale],
-      data: { eyebrow: 'Curriculum Vitae', name: 'Cody Olsen' },
+      data: { eyebrow: 'Curriculum Vitae' },
     },
   }
 }

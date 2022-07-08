@@ -13,7 +13,7 @@ export default function SocialMediaCardPreview(props: any) {
     >
       <SocialMediaCard
         // className='w-[500px]'
-        className='w-[1280px] scale-[0.4] -translate-x-[30%] -translate-y-1/4'
+        className="w-[1280px] -translate-x-[30%] -translate-y-1/4 scale-[0.4]"
         eyebrow="Curriculum Vitae"
         name={props.document?.displayed?.profile?.name || 'Untitled'}
         pronouns={props.document?.displayed?.profile?.pronouns || 'They/them'}

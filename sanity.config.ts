@@ -65,7 +65,6 @@ const config = createConfig({
                   S.view
                     .component(SocialMediaCardPreview)
                     .icon(UserIcon)
-                    .id('somecard')
                     .title('Social preview'),
                 ])
             )
@@ -97,15 +96,17 @@ const config = createConfig({
               ...defaultListItems,
             ])
         },
-        /*
-      defaultDocumentNode: (S, { schemaType, documentId }) => {
-        if (documentId === 'settings') {
-          return S.document()
-            .title('why')
-            .views([S.view.form(), S.view.form().title('Hi')])
-        }
-      },
-      // */
+        defaultDocumentNode: (S, { schemaType, documentId }) => {
+          if (schemaType === 'settings') {
+            return S.document().views([
+              S.view.form().icon(EditIcon),
+              S.view
+                .component(SocialMediaCardPreview)
+                .icon(UserIcon)
+                .title('Social preview'),
+            ])
+          }
+        },
       }),
     ],
     {

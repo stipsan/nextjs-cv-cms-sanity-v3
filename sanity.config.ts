@@ -189,7 +189,8 @@ const config = createConfig({
                   {
                     title: 'Alt text',
                     name: 'alt',
-                    type: 'string',
+                    type: 'text',
+                    rows: 2,
                   },
                   // eyebrow, name, pronouns and role are duplicated here to keep track of when the graphic needs to be recreated whenever something is edited
                   {

@@ -190,6 +190,23 @@ const config = createConfig({
             ],
           },
           {
+            title: 'Meta',
+            name: 'meta',
+            type: 'object',
+            fields: [
+              {
+                title: 'Title',
+                name: 'title',
+                type: 'string',
+              },
+              {
+                title: 'Description',
+                name: 'description',
+                type: 'string',
+              },
+            ],
+          },
+          {
             title: 'Hello',
             name: 'hello',
             type: 'string',

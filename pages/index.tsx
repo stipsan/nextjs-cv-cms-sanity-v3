@@ -107,16 +107,16 @@ export async function getStaticProps({ locale, locales, defaultLocale }) {
     metaDescription:
       data?.meta?.description || messages.ProfileCard.metaDescription,
     imageAlt: messages.ProfileCard.imageAlt,
-    address: data?.label?.address || messages.ProfileCard.address,
-    country:data?.profile?.country|| messages.ProfileCard.country,
-    email: data?.label?.email || messages.ProfileCard.email,
-    phone: data?.label?.phone || messages.ProfileCard.phone,
+    address: data?.label?.address || 'Missing label',
+    country: data?.profile?.country || messages.ProfileCard.country,
+    email: data?.label?.email || 'Missing label',
+    phone: data?.label?.phone || 'Missing label',
     subheading: messages.ProfileCard.subheading,
     pronouns: data?.profile?.pronouns || 'Missing pronouns',
-    about:data?.label?.about ||  messages.ProfileCard.about,
+    about: data?.label?.about || 'Missing label',
     profile: messages.ProfileCard.profile,
-    print:data?.label?.print ||  messages.ProfileCard.print,
-    latest: data?.label?.latest || messages.ProfileCard.latest,
+    print: data?.label?.print || 'Missing label',
+    latest: data?.label?.latest || 'Missing label',
     twitterImageAlt: messages.ProfileCard.twitterImageAlt,
   })
 

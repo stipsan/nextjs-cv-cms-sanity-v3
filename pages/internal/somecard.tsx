@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl'
 import headshot from 'public/headshot.jpeg'
 
 // @TODO refactor to output as SVG
-export default function SocialMediaCardPage({data}) {
+export default function SocialMediaCardPage({ data }) {
   const t = useTranslations('SocialMediaCard')
   const router = useRouter()
 
@@ -18,12 +18,13 @@ export default function SocialMediaCardPage({data}) {
         })
       }
     >
-      <SocialMediaCard 
-      eyebrow={data?.eyebrow}
-      name={data?.name}
-      headshot={headshot}
-      pronouns={t('pronouns')}
-      role={t('role')}
+      <SocialMediaCard
+        className='w-[1280px] transition-transform duration-500 transform-gpu active:scale-50'
+        eyebrow={data?.eyebrow}
+        name={data?.name}
+        headshot={headshot}
+        pronouns={t('pronouns')}
+        role={t('role')}
       />
     </div>
   )
@@ -46,6 +47,9 @@ export async function getStaticProps({ locale }) {
   }
 
   return {
-    props: { messages: messages[locale], data: {eyebrow: 'Curriculum Vitae', name: "Cody Olsen"} },
+    props: {
+      messages: messages[locale],
+      data: { eyebrow: 'Curriculum Vitae', name: 'Cody Olsen' },
+    },
   }
 }

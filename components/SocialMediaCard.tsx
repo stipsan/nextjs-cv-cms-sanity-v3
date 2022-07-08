@@ -1,26 +1,34 @@
 import Image from 'next/image'
 
 interface Props {
+  className?: string
   eyebrow: string
-  name: string,
-  pronouns: string,
-  role: string,
+  name: string
+  pronouns: string
+  role: string
   headshot: {
-    src: string,
+    src: string
     height: number
     width: number
   }
 }
-export default function SocialMediaCard({eyebrow, name, pronouns, role, headshot}: Props) {
+export default function SocialMediaCard({
+  className = '',
+  eyebrow,
+  name,
+  pronouns,
+  role,
+  headshot,
+}: Props) {
   return (
-      <div
-        // Should look good at 500px width, scale(0.4)
-        className="flex h-[640px] w-[1280px] flex-shrink-0 transform-gpu items-center justify-center transition-transform duration-500 active:scale-50"
-        style={{
-          // First bg concept https://www.joshwcomeau.com/gradient-generator?colors=0990a7|63f2e3|000000&angle=135&colorMode=hcl&precision=15&easingCurve=1.1|1|-0.1|0
-          // Remade version uses: bg-cyan-600, bg-cyan-100, bg-cyan-300, bg-cyan-900, bg-black
-          // https://www.joshwcomeau.com/gradient-generator?colors=0891b2|cffafe|67e8f9|164e63|000000&angle=135&colorMode=hcl&precision=20&easingCurve=1.1|1|-0.1|0
-          backgroundImage: `linear-gradient(
+    <div
+      // Should look good at 500px width, scale(0.4)
+      className={`${className} flex aspect-[1280/640] flex-shrink-0 items-center justify-center`}
+      style={{
+        // First bg concept https://www.joshwcomeau.com/gradient-generator?colors=0990a7|63f2e3|000000&angle=135&colorMode=hcl&precision=15&easingCurve=1.1|1|-0.1|0
+        // Remade version uses: bg-cyan-600, bg-cyan-100, bg-cyan-300, bg-cyan-900, bg-black
+        // https://www.joshwcomeau.com/gradient-generator?colors=0891b2|cffafe|67e8f9|164e63|000000&angle=135&colorMode=hcl&precision=20&easingCurve=1.1|1|-0.1|0
+        backgroundImage: `linear-gradient(
           135deg,
           hsl(192deg 91% 36%) 1%,
           hsl(193deg 49% 50%) 31%,
@@ -48,33 +56,33 @@ export default function SocialMediaCard({eyebrow, name, pronouns, role, headshot
           hsl(205deg 100% 8%) 69%,
           hsl(0deg 0% 0%) 99%
         )`,
-        }}
-        onClick={(event) => event.stopPropagation()}
-      >
-        <article className="flex items-center p-10 space-x-5 rounded-full bg-black/50 backdrop-blur-xl backdrop-saturate-200">
-          <div className="relative flex-shrink-0 block w-64 h-64 mx-auto rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2">
-            <Image
-              className="rounded-full "
-              src={headshot}
-              alt=""
-              priority
-              height={256}
-              width={256}
-            />
-            <span className="absolute top-0 bottom-0 left-0 right-0 block rounded-full bg-cyan-700 opacity-70 mix-blend-screen" />
+      }}
+      onClick={(event) => event.stopPropagation()}
+    >
+      <article className="flex items-center p-10 space-x-5 rounded-full bg-black/50 backdrop-blur-xl backdrop-saturate-200">
+        <div className="relative flex-shrink-0 block w-64 h-64 mx-auto rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2">
+          <Image
+            className="rounded-full "
+            src={headshot}
+            alt=""
+            priority
+            height={256}
+            width={256}
+          />
+          <span className="absolute top-0 bottom-0 left-0 right-0 block rounded-full bg-cyan-700 opacity-70 mix-blend-screen" />
+        </div>
+        <div className="flex flex-col pl-6 pr-12 text-4xl font-medium leading-10 text-cyan-100">
+          <div className="text-transparent bg-gradient-to-r from-sky-100 to-teal-200 bg-clip-text">
+            {eyebrow}
           </div>
-          <div className="flex flex-col pl-6 pr-12 text-4xl font-medium leading-10 text-cyan-100">
-            <div className="text-transparent bg-gradient-to-r from-sky-100 to-teal-200 bg-clip-text">
-              {eyebrow}
-            </div>
-            <div className="pt-3 pb-6 font-bold text-transparent bg-gradient-to-r from-sky-100 to-teal-400 bg-clip-text text-9xl">
-              {name}
-            </div>
-            <div className="text-transparent bg-gradient-to-r from-sky-100 to-teal-400 bg-clip-text">
-              {pronouns} • {role}
-            </div>
+          <div className="pt-3 pb-6 font-bold text-transparent bg-gradient-to-r from-sky-100 to-teal-400 bg-clip-text text-9xl">
+            {name}
           </div>
-        </article>
-      </div>
+          <div className="text-transparent bg-gradient-to-r from-sky-100 to-teal-400 bg-clip-text">
+            {pronouns} • {role}
+          </div>
+        </div>
+      </article>
+    </div>
   )
 }

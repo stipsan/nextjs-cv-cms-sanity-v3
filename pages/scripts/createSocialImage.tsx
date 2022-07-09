@@ -18,7 +18,7 @@ export default function CreateSocialImagePage({ data }) {
   )
 }
 
-export async function getServerProps({ locale, defaultLocale }) {
+export async function getServerSideProps({ locale, defaultLocale }) {
   const client = createSanityClient(sanityConfig)
   const data = await client.fetch(
     /* groq */ `

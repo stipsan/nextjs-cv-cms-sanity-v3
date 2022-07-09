@@ -38,7 +38,7 @@ const handler = async (req: NextRequest) => {
       },
       body: JSON.stringify({
         ref: github.ref,
-        inputs: { documentId },
+        inputs: { documentId, force: false },
       }),
     }
   )

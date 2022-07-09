@@ -22,6 +22,10 @@ jobs:
         with:
           node-version: lts/*
           cache: 'npm'
+      - uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
       - run: npm ci
       - run: npm run cli:createSocialImage ${{ github.event.inputs.documentId }}
         env:

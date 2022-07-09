@@ -1,5 +1,3 @@
-// @ts-check
-
 export function isSocialImageDifferent(data) {
   if (
     (data.social?.eyebrow || data.social?.image?.eyebrow) &&

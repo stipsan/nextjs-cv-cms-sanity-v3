@@ -12,7 +12,7 @@ import dotenv from 'dotenv'
 import puppeteer from 'puppeteer-core'
 
 import { defaultLocale } from '../intl.config.json'
-import { isSocialImageDifferent } from './utils.mjs'
+import { isSocialImageDifferent } from './utils'
 
 dotenv.config()
 

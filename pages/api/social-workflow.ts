@@ -1,7 +1,8 @@
 import type { NextRequest } from 'next/server'
 
 import { github } from '../../env.config.mjs'
-import { isSocialImageDifferent } from '../../scripts/utils.mjs'
+//@ts-expect-error -- this is intentional
+import { isSocialImageDifferent } from '../../scripts/utils.ts'
 
 export const config = {
   runtime: 'experimental-edge',

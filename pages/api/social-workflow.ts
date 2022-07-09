@@ -23,7 +23,7 @@ const handler = async (req: NextRequest) => {
 
   if (!isSocialImageDifferent(data)) {
     return new Response('', {
-      status: 304,
+      status: 204,
     })
   }
 

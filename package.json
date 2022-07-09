@@ -6,6 +6,7 @@
     "decrypt": "node decrypt",
     "dev": "next dev",
     "encrypt": "node encrypt",
+    "format": "npx prettier --write . && npm run lint -- --fix",
     "lint": "next lint",
     "start": "next start",
     "test:hello:secrets": "node -r dotenv/config scripts/helloSecrets",

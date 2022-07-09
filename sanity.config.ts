@@ -222,6 +222,8 @@ const config = createConfig({
                 name: 'image',
                 type: 'image',
                 options: {
+                  // gc uses specific filenames, this option allows manually testing the gc manually
+                  storeOriginalFilename: true,
                   // Save some resources by not processing the image as we know we won't be using blurhash or lqip
                   //https://www.sanity.io/docs/image-metadata
                   metadata: ['palette'],

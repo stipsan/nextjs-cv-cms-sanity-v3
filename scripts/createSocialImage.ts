@@ -163,6 +163,7 @@ async function main({ argv }) {
     `/${locale}/scripts/createSocialImage?secret=${process.env.WORKFLOW_DISPATCH_SECRET}`,
     'https://cv.creativecody.dev/'
   )
+  const screenshotStart = new Date()
   const file = await getScreenshot({
     url: url.toString(),
     timeout: 30000,
@@ -173,6 +174,11 @@ async function main({ argv }) {
       deviceScaleFactor: 2,
     },
   })
+  console.log(
+    `Took ${Math.ceil(
+      (new Date().getTime() - screenshotStart.getTime()) / 1000
+    )}s to grab screenshot`
+  )
 
   // @TODO check if needed to update
   /*

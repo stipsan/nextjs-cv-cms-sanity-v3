@@ -208,11 +208,11 @@ async function main({ argv }) {
         _ref: imageAsset._id,
       },
       'social.image.alt': `A profile graphic featuring a headshot of ${data.social?.name}, and the text: ${data.social?.eyebrow}, ${data.social?.name}, ${data.social?.pronouns} and ${data.social?.role}`,
-      'social.image.headshot': data.social?.headshot?.asset?._ref,
-      'social.image.eyebrow': data.social?.eyebrow,
-      'social.image.name': data.social?.name,
-      'social.image.pronouns': data.social?.pronouns,
-      'social.image.role': data.social?.role,
+      'social.image.headshot': data.social?.headshot?.asset?._ref || '',
+      'social.image.eyebrow': data.social?.eyebrow || '',
+      'social.image.name': data.social?.name || '',
+      'social.image.pronouns': data.social?.pronouns || '',
+      'social.image.role': data.social?.role || '',
     })
     .commit()
   console.log('Done patching!')

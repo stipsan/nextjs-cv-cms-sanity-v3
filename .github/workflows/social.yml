@@ -8,13 +8,13 @@ on:
         default: 'settings'
         required: true
       force:
-        description: "Skip the isDifferent check and upload an image even if it's likely the same as the current one"
+        description: "Skip the isDifferent check"
         type: boolean
         required: false
 
 jobs:
   build:
-    name: ${{ github.event.inputs.documentId }}
+    name: ${{ github.event.inputs.documentId }}-${{ github.event.inputs.force }}
     # runs-on: ubuntu-latest
     # Use the macos machine for now as it has the SF font
     runs-on: macos-latest

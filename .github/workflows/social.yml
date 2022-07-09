@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    name: build ${{ github.event.inputs.documentId }}
+    name: ${{ github.event.inputs.documentId }}
     # runs-on: ubuntu-latest
     # Use the macos machine for now as it has the SF font
     runs-on: macos-latest

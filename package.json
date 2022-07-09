@@ -2,6 +2,9 @@
   "private": true,
   "scripts": {
     "build": "next build",
+    "prebuild:ci": "npx rimraf blazing-scripts",
+    "build:ci": "node scripts/buildBlazingScripts.mjs",
+    "ci:createSocialImage": "node blazing-scripts/createSocialImage.js",
     "cli:createSocialImage": "node -r esbuild-register scripts/createSocialImage.ts",
     "decrypt": "node decrypt",
     "dev": "next dev",
@@ -39,6 +42,8 @@
     "styled-components": "^5.3.5"
   },
   "devDependencies": {
+    "@esbuild-plugins/node-globals-polyfill": "^0.1.1",
+    "@esbuild-plugins/node-modules-polyfill": "^0.1.4",
     "@types/node": "^18.0.3",
     "@types/react": "^18.0.15",
     "@types/styled-components": "^5.1.25",
@@ -46,6 +51,7 @@
     "chrome-aws-lambda": "^10.1.0",
     "dotenv": "^16.0.1",
     "esbuild": "^0.14.48",
+    "esbuild-plugin-alias": "^0.2.1",
     "esbuild-register": "^3.3.3",
     "eslint": "^8.19.0",
     "eslint-config-next": "^12.2.1",

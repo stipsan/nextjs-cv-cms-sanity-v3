@@ -28,11 +28,11 @@ export async function getStaticProps({ locale, defaultLocale }) {
             "src": url,
             "height": metadata.dimensions.height,
             "width": metadata.dimensions.width
-          }, 
-          eyebrow, 
-          name, 
-          role, 
-          pronouns, 
+          },
+          eyebrow,
+          name,
+          role,
+          pronouns,
         }
       }
     `,

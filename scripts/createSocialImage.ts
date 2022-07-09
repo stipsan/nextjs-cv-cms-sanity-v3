@@ -7,9 +7,79 @@
  */
 
 import createSanityClient from '@sanity/client'
+import chrome from 'chrome-aws-lambda'
 import dotenv from 'dotenv'
+import puppeteer from 'puppeteer-core'
+
+import { defaultLocale } from '../intl.config.json'
 
 dotenv.config()
+
+/** The code below determines the executable location for Chrome to
+ * start up and take the screenshot when running a local development environment.
+ *
+ * If the code is running on Windows, find chrome.exe in the default location.
+ * If the code is running on Linux, find the Chrome installation in the default location.
+ * If the code is running on MacOS, find the Chrome installation in the default location.
+ * You may need to update this code when running it locally depending on the location of
+ * your Chrome installation on your operating system.
+ */
+
+const exePath =
+  process.platform === 'win32'
+    ? 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe'
+    : process.platform === 'linux'
+    ? '/usr/bin/google-chrome'
+    : '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
+
+async function getOptions(isDev: boolean) {
+  let options
+  if (isDev) {
+    options = {
+      args: ['--disable-dev-shm-usage'],
+      executablePath: exePath,
+      headless: true,
+    }
+  } else {
+    options = {
+      args: [...chrome.args, '--disable-dev-shm-usage'],
+      executablePath: await chrome.executablePath,
+      headless: chrome.headless,
+    }
+  }
+  return options
+}
+
+const isDev = !process.env.AWS_REGION
+
+async function getScreenshot({
+  url,
+  timeout,
+  idleTime,
+  viewport = chrome.defaultViewport,
+}: {
+  url: string
+  timeout: number
+  idleTime: number
+  viewport?: puppeteer.Viewport
+}) {
+  const options = await getOptions(isDev)
+  const browser = await puppeteer.launch(options)
+  const page = await browser.newPage()
+  console.info('page.setViewport', viewport)
+  await page.setViewport(viewport)
+  console.info(`page.goto(${url})`)
+  await page.goto(url)
+  try {
+    console.info('waitForNetworkIdle')
+    await page.waitForNetworkIdle({ timeout, idleTime })
+  } catch {
+    console.info('waitForNetworkIdle timed out')
+  }
+
+  // 📸
+  return page.screenshot({ type: 'png' })
+}
 
 async function main({ argv }) {
   // @TODO maybe use https://github.com/vercel/arg to parse the args
@@ -47,7 +117,13 @@ async function main({ argv }) {
   const data = await client.fetch(
     /* groq */ `*[_id == $id][0]{
       _id,
-      hello,
+      social {
+        headshot,
+        eyebrow,
+        name,
+        role,
+        pronouns,
+      }
     }`,
     { id: documentId }
   )
@@ -58,12 +134,33 @@ async function main({ argv }) {
     throw new Error('Missing _id!')
   }
 
+  const locale =
+    data._id === 'settings'
+      ? defaultLocale
+      : data._id.replace('settings__i18n_', '')
+  const url = new URL(
+    `/${locale}/scripts/createSocialImage`,
+    'https://cv.creativecody.dev/'
+  )
+  const file = await getScreenshot({
+    url: url.toString(),
+    timeout: 30000,
+    idleTime: 3000,
+    viewport: {
+      width: 1280,
+      height: 640,
+    },
+  })
+
+  // @TODO check if needed to update
+  /*
   if (data?.hello === 'Edge') {
     console.log(
       'Skipping, as "hello" is already "Edge" in the published document'
     )
     return 0
   }
+  // */
 
   const writeToken = process.env.SANITY_API_WRITE_TOKEN
   if (!writeToken) {
@@ -71,9 +168,38 @@ async function main({ argv }) {
   }
   const writeClient = client.withConfig({ token: writeToken })
 
-  console.log(`Patching ${data._id} with "hello": "Edge"`)
-  await writeClient.patch(data._id).set({ hello: 'Edge' }).commit()
-  console.log('Done!')
+  console.log(
+    'Uploading screenshot to Sanity',
+    data.social?.headshot?.asset?._ref
+  )
+  const imageAsset = await writeClient.assets.upload(
+    'image' as const,
+    file as Buffer,
+    {
+      filename: `somecard-${locale}.png`,
+    }
+  )
+
+  console.log(`Patching ${data._id} with screenshot ref`, imageAsset)
+  await writeClient
+    .patch(data._id)
+    .set({
+      'social.image.asset': {
+        _type: 'reference',
+        _ref: imageAsset._id,
+      },
+      'social.image.alt': `A profile graphic featuring a headshot of ${data.social?.name}, and the text: ${data.social?.eyebrow}, ${data.social?.name}, ${data.social?.pronouns} and ${data.social?.role}`,
+      'social.image.headshot.asset': {
+        _type: 'reference',
+        _ref: data.social?.headshot?.asset?._ref,
+      },
+      'social.image.eyebrow': data.social?.eyebrow,
+      'social.image.name': data.social?.name,
+      'social.image.pronouns': data.social?.pronouns,
+      'social.image.role': data.social?.role,
+    })
+    .commit()
+  console.log('Done patching!')
 
   return 0
 }

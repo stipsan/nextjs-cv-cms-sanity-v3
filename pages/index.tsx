@@ -139,7 +139,7 @@ export async function getStaticProps({ locale, locales, defaultLocale }) {
     profile: messages.ProfileCard.profile,
     print: data?.label?.print || 'Missing label',
     latest: data?.label?.latest || 'Missing label',
-    twitterImageAlt: messages.ProfileCard.twitterImageAlt,
+    twitterImageAlt: data?.social?.image?.alt || '',
   })
 
   // @TODO filter out this data to reduce initial payload

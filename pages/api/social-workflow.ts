@@ -22,9 +22,19 @@ const handler = async (req: NextRequest) => {
   const jsonDur = new Date().getTime() - jsonStart.getTime()
 
   if (!isSocialImageDifferent(data)) {
-    return new Response('', {
-      status: 200,
-    })
+    return new Response(
+      JSON.stringify({
+        message: 'No changes detected, skipping',
+        payload: data,
+      }),
+      {
+        status: 200,
+        headers: {
+          'content-type': 'application/json',
+          'server-timing': `json;desc="await req.json";dur=${jsonDur}`,
+        },
+      }
+    )
   }
 
   const ghStart = new Date()
@@ -56,13 +66,19 @@ const handler = async (req: NextRequest) => {
     )
   }
 
-  return new Response('', {
-    status: 201,
-    headers: {
-      'content-type': 'application/json',
-      'server-timing': `json;desc="await req.json";dur=${jsonDur},fetch;desc="GitHub API Fetch";dur=${ghDur}`,
-    },
-  })
+  return new Response(
+    JSON.stringify({
+      message: 'Dispatched social.yml workflow',
+      payload: await res.json(),
+    }),
+    {
+      status: 201,
+      headers: {
+        'content-type': 'application/json',
+        'server-timing': `json;desc="await req.json";dur=${jsonDur},fetch;desc="GitHub API Fetch";dur=${ghDur}`,
+      },
+    }
+  )
 }
 
 // @TODO @sanity/webhook isn't ready for the edge yet

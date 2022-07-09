@@ -34,17 +34,16 @@ const exePath =
     : '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
 
 async function getOptions(isDev: boolean) {
-  const args = [...chrome.args, '--disable-dev-shm-usage']
   let options
   if (isDev) {
     options = {
-      args,
+      args: [],
       executablePath: exePath,
       headless: true,
     }
   } else {
     options = {
-      args,
+      args: chrome.args,
       executablePath: await chrome.executablePath,
       headless: chrome.headless,
     }
@@ -195,12 +194,11 @@ async function main({ argv }) {
     'Uploading screenshot to Sanity',
     data.social?.headshot?.asset?._ref
   )
+  const filename = `.social-${locale}.png`
   const imageAsset = await writeClient.assets.upload(
     'image' as const,
     file as Buffer,
-    {
-      filename: `.social-${locale}.png`,
-    }
+    { filename }
   )
 
   console.log(`Patching ${data._id} with screenshot ref`, imageAsset)
@@ -220,6 +218,50 @@ async function main({ argv }) {
     })
     .commit()
   console.log('Done patching!')
+
+  console.log('Check if garbage collection is needed')
+  const markedForGarbageCollection = (
+    await writeClient.fetch(
+      /* groq */ `*[_type == "sanity.imageAsset" && originalFilename == $originalFilename]._id`,
+      { originalFilename: filename }
+    )
+  )?.filter((_id) => _id !== imageAsset._id)
+  if (!markedForGarbageCollection?.length) {
+    console.log('No garbage collection needed, skipping')
+    return 0
+  }
+  console.log({ markedForGarbageCollection })
+
+  console.log('Start firing delete requests', { markedForGarbageCollection })
+  const garbageCollected = await Promise.allSettled(
+    markedForGarbageCollection.map(async (_id) => {
+      console.groupCollapsed(`gc ${JSON.stringify(_id)}`)
+      console.log('gc attempt sweep', { marked: _id })
+      try {
+        const res = await writeClient.delete(_id)
+        console.log('gc sweeped', { _id, res })
+        return res
+      } finally {
+        console.groupEnd()
+      }
+    })
+  )
+  if (garbageCollected.some(({ status }) => status === 'fulfilled')) {
+    console.log(
+      'Garbage collected:',
+      garbageCollected
+        .filter(({ status }) => status === 'fulfilled')
+        .map(({ value }: any) => value)
+    )
+  }
+  if (garbageCollected.some(({ status }) => status === 'rejected')) {
+    console.log(
+      'Failed to garbage collect some images:',
+      garbageCollected
+        .filter(({ status }) => status === 'rejected')
+        .map(({ reason }: any) => reason)
+    )
+  }
 
   return 0
 }

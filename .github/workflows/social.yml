@@ -31,7 +31,7 @@ jobs:
         with:
           path: |
             ./blazing-scripts/createSocialImage.js
-          key: modules-${{ hashFiles('package-lock.json') }}
+          key: modules-${{ hashFiles('package-lock.json') }}-${{ hashFiles("scripts/**") }}-${{ hashFiles("intl.config.json") }}
       - run: npm install --ignore-scripts
         if: steps.cache.outputs.cache-hit != 'true'
       - run: npm run build:ci

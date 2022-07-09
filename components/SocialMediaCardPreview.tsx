@@ -1,7 +1,7 @@
+import createImageUrlBuilder from '@sanity/image-url'
 import { Card } from '@sanity/ui'
 import SocialMediaCard from 'components/SocialMediaCard'
-import { urlForImage } from 'lib/image'
-import headshot from 'public/headshot.jpeg'
+import { useCallback, useMemo } from 'react'
 import { useDataset, useProjectId } from 'sanity'
 
 export default function SocialMediaCardPreview(props: any) {
@@ -13,12 +13,28 @@ export default function SocialMediaCardPreview(props: any) {
     width: 256,
     height: 256,
   }
+  const imageBuilder = useMemo(
+    () => createImageUrlBuilder({ projectId, dataset }),
+    [dataset, projectId]
+  )
+  const urlForImage = useCallback(
+    (source: Parameters<typeof imageBuilder.image>[0]) =>
+      imageBuilder.image(source).auto('format').fit('max'),
+    [imageBuilder]
+  )
+
   if (props.document?.displayed?.social?.headshot?.asset?._ref) {
     // https://cdn.sanity.io/images/sh40okwp/production/6cd14d5ec37736d21ab36ff30c3c490b27f2666c-322x322.png
-    const [, id, dimensions, format] =
-      props.document?.displayed?.social?.headshot?.asset?._ref.split('-')
-    const src = `https://cdn.sanity.io/images/${projectId}/${dataset}/${id}-${dimensions}.${format}`
-    headshot.src = urlForImage(src).height(256).width(256).fit('crop').url()
+    //const [, id, dimensions, format] =
+    //  props.document?.displayed?.social?.headshot?.asset?._ref.split('-')
+    // const src = `https://cdn.sanity.io/images/${projectId}/${dataset}/${id}-${dimensions}.${format}`
+    headshot.src = urlForImage(
+      props.document?.displayed?.social?.headshot?.asset
+    )
+      .height(256)
+      .width(256)
+      .fit('crop')
+      .url()
   }
 
   return (

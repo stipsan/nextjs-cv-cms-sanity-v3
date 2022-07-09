@@ -143,9 +143,8 @@ async function main({ argv }) {
 
   let isDifferent = false
   if (
-    data.social?.eyebrow ||
-    (data.social?.image?.eyebrow &&
-      data.social?.eyebrow !== data.social?.image?.eyebrow)
+    (data.social?.eyebrow || data.social?.image?.eyebrow) &&
+    data.social?.eyebrow !== data.social?.image?.eyebrow
   ) {
     isDifferent = true
     console.log(
@@ -154,9 +153,8 @@ async function main({ argv }) {
     )
   }
   if (
-    data.social?.headshot?.asset?._ref ||
-    (data.social?.image?.headshot &&
-      data.social?.headshot?.asset?._ref !== data.social?.image?.headshot)
+    (data.social?.headshot?.asset?._ref || data.social?.image?.headshot) &&
+    data.social?.headshot?.asset?._ref !== data.social?.image?.headshot
   ) {
     isDifferent = true
     console.log(
@@ -165,8 +163,8 @@ async function main({ argv }) {
     )
   }
   if (
-    data.social?.name ||
-    (data.social?.image?.name && data.social?.name !== data.social?.image?.name)
+    (data.social?.name || data.social?.image?.name) &&
+    data.social?.name !== data.social?.image?.name
   ) {
     isDifferent = true
     console.log(
@@ -175,8 +173,8 @@ async function main({ argv }) {
     )
   }
   if (
-    data.social?.role ||
-    (data.social?.image?.role && data.social?.role !== data.social?.image?.role)
+    (data.social?.role || data.social?.image?.role) &&
+    data.social?.role !== data.social?.image?.role
   ) {
     isDifferent = true
     console.log(
@@ -185,9 +183,8 @@ async function main({ argv }) {
     )
   }
   if (
-    data.social?.pronouns ||
-    (data.social?.image?.pronouns &&
-      data.social?.pronouns !== data.social?.image?.pronouns)
+    (data.social?.pronouns || data.social?.image?.pronouns) &&
+    data.social?.pronouns !== data.social?.image?.pronouns
   ) {
     isDifferent = true
     console.log(

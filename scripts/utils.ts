@@ -5,7 +5,9 @@ export function isSocialImageDifferent(data) {
   ) {
     console.log(
       'eyebrow is different',
-      `${data.social?.eyebrow} !== ${data.social?.image?.eyebrow}`
+      `${JSON.stringify(data.social?.eyebrow)} !== ${JSON.stringify(
+        data.social?.image?.eyebrow
+      )}`
     )
     return true
   }
@@ -15,7 +17,9 @@ export function isSocialImageDifferent(data) {
   ) {
     console.log(
       'headshot is different',
-      `${data.social?.headshot?.asset?._ref} !== ${data.social?.image?.headshot}`
+      `${JSON.stringify(
+        data.social?.headshot?.asset?._ref
+      )} !== ${JSON.stringify(data.social?.image?.headshot)}`
     )
     return true
   }
@@ -25,7 +29,9 @@ export function isSocialImageDifferent(data) {
   ) {
     console.log(
       'name is different',
-      `${data.social?.name} !== ${data.social?.image?.name}`
+      `${JSON.stringify(data.social?.name)} !== ${JSON.stringify(
+        data.social?.image?.name
+      )}`
     )
     return true
   }
@@ -35,7 +41,9 @@ export function isSocialImageDifferent(data) {
   ) {
     console.log(
       'role is different',
-      `${data.social?.role} !== ${data.social?.image?.role}`
+      `${JSON.stringify(data.social?.role)} !== ${JSON.stringify(
+        data.social?.image?.role
+      )}`
     )
     return true
   }
@@ -45,7 +53,9 @@ export function isSocialImageDifferent(data) {
   ) {
     console.log(
       'pronouns is different',
-      `${data.social?.pronouns} !== ${data.social?.image?.pronouns}`
+      `${JSON.stringify(data.social?.pronouns)} !== ${JSON.stringify(
+        data.social?.image?.pronouns
+      )}`
     )
     return true
   }

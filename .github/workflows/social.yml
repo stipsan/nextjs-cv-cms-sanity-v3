@@ -10,7 +10,9 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    # runs-on: ubuntu-latest
+    # Use the macos machine for now as it has the SF font
+    runs-on: macos-latest
     concurrency:
       group: ${{ github.event.inputs.documentId }}
       cancel-in-progress: true

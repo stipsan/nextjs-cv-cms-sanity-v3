@@ -51,6 +51,7 @@ async function main({ argv }) {
     }`,
     { id: documentId }
   )
+  // @TODO render the page directly instead of visiting it on vercel, as it's way faster and in sync with code changes
   console.log(data)
 
   if (!data?._id) {

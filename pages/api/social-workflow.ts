@@ -8,7 +8,6 @@ export const config = {
 
 const handler = async (req: NextRequest) => {
   const { searchParams } = new URL(req.url)
-  console.log(await req.json())
   const secret = searchParams.get('secret')
   if (secret !== process.env.WORKFLOW_DISPATCH_SECRET) {
     return new Response('', {
@@ -16,7 +15,11 @@ const handler = async (req: NextRequest) => {
     })
   }
 
-  const start = new Date()
+  const jsonStart = new Date()
+  const { _id: documentId } = await req.json()
+  const jsonDur = new Date().getTime() - jsonStart.getTime()
+
+  const ghStart = new Date()
   const res = await fetch(
     `https://api.github.com/repos/${github.repository}/actions/workflows/social.yml/dispatches`,
     {
@@ -27,14 +30,16 @@ const handler = async (req: NextRequest) => {
       },
       body: JSON.stringify({
         ref: github.ref,
-        inputs: { documentId: 'settings' },
+        inputs: { documentId },
       }),
     }
   )
+  const ghDur = new Date().getTime() - ghStart.getTime()
 
   if (res.status !== 204) {
     console.log(
-      `https://api.github.com/repos/${github.repository}/actions/workflows/social.yml/dispatches`
+      `https://api.github.com/repos/${github.repository}/actions/workflows/social.yml/dispatches`,
+      { documentId }
     )
     throw new Error(
       `Failed to trigger manual workflow: ${res.status} ${
@@ -47,9 +52,7 @@ const handler = async (req: NextRequest) => {
     status: 201,
     headers: {
       'content-type': 'application/json',
-      'server-timing': `fetch;desc="GitHub API Fetch";dur=${
-        new Date().getTime() - start.getTime()
-      }`,
+      'server-timing': `json;desc="await req.json";dur=${jsonDur},fetch;desc="GitHub API Fetch";dur=${ghDur}`,
     },
   })
 }

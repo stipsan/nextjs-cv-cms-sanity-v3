@@ -20,7 +20,6 @@ export default function CreateSocialImagePage({ data }) {
 }
 
 export async function getServerSideProps({ req, locale, defaultLocale }) {
-  console.log(req.url)
   const { searchParams } = new URL(req.url, 'https://example.com')
   const secret = searchParams.get('secret')
   if (secret !== process.env.WORKFLOW_DISPATCH_SECRET) {

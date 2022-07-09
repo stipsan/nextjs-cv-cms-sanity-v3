@@ -86,7 +86,8 @@ async function getScreenshot({
 
 async function main({ argv }) {
   // @TODO maybe use https://github.com/vercel/arg to parse the args
-  const [, , documentId] = argv
+  const [, , documentId, force] = argv
+  console.log('Debug force', JSON.stringify(force), typeof force)
 
   if (!documentId) {
     throw new TypeError('No documentId provided')

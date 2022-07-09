@@ -149,7 +149,7 @@ async function main({ argv }) {
     viewport: {
       width: 1280,
       height: 640,
-      deviceScaleFactor: 2,
+      // deviceScaleFactor: 2,
     },
   })
 

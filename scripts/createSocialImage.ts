@@ -192,7 +192,7 @@ async function main({ argv }) {
     'image' as const,
     file as Buffer,
     {
-      filename: `somecard-${locale}.png`,
+      filename: `.social-${locale}.png`,
     }
   )
 

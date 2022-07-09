@@ -1,6 +1,7 @@
 import type { NextRequest } from 'next/server'
 
 import { github } from '../../env.config.mjs'
+import { isSocialImageDifferent } from '../../scripts/utils.mjs'
 
 export const config = {
   runtime: 'experimental-edge',
@@ -16,8 +17,15 @@ const handler = async (req: NextRequest) => {
   }
 
   const jsonStart = new Date()
-  const { _id: documentId } = await req.json()
+  const data = await req.json()
+  const { _id: documentId } = data
   const jsonDur = new Date().getTime() - jsonStart.getTime()
+
+  if (!isSocialImageDifferent(data)) {
+    return new Response('', {
+      status: 304,
+    })
+  }
 
   const ghStart = new Date()
   const res = await fetch(

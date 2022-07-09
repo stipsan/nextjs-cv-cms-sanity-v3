@@ -118,11 +118,13 @@ async function main({ argv }) {
     /* groq */ `*[_id == $id][0]{
       _id,
       social {
+        mode,
         headshot,
         eyebrow,
         name,
         role,
         pronouns,
+        image,
       }
     }`,
     { id: documentId }
@@ -132,6 +134,22 @@ async function main({ argv }) {
 
   if (!data?._id) {
     throw new Error('Missing _id!')
+  }
+
+  if (data.social?.mode !== 'auto') {
+    console.log('settings.social.mode is not "auto", skipping')
+    return 0
+  }
+
+  if (
+    data.social?.eyebrow === data.social?.image?.eyebrow &&
+    data.social?.headshot?.asset?._ref === data.social?.image?.headshot &&
+    data.social?.name === data.social?.image?.name &&
+    data.social?.role === data.social?.image?.role &&
+    data.social?.pronouns === data.social?.image?.pronouns
+  ) {
+    console.log('settings.social.pronouns and more is still the same, skipping')
+    return 0
   }
 
   const locale =
@@ -190,10 +208,7 @@ async function main({ argv }) {
         _ref: imageAsset._id,
       },
       'social.image.alt': `A profile graphic featuring a headshot of ${data.social?.name}, and the text: ${data.social?.eyebrow}, ${data.social?.name}, ${data.social?.pronouns} and ${data.social?.role}`,
-      'social.image.headshot.asset': {
-        _type: 'reference',
-        _ref: data.social?.headshot?.asset?._ref,
-      },
+      'social.image.headshot': data.social?.headshot?.asset?._ref,
       'social.image.eyebrow': data.social?.eyebrow,
       'social.image.name': data.social?.name,
       'social.image.pronouns': data.social?.pronouns,

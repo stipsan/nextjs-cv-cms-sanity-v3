@@ -238,6 +238,13 @@ const config = createConfig({
                   },
                   // eyebrow, name, pronouns and role are duplicated here to keep track of when the graphic needs to be recreated whenever something is edited
                   {
+                    title: 'auto.headshot',
+                    name: 'headshot',
+                    type: 'string',
+                    hidden: ({ document }) =>
+                      (document?.social as any)?.mode === 'manual',
+                  },
+                  {
                     title: 'auto.eyebrow',
                     name: 'eyebrow',
                     type: 'string',

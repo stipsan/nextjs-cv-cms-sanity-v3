@@ -19,7 +19,14 @@ export default function CreateSocialImagePage({ data }) {
   )
 }
 
-export async function getServerSideProps({ locale, defaultLocale }) {
+export async function getServerSideProps({ req, locale, defaultLocale }) {
+  console.log(req.url)
+  const { searchParams } = new URL(req.url, 'https://example.com')
+  const secret = searchParams.get('secret')
+  if (secret !== process.env.WORKFLOW_DISPATCH_SECRET) {
+    throw new Error('Invalid secret')
+  }
+
   const client = createSanityClient(sanityConfig)
   const data = await client.fetch(
     /* groq */ `
@@ -54,7 +61,11 @@ export async function getServerSideProps({ locale, defaultLocale }) {
         name: data?.social?.name || 'settings.social.name',
         pronouns: data?.social?.pronouns || 'settings.social.pronouns',
         role: data?.social?.role || 'settings.social.role',
-        headshot: data?.social?.headshot || {src: 'https://source.unsplash.com/256x256/?face', width: 256, height: 256},
+        headshot: data?.social?.headshot || {
+          src: 'https://source.unsplash.com/256x256/?face',
+          width: 256,
+          height: 256,
+        },
       },
     },
   }

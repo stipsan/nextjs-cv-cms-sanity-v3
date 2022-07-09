@@ -157,7 +157,7 @@ async function main({ argv }) {
       ? defaultLocale
       : data._id.replace('settings__i18n_', '')
   const url = new URL(
-    `/${locale}/scripts/createSocialImage`,
+    `/${locale}/scripts/createSocialImage?secret=${process.env.WORKFLOW_DISPATCH_SECRET}`,
     'https://cv.creativecody.dev/'
   )
   const file = await getScreenshot({

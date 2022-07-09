@@ -23,7 +23,7 @@ export default function SocialMediaCard({
   return (
     <div
       // Should look good at 500px width, scale(0.4)
-      className={`${className} flex aspect-[1280/640] flex-shrink-0 items-center justify-center`}
+      className={`${className} flex aspect-[1280/640] flex-shrink-0 items-center justify-center transform-gpu`}
       style={{
         // First bg concept https://www.joshwcomeau.com/gradient-generator?colors=0990a7|63f2e3|000000&angle=135&colorMode=hcl&precision=15&easingCurve=1.1|1|-0.1|0
         // Remade version uses: bg-cyan-600, bg-cyan-100, bg-cyan-300, bg-cyan-900, bg-black

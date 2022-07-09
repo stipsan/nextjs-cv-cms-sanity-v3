@@ -39,8 +39,12 @@ export async function getServerSideProps({ locale, defaultLocale }) {
     `,
     { id: locale === defaultLocale ? 'settings' : `settings__i18n_${locale}` }
   )
-  if(data?.social?.headshot?.src) {
-    data.social.headshot.src = urlForImage(data.social.headshot.src).height(256).width(256).fit('crop').url()
+  if (data?.social?.headshot?.src) {
+    data.social.headshot.src = urlForImage(data.social.headshot.src)
+      .height(256)
+      .width(256)
+      .fit('crop')
+      .url()
   }
 
   return {

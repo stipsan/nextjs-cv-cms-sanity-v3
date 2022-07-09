@@ -14,6 +14,7 @@ import References from 'components/References'
 import UnlockButton from 'components/UnlockButton'
 import { sanity as sanityConfig } from 'env.config.mjs'
 import useUnlocked from 'hooks/useUnlocked'
+import { urlForImage } from 'lib/image'
 import Head from 'next/head'
 import { useTranslations } from 'next-intl'
 import favicon from 'public/favicon.png'
@@ -30,6 +31,7 @@ export default function Index({
   imDependants,
   rsbsStars,
   experiences,
+  data,
 }) {
   const t = useTranslations('Index')
   const { error, setError, loading, unlock, unlocked } = useUnlocked()
@@ -58,7 +60,20 @@ export default function Index({
             unlocked={unlocked}
           />
         </div>
-        <ProfileCard unlocked={unlocked} then={then} />
+        <ProfileCard
+          unlocked={unlocked}
+          then={then}
+          twitter={data?.meta?.twitter || null}
+          somecardurl={
+            data?.social?.image?.asset?._ref
+              ? urlForImage(data.social.image.asset._ref)
+                  .height(640)
+                  .width(1280)
+                  .fit('crop')
+                  .url()
+              : null
+          }
+        />
         <ExperienceStats then={then} />
         <ExperienceTimeline experiences={experiences} />
         <OpenSourceStats
@@ -127,6 +142,9 @@ export async function getStaticProps({ locale, locales, defaultLocale }) {
     twitterImageAlt: messages.ProfileCard.twitterImageAlt,
   })
 
+  // @TODO filter out this data to reduce initial payload
+  const filteredData = data
+
   const now = new Date().getTime()
   return {
     props: {
@@ -141,6 +159,7 @@ export async function getStaticProps({ locale, locales, defaultLocale }) {
       imDependants,
       experiences,
       now,
+      data: filteredData,
     },
     revalidate: 60,
   }

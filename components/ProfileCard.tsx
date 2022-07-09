@@ -6,8 +6,6 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useIntl, useTranslations } from 'next-intl'
 import headshot from 'public/headshot.jpeg'
-import somecarden from 'public/somecard-en.png'
-import somecardno from 'public/somecard-no.png'
 import { memo } from 'react'
 
 import { RedactedLabel } from './UnlockButton'
@@ -17,18 +15,21 @@ const email = 'stipsan@gmail.com'
 const birthday = new Date('1989-10-07')
 const github = 'https://github.com/stipsan'
 const linkedin = 'https://linkedin.com/in/stipsan'
-const twitter = '@stipsan'
-const somecards = { en: somecarden, no: somecardno }
 
 export default memo(function ProfileCard({
   unlocked,
   then,
-}: Pick<UnlockProps, 'unlocked'> & { then: Date }) {
+  somecardurl,
+  twitter,
+}: Pick<UnlockProps, 'unlocked'> & {
+  then: Date
+  somecardurl: string | null
+  twitter: string | null
+}) {
   const t = useTranslations('ProfileCard')
   const intl = useIntl()
   const { locale, defaultLocale } = useRouter()
-  const somecard = somecards[locale]
-  const somecardurl = new URL(somecard.src, 'https://cv.cocody.dev/').toString()
+
   return (
     <>
       <Head>
@@ -84,7 +85,7 @@ export default memo(function ProfileCard({
                 onClick={() => window.print()}
               >
                 <PrinterIcon
-                  className="-ml-1 mr-2 h-5 w-5"
+                  className="mr-2 -ml-1 h-5 w-5"
                   aria-hidden="true"
                 />
                 {t('print')}
@@ -97,7 +98,7 @@ export default memo(function ProfileCard({
                 className="hidden items-center rounded-lg border border-transparent bg-slate-100 px-5 py-2 text-sm font-medium text-slate-500 print:inline-flex "
               >
                 <BadgeCheckIcon
-                  className="-ml-1 mr-2 h-5 w-5"
+                  className="mr-2 -ml-1 h-5 w-5"
                   aria-hidden="true"
                 />
                 {t('latest')}

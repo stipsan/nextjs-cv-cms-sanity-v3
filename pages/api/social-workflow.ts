@@ -8,6 +8,7 @@ export const config = {
 
 const handler = async (req: NextRequest) => {
   const { searchParams } = new URL(req.url)
+  console.log(await req.json())
   const secret = searchParams.get('secret')
   if (secret !== process.env.WORKFLOW_DISPATCH_SECRET) {
     return new Response('', {

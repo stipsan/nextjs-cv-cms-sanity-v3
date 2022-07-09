@@ -7,6 +7,10 @@ on:
         description: 'Either "settings" or a translation id, for example for norwegian use "settings__i18n_no"'
         default: 'settings'
         required: true
+      force:
+        description: "Skip the isDifferent check and upload an image even if it's likely the same as the current one"
+        type: boolean
+        required: false
 
 jobs:
   build:
@@ -28,7 +32,7 @@ jobs:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
       - run: npm ci
-      - run: npm run cli:createSocialImage ${{ github.event.inputs.documentId }}
+      - run: npm run cli:createSocialImage ${{ github.event.inputs.documentId }} ${{ github.event.inputs.force }}
         env:
           SANITY_API_TOKEN: ${{ secrets.SANITY_API_TOKEN }}
           SANITY_API_WRITE_TOKEN: ${{ secrets.SANITY_API_WRITE_TOKEN }}

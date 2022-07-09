@@ -13,7 +13,7 @@ const nextConfig = {
   compiler: { styledComponents: true },
   i18n,
   images: {
-    domains: ['cdn.sanity.io'],
+    domains: ['cdn.sanity.io', 'source.unsplash.com'],
     formats: ['image/avif', 'image/webp'],
   },
 }

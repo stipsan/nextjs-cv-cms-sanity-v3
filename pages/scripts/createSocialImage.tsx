@@ -3,6 +3,7 @@
 import createSanityClient from '@sanity/client'
 import SocialMediaCard from 'components/SocialMediaCard'
 import { sanity as sanityConfig } from 'env.config.mjs'
+import { urlForImage } from 'lib/image'
 
 // @TODO refactor to output as SVG
 export default function CreateSocialImagePage({ data }) {
@@ -38,6 +39,9 @@ export async function getServerSideProps({ locale, defaultLocale }) {
     `,
     { id: locale === defaultLocale ? 'settings' : `settings__i18n_${locale}` }
   )
+  if(data?.social?.headshot?.src) {
+    data.social.headshot.src = urlForImage(data.social.headshot.src).height(256).width(256).fit('crop').url()
+  }
 
   return {
     props: {

@@ -8,7 +8,7 @@ on:
         default: 'settings'
         required: true
       force:
-        description: "Skip the isDifferent check"
+        description: 'Skip the isDifferent check'
         type: boolean
         required: false
 

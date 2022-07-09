@@ -149,7 +149,7 @@ async function main({ argv }) {
     if (isSocialImageDifferent(data)) {
       console.log('changes detected, force updating not necessary')
     } else {
-      console.log('ignoring no changes detected as force updating is enabled')
+      console.log('no changes, force updating')
     }
   } else if (!isSocialImageDifferent(data)) {
     console.log('no changes, skipping')

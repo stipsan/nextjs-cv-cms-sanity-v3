@@ -241,35 +241,40 @@ const config = createConfig({
                     title: 'auto.headshot',
                     name: 'headshot',
                     type: 'string',
-                    hidden: ({ document }) =>
+                    hidden: true,
+                    readOnly: ({ document }) =>
                       (document?.social as any)?.mode === 'manual',
                   },
                   {
                     title: 'auto.eyebrow',
                     name: 'eyebrow',
                     type: 'string',
-                    hidden: ({ document }) =>
+                    hidden: true,
+                    readOnly: ({ document }) =>
                       (document?.social as any)?.mode === 'manual',
                   },
                   {
                     title: 'auto.name',
                     name: 'name',
                     type: 'string',
-                    hidden: ({ document }) =>
+                    hidden: true,
+                    readOnly: ({ document }) =>
                       (document?.social as any)?.mode === 'manual',
                   },
                   {
                     title: 'auto.pronouns',
                     name: 'pronouns',
                     type: 'string',
-                    hidden: ({ document }) =>
+                    hidden: true,
+                    readOnly: ({ document }) =>
                       (document?.social as any)?.mode === 'manual',
                   },
                   {
                     title: 'auto.role',
                     name: 'role',
                     type: 'string',
-                    hidden: ({ document }) =>
+                    hidden: true,
+                    readOnly: ({ document }) =>
                       (document?.social as any)?.mode === 'manual',
                   },
                 ],

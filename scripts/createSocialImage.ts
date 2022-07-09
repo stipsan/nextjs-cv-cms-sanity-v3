@@ -34,16 +34,17 @@ const exePath =
     : '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
 
 async function getOptions(isDev: boolean) {
+  const args = [...chrome.args, '--disable-dev-shm-usage']
   let options
   if (isDev) {
     options = {
-      args: ['--disable-dev-shm-usage'],
+      args,
       executablePath: exePath,
       headless: true,
     }
   } else {
     options = {
-      args: [...chrome.args, '--disable-dev-shm-usage'],
+      args,
       executablePath: await chrome.executablePath,
       headless: chrome.headless,
     }

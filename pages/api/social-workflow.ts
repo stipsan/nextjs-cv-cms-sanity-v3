@@ -69,7 +69,7 @@ const handler = async (req: NextRequest) => {
   return new Response(
     JSON.stringify({
       message: 'Dispatched social.yml workflow',
-      payload: await res.json(),
+      responsePayload: await res.text(),
     }),
     {
       status: 201,

@@ -14,12 +14,12 @@ on:
 
 jobs:
   build:
-    name: ${{ github.event.inputs.documentId }}-${{ github.event.inputs.force }}
+    name: ${{ github.event.inputs.documentId }}
     # runs-on: ubuntu-latest
     # Use the macos machine for now as it has the SF font
     runs-on: macos-latest
     concurrency:
-      group: ${{ github.event.inputs.documentId }}
+      group: ${{ github.event.inputs.documentId }}-${{ github.event.inputs.force }}
       cancel-in-progress: true
     steps:
       - uses: actions/checkout@v3

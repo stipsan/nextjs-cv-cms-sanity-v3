@@ -64,6 +64,7 @@ async function getScreenshot({
   viewport?: puppeteer.Viewport
 }) {
   const options = await getOptions(isDev)
+  console.log('options', options)
   const browser = await puppeteer.launch(options)
   const page = await browser.newPage()
   console.info('page.setViewport', viewport)

@@ -17,15 +17,8 @@ export default function SocialMediaCardPreview(props: any) {
     // https://cdn.sanity.io/images/sh40okwp/production/6cd14d5ec37736d21ab36ff30c3c490b27f2666c-322x322.png
     const [, id, dimensions, format] =
       props.document?.displayed?.social?.headshot?.asset?._ref.split('-')
-    // const [width,height] = dimensions.split('x')
     const src = `https://cdn.sanity.io/images/${projectId}/${dataset}/${id}-${dimensions}.${format}`
-    headshot = {
-      src: urlForImage(src).height(256).width(256).fit('crop').url(),
-      // height: Number(height),
-      // width: Number(width)
-      height: 256,
-      width: 256,
-    }
+    headshot.src = urlForImage(src).height(256).width(256).fit('crop').url()
   }
 
   return (

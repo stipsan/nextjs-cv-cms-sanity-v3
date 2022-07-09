@@ -54,7 +54,7 @@ export async function getServerSideProps({ locale, defaultLocale }) {
         name: data?.social?.name || 'settings.social.name',
         pronouns: data?.social?.pronouns || 'settings.social.pronouns',
         role: data?.social?.role || 'settings.social.role',
-        headshot: data?.social?.headshot || null,
+        headshot: data?.social?.headshot || {src: 'https://source.unsplash.com/256x256/?face', width: 256, height: 256},
       },
     },
   }

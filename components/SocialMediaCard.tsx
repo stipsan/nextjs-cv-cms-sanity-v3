@@ -23,7 +23,7 @@ export default function SocialMediaCard({
   return (
     <div
       // Should look good at 500px width, scale(0.4)
-      className={`${className} flex aspect-[1280/640] flex-shrink-0 transform-gpu items-center justify-center`}
+      className={`${className} flex aspect-[1280/640] flex-shrink-0 items-center justify-center`}
       style={{
         // First bg concept https://www.joshwcomeau.com/gradient-generator?colors=0990a7|63f2e3|000000&angle=135&colorMode=hcl&precision=15&easingCurve=1.1|1|-0.1|0
         // Remade version uses: bg-cyan-600, bg-cyan-100, bg-cyan-300, bg-cyan-900, bg-black
@@ -59,9 +59,9 @@ export default function SocialMediaCard({
       }}
       onClick={(event) => event.stopPropagation()}
     >
-      <article className="flex items-center space-x-5 rounded-full bg-black/50 p-10 backdrop-blur-xl backdrop-saturate-200">
+      <article className="flex items-center p-10 space-x-5 rounded-full bg-black/50 backdrop-blur-xl backdrop-saturate-200 transform-gpu" style={{contain: 'layout paint style'}}>
         {headshot?.src && (
-          <div className="relative mx-auto block h-64 w-64 flex-shrink-0 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2">
+          <div className="relative flex-shrink-0 block w-64 h-64 mx-auto rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2">
             <Image
               className="rounded-full "
               src={headshot}
@@ -74,13 +74,13 @@ export default function SocialMediaCard({
           </div>
         )}
         <div className="flex flex-col pl-6 pr-12 text-4xl font-medium leading-10 text-cyan-100">
-          <div className="bg-gradient-to-r from-sky-100 to-teal-200 bg-clip-text text-transparent">
+          <div className="text-transparent bg-gradient-to-r from-sky-100 to-teal-200 bg-clip-text">
             {eyebrow}
           </div>
-          <div className="bg-gradient-to-r from-sky-100 to-teal-400 bg-clip-text pt-3 pb-6 text-9xl font-bold text-transparent">
+          <div className="pt-3 pb-6 font-bold text-transparent bg-gradient-to-r from-sky-100 to-teal-400 bg-clip-text text-9xl">
             {name}
           </div>
-          <div className="bg-gradient-to-r from-sky-100 to-teal-400 bg-clip-text text-transparent">
+          <div className="text-transparent bg-gradient-to-r from-sky-100 to-teal-400 bg-clip-text">
             {pronouns} • {role}
           </div>
         </div>

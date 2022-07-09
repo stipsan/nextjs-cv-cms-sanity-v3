@@ -23,7 +23,7 @@ const handler = async (req: NextRequest) => {
 
   if (!isSocialImageDifferent(data)) {
     return new Response('', {
-      status: 204,
+      status: 200,
     })
   }
 
@@ -38,7 +38,7 @@ const handler = async (req: NextRequest) => {
       },
       body: JSON.stringify({
         ref: github.ref,
-        inputs: { documentId, force: false },
+        inputs: { documentId, force: 'false' },
       }),
     }
   )

@@ -6,7 +6,7 @@ interface Props {
   name: string
   pronouns: string
   role: string
-  headshot: {
+  headshot?: {
     src: string
     height: number
     width: number
@@ -60,17 +60,19 @@ export default function SocialMediaCard({
       onClick={(event) => event.stopPropagation()}
     >
       <article className="flex items-center space-x-5 rounded-full bg-black/50 p-10 backdrop-blur-xl backdrop-saturate-200">
-        <div className="relative mx-auto block h-64 w-64 flex-shrink-0 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2">
-          <Image
-            className="rounded-full "
-            src={headshot}
-            alt=""
-            priority
-            height={256}
-            width={256}
-          />
-          <span className="absolute top-0 bottom-0 left-0 right-0 block rounded-full bg-cyan-700 opacity-70 mix-blend-screen" />
-        </div>
+        {headshot?.src && (
+          <div className="relative mx-auto block h-64 w-64 flex-shrink-0 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2">
+            <Image
+              className="rounded-full "
+              src={headshot}
+              alt=""
+              priority
+              height={256}
+              width={256}
+            />
+            <span className="absolute top-0 bottom-0 left-0 right-0 block rounded-full bg-cyan-700 opacity-70 mix-blend-screen" />
+          </div>
+        )}
         <div className="flex flex-col pl-6 pr-12 text-4xl font-medium leading-10 text-cyan-100">
           <div className="bg-gradient-to-r from-sky-100 to-teal-200 bg-clip-text text-transparent">
             {eyebrow}

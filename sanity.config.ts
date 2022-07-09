@@ -175,6 +175,49 @@ const config = createConfig({
                 },
               },
               {
+                title: 'Headshot',
+                name: 'headshot',
+                type: 'image',
+                hidden: ({ document }) =>
+                  (document?.social as any)?.mode === 'manual',
+                options: {
+                  // Save some resources by not processing the image as we know we won't be using blurhash or lqip
+                  //https://www.sanity.io/docs/image-metadata
+                  metadata: ['palette'],
+                  hotspot: true,
+                  // Only care about excluding SVG tbh, but since input[type="file"].accept only lets us specify an allowlist it's necessary to best-guess
+                  accept: ['image/jpeg', 'image/png'],
+                },
+              },
+              {
+                title: 'Eyebrow',
+                name: 'eyebrow',
+                type: 'string',
+                hidden: ({ document }) =>
+                  (document?.social as any)?.mode === 'manual',
+              },
+              {
+                title: 'Name',
+                name: 'name',
+                type: 'string',
+                hidden: ({ document }) =>
+                  (document?.social as any)?.mode === 'manual',
+              },
+              {
+                title: 'Pronouns',
+                name: 'pronouns',
+                type: 'string',
+                hidden: ({ document }) =>
+                  (document?.social as any)?.mode === 'manual',
+              },
+              {
+                title: 'Role',
+                name: 'role',
+                type: 'string',
+                hidden: ({ document }) =>
+                  (document?.social as any)?.mode === 'manual',
+              },
+              {
                 title: 'Image',
                 name: 'image',
                 type: 'image',

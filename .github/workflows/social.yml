@@ -11,7 +11,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    concurrency: 
+    concurrency:
       group: ${{ github.event.inputs.documentId }}
       cancel-in-progress: true
     steps:

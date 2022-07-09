@@ -11,7 +11,7 @@ on:
 jobs:
   hello:
     runs-on: ubuntu-latest
-    concurrency: 
+    concurrency:
       group: manual
       cancel-in-progress: true
     steps:

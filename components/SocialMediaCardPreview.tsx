@@ -1,4 +1,4 @@
-import { Card, Code } from '@sanity/ui'
+import { Card } from '@sanity/ui'
 import SocialMediaCard from 'components/SocialMediaCard'
 import headshot from 'public/headshot.jpeg'
 
@@ -18,7 +18,7 @@ export default function SocialMediaCardPreview(props: any) {
         name={props.document?.displayed?.profile?.name || 'Untitled'}
         pronouns={props.document?.displayed?.profile?.pronouns || 'They/them'}
         role={props.document?.displayed?.profile?.role || 'Unemployed'}
-        headshot={headshot}
+        headshot={props.document?.displayed?.profile?.headshot || headshot}
       />
     </Card>
   )

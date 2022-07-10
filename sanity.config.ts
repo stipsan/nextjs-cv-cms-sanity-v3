@@ -4,6 +4,7 @@ import {
 } from '@sanity/document-internationalization'
 import { CogIcon, EditIcon, LockIcon, UserIcon } from '@sanity/icons'
 import { createConfig } from 'sanity'
+import theme from 'sanity.theme.json'
 import { deskTool } from 'sanity/desk'
 
 import SocialMediaCardPreview from './components/SocialMediaCardPreview'
@@ -16,6 +17,8 @@ const STRUCTURE_CUSTOM_TYPES = ['settings', 'secrets']
 const config = createConfig({
   basePath: '/studio',
   name: 'CV',
+  // @ts-expect-error
+  theme,
   document: {
     /* @TODO setup this later when secrets are implemented
     productionUrl: async (prev, context) => {

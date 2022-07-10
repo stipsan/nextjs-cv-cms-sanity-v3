@@ -14,10 +14,27 @@ import References from 'components/References'
 import UnlockButton from 'components/UnlockButton'
 import { sanity as sanityConfig } from 'env.config.mjs'
 import useUnlocked from 'hooks/useUnlocked'
+// import * as esbuild from 'https://deno.land/x/esbuild@v0.14.45/mod.js'
 import { urlForImage } from 'lib/image'
 import Head from 'next/head'
 import { useTranslations } from 'next-intl'
 import favicon from 'public/favicon.png'
+
+// console.log({esbuild})
+
+/*
+console.groupCollapsed('utils/test')
+import('utils/test').then(({default: hello}) => console.log('utils/test', {hello})).catch(reason => console.error('utils/test failed', {reason})).finally(() => console.groupEnd())
+// */
+
+/*
+if(typeof document !== 'undefined') {
+  console.groupCollapsed('from-palette')
+  const url = new URL('/api/from-palette', location.origin)
+  console.log({url})
+  import(url.toString()).then(({default: hello}) => console.log('from-palette', {hello})).catch(reason => console.error('from-palette failed', {reason})).finally(() => console.groupEnd())
+}
+// */
 
 export default function Index({
   displayNames,

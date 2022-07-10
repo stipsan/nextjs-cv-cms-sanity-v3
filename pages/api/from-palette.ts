@@ -63,10 +63,13 @@ export default async function handler(req: NextRequest) {
   }
   const { searchParams } = new URL(req.url)
  // */
+  const timestamp = new Date().toJSON()
   return new Response(
-    `// Generated ${new Date().toJSON()}
-console.log('Hello from palette!')
-export const studioTheme = {}
+    `// Generated ${timestamp}
+console.log('Hello from palette!', 'Generated on the edge', new Date(${JSON.stringify(
+      timestamp
+    )}).toLocaleString())
+export const studioTheme = { colors: {} }
 `,
     {
       status: 200,

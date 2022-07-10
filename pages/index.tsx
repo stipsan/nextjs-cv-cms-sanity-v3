@@ -22,17 +22,19 @@ import favicon from 'public/favicon.png'
 
 // console.log({esbuild})
 
+
+
 /*
 console.groupCollapsed('utils/test')
 import('utils/test').then(({default: hello}) => console.log('utils/test', {hello})).catch(reason => console.error('utils/test failed', {reason})).finally(() => console.groupEnd())
 // */
 
-/*
+// /*
 if(typeof document !== 'undefined') {
-  console.groupCollapsed('from-palette')
+  console.groupCollapsed('import(/api/from-palette)')
   const url = new URL('/api/from-palette', location.origin)
-  console.log({url})
-  import(url.toString()).then(({default: hello}) => console.log('from-palette', {hello})).catch(reason => console.error('from-palette failed', {reason})).finally(() => console.groupEnd())
+  console.log(url.toString())
+  import(/* webpackIgnore: true */ url.toString()).then(({studioTheme}) => console.log('from-palette', {studioTheme})).catch(reason => console.error('from-palette failed', {reason})).finally(() => console.groupEnd())
 }
 // */
 

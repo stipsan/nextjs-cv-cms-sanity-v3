@@ -73,7 +73,10 @@ export const studioTheme = { colors: {} }
 `,
     {
       status: 200,
-      headers: { 'content-type': 'application/javascript; charset=utf-8' },
+      headers: {
+        'access-control-allow-origin': '*',
+        'content-type': 'application/javascript; charset=utf-8',
+      },
     }
   )
 }

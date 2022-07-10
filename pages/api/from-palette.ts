@@ -1,4 +1,6 @@
 // import * as esbuild from 'https://deno.land/x/esbuild@v0.14.45/mod.js'
+// import * as esbuild from './node_modules/esbuild-wasm/esm/browser.min.js'
+import * as esbuild from 'esbuild-wasm/esm/browser.min.js'
 import type { NextRequest } from 'next/server'
 
 export const config = {
@@ -6,9 +8,8 @@ export const config = {
 }
 
 export default async function handler(req: NextRequest) {
-  // const esbuild = await import('https://deno.land/x/esbuild@v0.14.45/mod.js')
   try {
-    // @ts-expect-error
+    // @ts-ignore
     console.log(esbuild)
   } catch {
     // ignore

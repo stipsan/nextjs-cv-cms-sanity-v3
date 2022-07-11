@@ -124,51 +124,62 @@ const buildTemplateString = async () => {
     outdir: path.resolve(resolveDir, 'blazing-utils'),
   })
   // */
+  /**
+   * @type {import('esbuild').BuildOptions['stdin']}
+   **/
+  const stdin = {
+    contents: `
+  import {studioTheme as defaultStudioTheme} from './node_modules/@sanity/ui/src/theme/studioTheme/theme.ts'
+  import {themeFromHues} from 'utils/themeFromHues'
+  import {
+    multiply as _multiply,
+    parseColor,
+    rgbToHex,
+    screen as _screen,
+    rgba,
+  } from './node_modules/@sanity/ui/src/theme/lib/color-fns/index.ts'
+  import {createColorTheme} from './node_modules/@sanity/ui/src/theme/lib/theme/color/factory.ts'
+  
+  function multiply(bg: string, fg: string): string {
+    const b = parseColor(bg)
+    const s = parseColor(fg)
+    const hex = rgbToHex(_multiply(b, s))
+  
+    return hex
+  }
+  
+  function screen(bg: string, fg: string): string {
+    const b = parseColor(bg)
+    const s = parseColor(fg)
+    const hex = rgbToHex(_screen(b, s))
+  
+    return hex
+  }
+  
+  export const studioTheme = themeFromHues({
+    hues: process.env.__HUES__, 
+    studioTheme: defaultStudioTheme,
+    multiply,
+    screen,
+    rgba,
+    createColorTheme,
+  })
+  `,
+    resolveDir,
+    loader: 'ts',
+  }
 
-  return esbuild.build({
+  await esbuild.build({
     ...browserDefaults,
+    minify: false,
     outfile: path.resolve(resolveDir, 'blazing-utils/themeFromHues.mjs'),
-    stdin: {
-      contents: `
-import {studioTheme as defaultStudioTheme} from './node_modules/@sanity/ui/src/theme/studioTheme/theme.ts'
-import {themeFromHues} from 'utils/themeFromHues'
-import {
-  multiply as _multiply,
-  parseColor,
-  rgbToHex,
-  screen as _screen,
-  rgba,
-} from './node_modules/@sanity/ui/src/theme/lib/color-fns/index.ts'
-import {createColorTheme} from './node_modules/@sanity/ui/src/theme/lib/theme/color/factory.ts'
-
-function multiply(bg: string, fg: string): string {
-  const b = parseColor(bg)
-  const s = parseColor(fg)
-  const hex = rgbToHex(_multiply(b, s))
-
-  return hex
-}
-
-function screen(bg: string, fg: string): string {
-  const b = parseColor(bg)
-  const s = parseColor(fg)
-  const hex = rgbToHex(_screen(b, s))
-
-  return hex
-}
-
-export const studioTheme = themeFromHues({
-  hues: process.env.__HUES__, 
-  studioTheme: defaultStudioTheme,
-  multiply,
-  screen,
-  rgba,
-  createColorTheme,
-})
-`,
-      resolveDir,
-      loader: 'ts',
-    },
+    stdin,
+  })
+  await esbuild.build({
+    ...browserDefaults,
+    minify: true,
+    outfile: path.resolve(resolveDir, 'blazing-utils/themeFromHues.min.mjs'),
+    stdin,
   })
 }
 
@@ -177,9 +188,9 @@ const buildThemeFromHuesTemplate = async () => {
     path.resolve(resolveDir, 'blazing-utils/themeFromHues.mjs'),
     'utf8'
   )
-  const minifiedPrebuiltFromEsbuild = await esbuild.transform(
-    prebuiltFromEsbuild,
-    { minify: true }
+  const minifiedPrebuiltFromEsbuild = await fs.readFile(
+    path.resolve(resolveDir, 'blazing-utils/themeFromHues.min.mjs'),
+    'utf8'
   )
 
   return esbuild.build({

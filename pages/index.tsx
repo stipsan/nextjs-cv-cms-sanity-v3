@@ -29,7 +29,7 @@ import('utils/test').then(({default: hello}) => console.log('utils/test', {hello
 
 // /*
 if (typeof document !== 'undefined') {
-  console.groupCollapsed('BlackPink')
+  console.group('BlackPink')
   const searchParams = new URLSearchParams()
   searchParams.set('lightest', 'f7f2f5')
   searchParams.set('darkest', '171721')

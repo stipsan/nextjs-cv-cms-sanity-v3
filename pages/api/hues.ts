@@ -11,7 +11,9 @@ class ValidationError extends TypeError {}
 const headers = (timing) => ({
   'access-control-allow-origin': '*',
   // @TODO force no caching until we have a better solution that limits bandwidth without causing trouble
-  'cache-control': 'no-cache',
+  // 'cache-control': 'no-cache',
+  // Test a 5 minute cache for now
+  'cache-control': `public, max-age=${5 * 60}`,
   'content-type': 'application/javascript; charset=utf-8',
   'server-timing': timing,
 })

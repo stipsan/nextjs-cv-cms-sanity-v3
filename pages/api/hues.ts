@@ -7,6 +7,15 @@ export const config = {
   runtime: 'experimental-edge',
 }
 
+class ValidationError extends TypeError {}
+
+const headers = {
+  'access-control-allow-origin': '*',
+  // @TODO force no caching until we have a better solution that limits bandwidth without causing trouble
+  'cache-control': 'no-cache',
+  'content-type': 'application/javascript; charset=utf-8',
+}
+
 export default async function handler(req: NextRequest) {
   const { searchParams } = new URL(req.url)
 
@@ -17,23 +26,27 @@ export default async function handler(req: NextRequest) {
     ? assertValidColor(`#${searchParams.get('darkest')}`)
     : undefined
 
-  return new Response(
-    themeFromHuesTemplate({
-      default: parseHue('default', searchParams, lightest, darkest),
-      transparent: parseHue('transparent', searchParams, lightest, darkest),
-      primary: parseHue('primary', searchParams, lightest, darkest),
-      positive: parseHue('positive', searchParams, lightest, darkest),
-      caution: parseHue('caution', searchParams, lightest, darkest),
-      critical: parseHue('critical', searchParams, lightest, darkest),
-    }),
-    {
-      status: 200,
-      headers: {
-        'access-control-allow-origin': '*',
-        'content-type': 'application/javascript; charset=utf-8',
-      },
+  try {
+    return new Response(
+      themeFromHuesTemplate({
+        default: parseHue('default', searchParams, lightest, darkest),
+        transparent: parseHue('transparent', searchParams, lightest, darkest),
+        primary: parseHue('primary', searchParams, lightest, darkest),
+        positive: parseHue('positive', searchParams, lightest, darkest),
+        caution: parseHue('caution', searchParams, lightest, darkest),
+        critical: parseHue('critical', searchParams, lightest, darkest),
+      }),
+      { headers }
+    )
+  } catch (err) {
+    if (err instanceof ValidationError) {
+      return new Response(
+        `throw new TypeError(${JSON.stringify(err.message)})`,
+        { headers }
+      )
     }
-  )
+    throw err
+  }
 }
 
 type ParsedHue = Partial<Hue>
@@ -44,34 +57,28 @@ function parseHue(
   defaultDarkest: string | null
 ): ParsedHue {
   if (!searchParams.has(key)) {
-    console.log('no hue', key)
     return undefined
   }
   const input = searchParams.get(key)
-  console.log(key, { input })
 
   let mid: string | undefined
   let midPoint: Hue['midPoint'] | undefined
   let lightest: string | undefined
   let darkest: string | undefined
   // format: color;midPoint;lightest:color;darkest:color
-  const params = new Set(input.split(';'))
-  if (params.size > 4) {
-    throw new TypeError(
+  const params = input.split(';')
+  if (params.length > 4) {
+    throw new ValidationError(
       `Invalid number of params for the ${key} hue, it should be 4 or less instead it's ${
-        params.size
-      }: ${JSON.stringify([...params])}`
+        params.length
+      }: ${JSON.stringify(params)}`
     )
   }
-  for (const param of params.values()) {
+  for (const param of params) {
     const maybeMid = `#${param}`
     const maybeMidPoint = Number(param)
 
     switch (true) {
-      case isColor(maybeMid) && !!mid:
-        throw new TypeError(
-          `Mid color (${mid}) already provided for the ${key} hue, please remove the additional one: ${param}`
-        )
       case isColor(maybeMid) && !mid:
         mid = maybeMid
         break
@@ -84,9 +91,14 @@ function parseHue(
       case param.startsWith('darkest:') && !darkest:
         darkest = assertValidColor(`#${param.replace(/^darkest:/, '')}`)
         break
+      // Filter out duplicates
+      case isColor(maybeMid):
+        throwDuplicate(key, mid.replace(/^#/, ''), param, input)
+      case !Number.isNaN(maybeMidPoint):
+        throwDuplicate(key, midPoint, maybeMidPoint, input)
       default:
         // If the parser can't make sense of it we throw to surface that something is wrong with the input
-        throw new TypeError(`Invalid param for the ${key} hue: ${param}`)
+        throw new ValidationError(`Invalid param for the ${key} hue: ${param}`)
     }
   }
 
@@ -98,11 +110,21 @@ function parseHue(
   }
 }
 
+function throwDuplicate(key: string, a: unknown, b: unknown, input: string) {
+  throw new ValidationError(
+    `Duplicate params detected. Remove at least ${
+      a === b
+        ? `one of the ${JSON.stringify(`${a}`)}`
+        : `${JSON.stringify(`${a}`)} or ${JSON.stringify(`${b}`)}`
+    } from the ${key} hue: ${JSON.stringify(input)}`
+  )
+}
+
 function assertValidColor(input: string) {
   if (isColor(input)) {
     return input
   }
-  throw new TypeError(`Invalid color: ${input}`)
+  throw new ValidationError(`Invalid color: ${input}`)
 }
 const isColor = (input: string) =>
   Boolean(input.match(/^#(?:[0-9a-f]{3}){1,2}$/i))
@@ -111,7 +133,7 @@ function assertValidMidPoint(input: number): Hue['midPoint'] {
   if (isMidPoint(input)) {
     return input
   }
-  throw new TypeError(`Invalid midPoint: ${input}`)
+  throw new ValidationError(`Invalid midPoint: ${input}`)
 }
 
 const validMidPoints = new Set([

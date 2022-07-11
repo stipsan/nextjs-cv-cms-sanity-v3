@@ -129,7 +129,7 @@ const buildTemplateString = async () => {
    **/
   const stdin = {
     contents: `
-  import {studioTheme as defaultStudioTheme} from './node_modules/@sanity/ui/src/theme/studioTheme/theme.ts'
+  import {studioTheme} from './node_modules/@sanity/ui/src/theme/studioTheme/theme.ts'
   import {themeFromHues} from 'utils/themeFromHues'
   import {
     multiply as _multiply,
@@ -156,9 +156,9 @@ const buildTemplateString = async () => {
     return hex
   }
   
-  export const studioTheme = themeFromHues({
+  export const theme = themeFromHues({
     hues: process.env.__HUES__, 
-    studioTheme: defaultStudioTheme,
+    studioTheme,
     multiply,
     screen,
     rgba,

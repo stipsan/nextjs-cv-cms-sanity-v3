@@ -150,7 +150,9 @@ const buildThemeFromHuesTemplate = async () => {
     stdin: {
       contents: `
 export function themeFromHuesTemplate(hues) {
-  return ${JSON.stringify(prebuiltFromEsbuild)}.replace(
+  return "// Generated " + new Date().toJSON() + "/n" + ${JSON.stringify(
+    prebuiltFromEsbuild
+  )}.replace(
     'process.env.__HUES__',
     JSON.stringify(hues)
   )

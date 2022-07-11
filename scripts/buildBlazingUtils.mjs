@@ -109,6 +109,8 @@ export { studioTheme } from './node_modules/@sanity/ui/src/theme/studioTheme/the
   })
 }
 
+// import React from 'react'
+
 const buildTemplateString = async () => {
   return esbuild.build({
     ...browserDefaults,
@@ -123,6 +125,8 @@ export const studioTheme = themeFromHues({hues: process.env.__HUES__, studioThem
       resolveDir,
     },
     target,
+    minify: false,
+    /*
     external: [
       'react',
       'react-is',
@@ -136,7 +140,12 @@ export const studioTheme = themeFromHues({hues: process.env.__HUES__, studioThem
       'xtend',
       'property-information',
       'hast-util-parse-selector',
+      'react-refractor',
+      'scheduler',
+      'react-dom',
+      'react-fast-compare',
     ],
+    // */
   })
 }
 

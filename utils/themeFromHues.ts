@@ -1,7 +1,7 @@
 import { type ColorHueConfig } from '@sanity/color'
-import { type ImagePalette } from 'sanity'
+import { type StudioTheme } from 'sanity'
 
-interface Hue extends Omit<ColorHueConfig, 'title' | 'midPoint'> {
+export interface Hue extends Omit<ColorHueConfig, 'title' | 'midPoint'> {
   // @TODO convert ColorTintKey from @sanity/color into numbers and reuse
   midPoint: 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | 950
 }
@@ -15,7 +15,20 @@ interface Hues {
   critical: Hue
 }
 
-export function createFromHues(input: Hues | ImagePalette) {}
+interface Options {
+  hues: Hues
+  // if there's a color property on the studioTheme it will be overridden/ignored, thus we change the typing allowing it to be omitted
+  // but at the same time not _enforcing_ it to be omitted and create unnecessary TS errors for those passing `import {studioTheme} from '@sanity/ui'` directly
+  studioTheme: Omit<StudioTheme, 'color'> & { color?: unknown }
+}
+
+export function themeFromHues({ hues, studioTheme }: Options): StudioTheme {
+  console.warn('themeFromHues', { hues })
+
+  const color = {} as StudioTheme['color']
+
+  return { ...studioTheme, color }
+}
 
 // const { fromPalette }
 

@@ -7,6 +7,9 @@ export const config = {
   runtime: 'experimental-edge',
 }
 
+// @TODO consider cache-control headers, to cut down bandwidth
+// https://nextjs.org/docs/api-reference/next.config.js/url-imports#lockfile
+
 export default async function handler(req: NextRequest) {
   /*
   console.log({ globalThis })

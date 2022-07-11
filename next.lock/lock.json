@@ -1,4 +1,5 @@
 {
   "https://themer.creativecody.dev/api/hues?lightest=f7f2f5&darkest=171721&default=8b6584;&primary=ec4899&transparent=503a4c&positive=10b981&caution=fde047;300&critical=fe3459": { "integrity": "sha512-1DvJjuxTKV2EpV72XxMnVkWFgYPsBW/BiGn7rKHWxBG/1I0sO2GSwSQv23F+OE6btVwFbLpNElb0kWbFOPSmXA==", "contentType": "application/javascript; charset=utf-8" },
+  "https://themer.creativecody.dev/api/hues?lightest=f7f2f5&darkest=171721&default=8b6584;&primary=ec4899&transparent=503a4c&positive=10b981&caution=fde047;300&critical=fe3459&minified": { "integrity": "sha512-G+B+hHB5Xdul8pelQ2zlPfRb2zhqKhpnmdq7QNhxIak3qA+qd4xgkwOwCpLv2/W5zYNubCjcMvt2DfO+2TWSXQ==", "contentType": "application/javascript; charset=utf-8" },
   "version": 1
 }

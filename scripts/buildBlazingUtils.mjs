@@ -207,7 +207,7 @@ export function themeFromHuesTemplate(hues, minified) {
   )} : ${JSON.stringify(prebuiltFromEsbuild)}
   return "// Generated " + new Date().toJSON() + "\\n" + template.replace(
     'process.env.__HUES__',
-    JSON.stringify(hues)
+    JSON.stringify(hues, null, minified ? 0 : 2)
   )
 }
 `,

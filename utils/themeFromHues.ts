@@ -51,7 +51,6 @@ export function themeFromHues({
   const focusRingHue = tones.primary
   const accentHue = tones.critical
   const linkHue = tones.primary
-  console.warn('themeFromHues', _hues, hues, tones)
 
   // Generate colors :OOO
   // Based on https://github.com/sanity-io/design/blob/804bf73dffb1c0ecb1c2e6758135784502768bfe/packages/%40sanity/ui/src/theme/studioTheme/color.ts#L6-L637
@@ -685,8 +684,6 @@ export function themeFromHues({
 
   return { ...studioTheme, color }
 }
-
-// const { fromPalette }
 
 /*
 

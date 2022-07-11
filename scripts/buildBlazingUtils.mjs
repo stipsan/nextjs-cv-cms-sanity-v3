@@ -165,6 +165,7 @@ export const studioTheme = themeFromHues({
   multiply,
   screen,
   rgba,
+  createColorTheme,
 })
 `,
       resolveDir,

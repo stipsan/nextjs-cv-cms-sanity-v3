@@ -1,5 +1,8 @@
-import { createColorTheme, rgba } from '@sanity/ui'
-import { type StudioTheme } from 'sanity'
+import type {
+  PartialThemeColorBuilderOpts,
+  ThemeColorSchemes,
+} from '@sanity/ui'
+import type { StudioTheme } from 'sanity'
 import { applyHues } from 'utils/applyHues'
 import {
   blue,
@@ -14,8 +17,6 @@ import {
   yellow,
 } from 'utils/colors'
 import { createTonesFromHues } from 'utils/createTonesFromHues'
-import { multiply } from 'utils/multiply'
-import { screen } from 'utils/screen'
 import type { Hues } from 'utils/types'
 
 interface Options {
@@ -23,11 +24,21 @@ interface Options {
   // if there's a color property on the studioTheme it will be overridden/ignored, thus we change the typing allowing it to be omitted
   // but at the same time not _enforcing_ it to be omitted and create unnecessary TS errors for those passing `import {studioTheme} from '@sanity/ui'` directly
   studioTheme: Omit<StudioTheme, 'color'> & { color?: unknown }
+  multiply: (bg: string, fg: string) => string
+  screen: (bg: string, fg: string) => string
+  rgba: (color: unknown, a: number) => string
+  createColorTheme: (
+    partialOpts: PartialThemeColorBuilderOpts
+  ) => ThemeColorSchemes
 }
 
 export function themeFromHues({
   hues: _hues,
   studioTheme,
+  multiply,
+  screen,
+  rgba,
+  createColorTheme,
 }: Options): StudioTheme {
   const hues = applyHues(_hues)
   // These variables are made top-level to keep the body of createColorTheme largely the same.

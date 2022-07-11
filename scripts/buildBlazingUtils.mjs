@@ -32,7 +32,7 @@ const _defaults = {
   bundle: true,
   format: 'esm',
   minifySyntax: true,
-  // outExtension: { '.js': '.mjs' },
+  outExtension: { '.js': '.mjs' },
   // external: ['@sanity/color'],
   /*
     external: [
@@ -62,7 +62,7 @@ const browserDefaults = {
   // https://caniuse.com/es6-module-dynamic-import
   target: ['chrome63', 'firefox67', 'safari11'],
   platform: 'browser',
-  minify: true,
+  // minify: true,
   // @TODO figure out how to support source maps
   // sourcemap: 'external',
 }
@@ -112,6 +112,21 @@ export { studioTheme } from './node_modules/@sanity/ui/src/theme/studioTheme/the
 // import React from 'react'
 
 const buildTemplateString = async () => {
+  // Debug help, pin-point where the bloat comes from
+  // /*
+  await esbuild.build({
+    ...browserDefaults,
+    entryPoints: [
+      path.resolve(resolveDir, 'utils/applyHues'),
+      path.resolve(resolveDir, 'utils/color-fns'),
+      path.resolve(resolveDir, 'utils/colors'),
+      path.resolve(resolveDir, 'utils/createTonesFromHues'),
+      path.resolve(resolveDir, 'utils/getColorHex'),
+    ],
+    outdir: path.resolve(resolveDir, 'blazing-utils'),
+  })
+  // */
+
   return esbuild.build({
     ...browserDefaults,
     outfile: path.resolve(resolveDir, 'blazing-utils/themeFromHues.mjs'),
@@ -119,13 +134,42 @@ const buildTemplateString = async () => {
       contents: `
 import {studioTheme as defaultStudioTheme} from 'blazing-utils/defaultStudioTheme.mjs'
 import {themeFromHues} from 'utils/themeFromHues'
+import {
+  multiply as _multiply,
+  parseColor,
+  rgbToHex,
+  screen as _screen,
+  rgba,
+} from './node_modules/@sanity/ui/src/theme/lib/color-fns/index.ts'
+import {createColorTheme} from './node_modules/@sanity/ui/src/theme/lib/theme/color/factory.ts'
 
-export const studioTheme = themeFromHues({hues: process.env.__HUES__, studioTheme: defaultStudioTheme})
+function multiply(bg, fg) {
+  const b = parseColor(bg)
+  const s = parseColor(fg)
+  const hex = rgbToHex(_multiply(b, s))
+
+  return hex
+}
+
+function screen(bg, fg) {
+  const b = parseColor(bg)
+  const s = parseColor(fg)
+  const hex = rgbToHex(_screen(b, s))
+
+  return hex
+}
+
+export const studioTheme = themeFromHues({
+  hues: process.env.__HUES__, 
+  studioTheme: defaultStudioTheme,
+  multiply,
+  screen,
+  rgba,
+})
 `,
       resolveDir,
     },
     target,
-    minify: false,
     /*
     external: [
       'react',

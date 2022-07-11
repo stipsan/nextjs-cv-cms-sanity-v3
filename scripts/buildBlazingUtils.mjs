@@ -62,9 +62,17 @@ const browserDefaults = {
   // https://caniuse.com/es6-module-dynamic-import
   target: ['chrome63', 'firefox67', 'safari11'],
   platform: 'browser',
-  // minify: true,
   // @TODO figure out how to support source maps
   // sourcemap: 'external',
+  plugins: [
+    replace({
+      include: /@sanity\/ui\/src\/theme\/studioTheme\/theme\.ts$/,
+      delimiters: ['', ''],
+      values: {
+        'color,': '',
+      },
+    }),
+  ],
 }
 let target = 'node16'
 try {
@@ -88,24 +96,14 @@ const buildDefaultTheme = async () => {
   // This is necessary due to dead-code-elimination/tree-shaking not being fully implemented
   return esbuild.build({
     ...browserDefaults,
-    // Don't minify due to source maps
-    // minify: false,
     outfile: path.resolve(resolveDir, 'blazing-utils/defaultStudioTheme.mjs'),
     stdin: {
       contents: `
 export { studioTheme } from './node_modules/@sanity/ui/src/theme/studioTheme/theme.ts'
 `,
       resolveDir,
+      loader: 'ts',
     },
-    plugins: [
-      replace({
-        include: /@sanity\/ui\/src\/theme\/studioTheme\/theme\.ts$/,
-        delimiters: ['', ''],
-        values: {
-          'color,': '',
-        },
-      }),
-    ],
   })
 }
 
@@ -113,7 +111,7 @@ export { studioTheme } from './node_modules/@sanity/ui/src/theme/studioTheme/the
 
 const buildTemplateString = async () => {
   // Debug help, pin-point where the bloat comes from
-  // /*
+  /*
   await esbuild.build({
     ...browserDefaults,
     entryPoints: [
@@ -132,7 +130,7 @@ const buildTemplateString = async () => {
     outfile: path.resolve(resolveDir, 'blazing-utils/themeFromHues.mjs'),
     stdin: {
       contents: `
-import {studioTheme as defaultStudioTheme} from 'blazing-utils/defaultStudioTheme.mjs'
+import {studioTheme as defaultStudioTheme} from './node_modules/@sanity/ui/src/theme/studioTheme/theme.ts'
 import {themeFromHues} from 'utils/themeFromHues'
 import {
   multiply as _multiply,
@@ -143,7 +141,7 @@ import {
 } from './node_modules/@sanity/ui/src/theme/lib/color-fns/index.ts'
 import {createColorTheme} from './node_modules/@sanity/ui/src/theme/lib/theme/color/factory.ts'
 
-function multiply(bg, fg) {
+function multiply(bg: string, fg: string): string {
   const b = parseColor(bg)
   const s = parseColor(fg)
   const hex = rgbToHex(_multiply(b, s))
@@ -151,7 +149,7 @@ function multiply(bg, fg) {
   return hex
 }
 
-function screen(bg, fg) {
+function screen(bg: string, fg: string): string {
   const b = parseColor(bg)
   const s = parseColor(fg)
   const hex = rgbToHex(_screen(b, s))
@@ -169,28 +167,8 @@ export const studioTheme = themeFromHues({
 })
 `,
       resolveDir,
+      loader: 'ts',
     },
-    target,
-    /*
-    external: [
-      'react',
-      'react-is',
-      'shallowequal',
-      '@emotion/stylis',
-      '@emotion/unitless',
-      '@emotion/memoize',
-      'styled-components',
-      'object-assign',
-      'prop-types',
-      'xtend',
-      'property-information',
-      'hast-util-parse-selector',
-      'react-refractor',
-      'scheduler',
-      'react-dom',
-      'react-fast-compare',
-    ],
-    // */
   })
 }
 
@@ -198,6 +176,10 @@ const buildThemeFromHuesTemplate = async () => {
   const prebuiltFromEsbuild = await fs.readFile(
     path.resolve(resolveDir, 'blazing-utils/themeFromHues.mjs'),
     'utf8'
+  )
+  const minifiedPrebuiltFromEsbuild = await esbuild.transform(
+    prebuiltFromEsbuild,
+    { minify: true }
   )
 
   return esbuild.build({
@@ -208,10 +190,11 @@ const buildThemeFromHuesTemplate = async () => {
     ),
     stdin: {
       contents: `
-export function themeFromHuesTemplate(hues) {
-  return "// Generated " + new Date().toJSON() + "\\n" + ${JSON.stringify(
-    prebuiltFromEsbuild
-  )}.replace(
+export function themeFromHuesTemplate(hues, minified) {
+  const template = minified ? ${JSON.stringify(
+    minifiedPrebuiltFromEsbuild
+  )} : ${JSON.stringify(prebuiltFromEsbuild)}
+  return "// Generated " + new Date().toJSON() + "\\n" + template.replace(
     'process.env.__HUES__',
     JSON.stringify(hues)
   )
@@ -223,7 +206,7 @@ export function themeFromHuesTemplate(hues) {
 }
 
 // Prepare the default studio theme in a way that is dead code eliminated
-await buildDefaultTheme()
+// await buildDefaultTheme()
 
 // Start by building the contents of the template string
 await buildTemplateString()

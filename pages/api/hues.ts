@@ -1,6 +1,6 @@
 import { themeFromHuesTemplate } from 'blazing-utils/themeFromHuesTemplate.mjs'
 import type { NextRequest } from 'next/server'
-import type { Hue } from 'utils/themeFromHues'
+import type { Hue } from 'utils/types'
 
 export const config = {
   runtime: 'experimental-edge',
@@ -31,14 +31,17 @@ export default async function handler(req: NextRequest) {
 
   try {
     const resStart = Date.now()
-    const res = themeFromHuesTemplate({
-      default: parseHue('default', searchParams, lightest, darkest),
-      transparent: parseHue('transparent', searchParams, lightest, darkest),
-      primary: parseHue('primary', searchParams, lightest, darkest),
-      positive: parseHue('positive', searchParams, lightest, darkest),
-      caution: parseHue('caution', searchParams, lightest, darkest),
-      critical: parseHue('critical', searchParams, lightest, darkest),
-    })
+    const res = themeFromHuesTemplate(
+      {
+        default: parseHue('default', searchParams, lightest, darkest),
+        transparent: parseHue('transparent', searchParams, lightest, darkest),
+        primary: parseHue('primary', searchParams, lightest, darkest),
+        positive: parseHue('positive', searchParams, lightest, darkest),
+        caution: parseHue('caution', searchParams, lightest, darkest),
+        critical: parseHue('critical', searchParams, lightest, darkest),
+      },
+      searchParams.has('minified')
+    )
     const resDur = Date.now() - resStart
     return new Response(res, {
       headers: headers(

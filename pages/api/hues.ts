@@ -12,8 +12,8 @@ const headers = (timing) => ({
   'access-control-allow-origin': '*',
   // @TODO force no caching until we have a better solution that limits bandwidth without causing trouble
   // 'cache-control': 'no-cache',
-  // Test a 5 minute cache for now
-  'cache-control': `public, max-age=${5 * 60}`,
+  // Test https://vercel.com/docs/concepts/functions/serverless-functions/edge-caching#stale-while-revalidate
+  'cache-control': `s-maxage=1, stale-while-revalidate`,
   'content-type': 'application/javascript; charset=utf-8',
   'server-timing': timing,
 })

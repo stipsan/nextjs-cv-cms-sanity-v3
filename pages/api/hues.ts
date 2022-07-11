@@ -57,7 +57,7 @@ function parseHue(
   defaultDarkest: string | null
 ): ParsedHue {
   if (!searchParams.has(key)) {
-    return undefined
+    return { lightest: defaultLightest, darkest: defaultDarkest }
   }
   const input = searchParams.get(key)
 
@@ -96,6 +96,10 @@ function parseHue(
         throwDuplicate(key, mid.replace(/^#/, ''), param, input)
       case !Number.isNaN(maybeMidPoint):
         throwDuplicate(key, midPoint, maybeMidPoint, input)
+      case param.startsWith('lightest:'):
+        throwDuplicate(key, lightest.replace(/^#/, 'lightest:'), param, input)
+      case param.startsWith('darkest:'):
+        throwDuplicate(key, darkest.replace(/^#/, 'darkest:'), param, input)
       default:
         // If the parser can't make sense of it we throw to surface that something is wrong with the input
         throw new ValidationError(`Invalid param for the ${key} hue: ${param}`)

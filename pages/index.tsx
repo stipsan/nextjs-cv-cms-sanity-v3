@@ -45,7 +45,7 @@ if (typeof document !== 'undefined') {
   )
   console.log(url.toString())
   import(/* webpackIgnore: true */ url.toString())
-    .then(({ studioTheme }) => console.log('/api/hues', { studioTheme }))
+    .then((mod) => console.log('/api/hues', mod))
     .catch((reason) => console.error('/api/hues failed', { reason }))
     .finally(() => console.groupEnd())
 }

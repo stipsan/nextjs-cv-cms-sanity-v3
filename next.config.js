@@ -7,6 +7,7 @@ const i18n = require('./intl.config.json')
  **/
 const nextConfig = {
   experimental: {
+    urlImports: ['https://cv.creativecody.dev/'],
     browsersListForSwc: true,
     legacyBrowsers: false,
   },

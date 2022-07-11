@@ -1,4 +1,3 @@
-import { AssertionError } from 'assert'
 import { themeFromHuesTemplate } from 'blazing-utils/themeFromHuesTemplate.mjs'
 import type { NextRequest } from 'next/server'
 import type { Hue } from 'utils/themeFromHues'
@@ -9,14 +8,16 @@ export const config = {
 
 class ValidationError extends TypeError {}
 
-const headers = {
+const headers = (timing) => ({
   'access-control-allow-origin': '*',
   // @TODO force no caching until we have a better solution that limits bandwidth without causing trouble
   'cache-control': 'no-cache',
   'content-type': 'application/javascript; charset=utf-8',
-}
+  'server-timing': timing,
+})
 
 export default async function handler(req: NextRequest) {
+  const handlerStart = Date.now()
   const { searchParams } = new URL(req.url)
 
   const lightest = searchParams.has('lightest')
@@ -27,22 +28,32 @@ export default async function handler(req: NextRequest) {
     : undefined
 
   try {
-    return new Response(
-      themeFromHuesTemplate({
-        default: parseHue('default', searchParams, lightest, darkest),
-        transparent: parseHue('transparent', searchParams, lightest, darkest),
-        primary: parseHue('primary', searchParams, lightest, darkest),
-        positive: parseHue('positive', searchParams, lightest, darkest),
-        caution: parseHue('caution', searchParams, lightest, darkest),
-        critical: parseHue('critical', searchParams, lightest, darkest),
-      }),
-      { headers }
-    )
+    const resStart = Date.now()
+    const res = themeFromHuesTemplate({
+      default: parseHue('default', searchParams, lightest, darkest),
+      transparent: parseHue('transparent', searchParams, lightest, darkest),
+      primary: parseHue('primary', searchParams, lightest, darkest),
+      positive: parseHue('positive', searchParams, lightest, darkest),
+      caution: parseHue('caution', searchParams, lightest, darkest),
+      critical: parseHue('critical', searchParams, lightest, darkest),
+    })
+    const resDur = Date.now() - resStart
+    return new Response(res, {
+      headers: headers(
+        `handler;desc="handler()";dur=${
+          Date.now() - handlerStart
+        },res;desc="themeFromHuesTemplate()";dur=${resDur}`
+      ),
+    })
   } catch (err) {
     if (err instanceof ValidationError) {
       return new Response(
         `throw new TypeError(${JSON.stringify(err.message)})`,
-        { headers }
+        {
+          headers: headers(
+            `handler;desc="handler()";dur=${Date.now() - handlerStart}`
+          ),
+        }
       )
     }
     throw err

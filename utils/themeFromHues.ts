@@ -1,21 +1,7 @@
-import { type ColorHueConfig } from '@sanity/color'
 import { type StudioTheme } from 'sanity'
-import type { PartialDeep } from 'type-fest'
-import { darkest, lightest } from 'utils/colors'
-
-export interface Hue extends Omit<ColorHueConfig, 'title' | 'midPoint'> {
-  // @TODO convert ColorTintKey from @sanity/color into numbers and reuse
-  midPoint: 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | 950
-}
-
-interface Hues {
-  default: Hue
-  transparent: Hue
-  primary: Hue
-  positive: Hue
-  caution: Hue
-  critical: Hue
-}
+import { applyHues } from 'utils/applyHues'
+import { createTonesFromHues } from 'utils/createTonesFromHues'
+import type { Hues } from 'utils/types'
 
 interface Options {
   hues: Hues
@@ -29,58 +15,17 @@ export function themeFromHues({
   studioTheme,
 }: Options): StudioTheme {
   const hues = applyHues(_hues)
-  console.warn('themeFromHues', _hues, hues)
+  const tones = createTonesFromHues(hues)
+  console.warn('themeFromHues', _hues, hues, tones)
+
+  // These variables are made top-level to keep the body of createColorTheme largely the same.
+  // This makes it much easier to sync it with new releases of @sanity/ui should its implementation details change.
+  const black = { title: 'Black', hex: hues.default.darkest }
+  const white = { title: 'white', hex: hues.default.lightest }
 
   const color = {} as StudioTheme['color']
 
   return { ...studioTheme, color }
-}
-
-function applyHues(hues: PartialDeep<Hues>): Hues {
-  return {
-    default: {
-      lightest,
-      darkest,
-      mid: '#8690A0',
-      midPoint: 500,
-      ...hues.default,
-    },
-    primary: {
-      lightest,
-      darkest,
-      mid: '#2276FC',
-      midPoint: 500,
-      ...hues.primary,
-    },
-    transparent: {
-      lightest,
-      darkest,
-      mid: '#8690A0',
-      midPoint: 500,
-      ...hues.transparent,
-    },
-    positive: {
-      lightest,
-      darkest,
-      mid: '#43D675',
-      midPoint: 400,
-      ...hues.positive,
-    },
-    caution: {
-      lightest,
-      darkest,
-      mid: '#FBD024',
-      midPoint: 300,
-      ...hues.caution,
-    },
-    critical: {
-      lightest,
-      darkest,
-      mid: '#F03E2F',
-      midPoint: 500,
-      ...hues.critical,
-    },
-  }
 }
 
 // const { fromPalette }

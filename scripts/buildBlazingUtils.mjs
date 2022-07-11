@@ -62,6 +62,9 @@ const browserDefaults = {
   // https://caniuse.com/es6-module-dynamic-import
   target: ['chrome63', 'firefox67', 'safari11'],
   platform: 'browser',
+  minify: true,
+  // @TODO figure out how to support source maps
+  // sourcemap: 'external',
 }
 let target = 'node16'
 try {
@@ -85,6 +88,8 @@ const buildDefaultTheme = async () => {
   // This is necessary due to dead-code-elimination/tree-shaking not being fully implemented
   return esbuild.build({
     ...browserDefaults,
+    // Don't minify due to source maps
+    // minify: false,
     outfile: path.resolve(resolveDir, 'blazing-utils/defaultStudioTheme.mjs'),
     stdin: {
       contents: `
@@ -150,7 +155,7 @@ const buildThemeFromHuesTemplate = async () => {
     stdin: {
       contents: `
 export function themeFromHuesTemplate(hues) {
-  return "// Generated " + new Date().toJSON() + "/n" + ${JSON.stringify(
+  return "// Generated " + new Date().toJSON() + "\\n" + ${JSON.stringify(
     prebuiltFromEsbuild
   )}.replace(
     'process.env.__HUES__',

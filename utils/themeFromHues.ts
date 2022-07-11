@@ -1,6 +1,8 @@
+import type { ColorTints } from '@sanity/color'
 import type {
   PartialThemeColorBuilderOpts,
   ThemeColorSchemes,
+  ThemeColorSpotKey,
 } from '@sanity/ui'
 import type { StudioTheme } from 'sanity'
 import { applyHues } from 'utils/applyHues'
@@ -32,15 +34,40 @@ interface Options {
   ) => ThemeColorSchemes
 }
 
+function getTint(key: ThemeColorSpotKey): ColorTints {
+  switch (key) {
+    case 'blue':
+      return blue
+    case 'cyan':
+      return cyan
+    case 'gray':
+      return gray
+    case 'green':
+      return green
+    case 'magenta':
+      return magenta
+    case 'orange':
+      return orange
+    case 'purple':
+      return purple
+    case 'red':
+      return red
+    case 'yellow':
+      return yellow
+    default:
+      throw new Error(`Unknown tint: ${key}`)
+  }
+}
+
 export function themeFromHues({
-  hues: _hues,
+  hues: partialHues,
   studioTheme,
   multiply,
   screen,
   rgba,
   createColorTheme,
 }: Options): StudioTheme {
-  const hues = applyHues(_hues)
+  const hues = applyHues(partialHues)
   // These variables are made top-level to keep the body of createColorTheme largely the same.
   // This makes it much easier to sync it with new releases of @sanity/ui should its implementation details change.
   const black = { title: 'Black', hex: hues.default.darkest }
@@ -633,7 +660,7 @@ export function themeFromHues({
     spot: ({ base, dark, key }) => {
       const mix = dark ? screen : multiply
 
-      return mix(base.bg, _hues[key][dark ? 400 : 500].hex)
+      return mix(base.bg, getTint(key)[dark ? 400 : 500].hex)
     },
 
     syntax: ({ base, dark }) => {

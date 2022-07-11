@@ -39,7 +39,10 @@ if (typeof document !== 'undefined') {
   searchParams.set('positive', '10b981')
   searchParams.set('caution', 'fde047;300')
   searchParams.set('critical', 'fe3459')
-  const url = new URL(`/api/hues?${decodeURIComponent(searchParams.toString())}`, location.origin)
+  const url = new URL(
+    `/api/hues?${decodeURIComponent(searchParams.toString())}`,
+    location.origin
+  )
   console.log(url.toString())
   import(/* webpackIgnore: true */ url.toString())
     .then(({ studioTheme }) => console.log('/api/hues', { studioTheme }))

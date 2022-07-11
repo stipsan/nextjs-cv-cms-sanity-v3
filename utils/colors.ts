@@ -13,4 +13,3 @@ export const NEUTRAL_TONES = ['default', 'transparent']
 
 export const { blue, cyan, gray, green, magenta, orange, purple, red, yellow } =
   hues
-

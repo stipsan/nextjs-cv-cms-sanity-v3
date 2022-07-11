@@ -29,12 +29,21 @@ import('utils/test').then(({default: hello}) => console.log('utils/test', {hello
 
 // /*
 if (typeof document !== 'undefined') {
-  console.groupCollapsed('import(/api/from-palette)')
-  const url = new URL('/api/from-palette', location.origin)
+  console.groupCollapsed('BlackPink')
+  const searchParams = new URLSearchParams()
+  searchParams.set('lightest', 'f7f2f5')
+  searchParams.set('darkest', '171721')
+  searchParams.set('default', '8b6584;')
+  searchParams.set('primary', 'ec4899')
+  searchParams.set('transparent', '503a4c')
+  searchParams.set('positive', '10b981')
+  searchParams.set('caution', 'fde047;300')
+  searchParams.set('critical', 'fe3459')
+  const url = new URL(`/api/hues?${decodeURIComponent(searchParams.toString())}`, location.origin)
   console.log(url.toString())
   import(/* webpackIgnore: true */ url.toString())
-    .then(({ studioTheme }) => console.log('from-palette', { studioTheme }))
-    .catch((reason) => console.error('from-palette failed', { reason }))
+    .then(({ studioTheme }) => console.log('/api/hues', { studioTheme }))
+    .catch((reason) => console.error('/api/hues failed', { reason }))
     .finally(() => console.groupEnd())
 }
 // */

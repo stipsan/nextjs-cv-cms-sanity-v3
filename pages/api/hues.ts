@@ -79,6 +79,8 @@ function parseHue(
     const maybeMidPoint = Number(param)
 
     switch (true) {
+      case param === '':
+        break
       case isColor(maybeMid) && !mid:
         mid = maybeMid
         break
@@ -108,7 +110,8 @@ function parseHue(
 
   return {
     mid,
-    midPoint,
+    // If the mid color is specified, but the midPoint is not, set the midPoint to 500 by default to ensure colors like 'positive' and 'caution' that have other midPoints don't get unexpected results
+    midPoint: midPoint ?? mid ? 500 : undefined,
     lightest: lightest ?? defaultLightest,
     darkest: darkest ?? defaultDarkest,
   }

@@ -23,7 +23,7 @@ interface Options {
 }
 
 export function themeFromHues({ hues, studioTheme }: Options): StudioTheme {
-  console.warn({ hues })
+  console.warn('themeFromHues', hues)
 
   const color = {} as StudioTheme['color']
 

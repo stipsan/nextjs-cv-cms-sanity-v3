@@ -1,4 +1,5 @@
 {
   "https://cv.creativecody.dev/api/hues?lightest=f7f2f5&darkest=171721&default=8b6584;&primary=ec4899&transparent=503a4c&positive=10b981&caution=fde047;300&critical=fe3459": { "integrity": "sha512-0mxrI+tOr/xYNus0v6kroBwye150Rey5ESiiY7f2/e8DxvHVSI5JS12IzzKHIYahU/4BH7WuTTPcIW5za6S7CA==", "contentType": "application/javascript; charset=utf-8" },
+  "https://themer.creativecody.dev/api/hues?lightest=f7f2f5&darkest=171721&default=8b6584;&primary=ec4899&transparent=503a4c&positive=10b981&caution=fde047;300&critical=fe3459": { "integrity": "sha512-7kpOhywk+8RCY8+6Gz1qjjJiomQ5uajXj0nh5N7IduLDsOv0WTor3kaqCbuMWxKesklpy109WD/DfExweqk6lw==", "contentType": "application/javascript; charset=utf-8" },
   "version": 1
 }

@@ -4,7 +4,7 @@ import {
 } from '@sanity/document-internationalization'
 import { CogIcon, EditIcon, LockIcon, UserIcon } from '@sanity/icons'
 // @ts-expect-error -- TODO figure out how to get typings for this
-import { theme } from 'https://themer.creativecody.dev/api/hues?lightest=f7f2f5&darkest=171721&default=8b6584;&primary=ec4899&transparent=503a4c&positive=10b981&caution=fde047;300&critical=fe3459&minified'
+import { theme } from 'https://themer.creativecody.dev/api/hues?preset=tw-cyan&default=677389;500;lightest:f9fafb;darkest:101728&primary=51b4d0;500;lightest:effefe;darkest:264d61&transparent=6b727f;500;lightest:f8fafb;darkest:131826&positive=55b785;500;lightest:eefdf5;darkest:214d3b&caution=e2b53e;500;lightest:fefbea;darkest:69411b&critical=e14f62;500;lightest:fdf2f2;darkest:7d2037&min=1'
 import { createConfig } from 'sanity'
 import { deskTool } from 'sanity/desk'
 

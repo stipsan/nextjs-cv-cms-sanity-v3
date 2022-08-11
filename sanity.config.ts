@@ -4,7 +4,7 @@ import {
 } from '@sanity/document-internationalization'
 import { CogIcon, EditIcon, LockIcon, UserIcon } from '@sanity/icons'
 import { createConfig } from 'sanity'
-import {theme} from 'https://themer.sanity.build/api/hues?preset=tw-cyan'
+import { theme } from 'https://themer.sanity.build/api/hues?preset=tw-cyan'
 
 import { deskTool } from 'sanity/desk'
 

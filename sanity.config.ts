@@ -3,10 +3,8 @@ import {
   withDocumentI18nPlugin,
 } from '@sanity/document-internationalization'
 import { CogIcon, EditIcon, LockIcon, UserIcon } from '@sanity/icons'
-// @ts-expect-error -- TODO figure out how to get typings for this
 import { createConfig } from 'sanity'
-// @ts-expect-error -- TODO figure out how to get typings for this
-import { theme } from 'https://themer.creativecody.dev/api/hues?default=8bb9b5;400&primary=fa7a78;400&transparent=8bb9b5;400&positive=43d675;300&caution=fbd024;200&critical=f02f53&lightest=fcfdfd&darkest=0d1515&min=1'
+import {theme} from 'https://themer.sanity.build/api/hues?preset=tw-cyan'
 
 import { deskTool } from 'sanity/desk'
 

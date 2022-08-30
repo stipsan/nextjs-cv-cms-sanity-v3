@@ -24,7 +24,7 @@
     "singleQuote": true
   },
   "dependencies": {
-    "@heroicons/react": "^1.0.6",
+    "@heroicons/react": "^2.0.10",
     "@sanity/document-internationalization": "^1.0.0-v3-studio.6",
     "@segment/snippet": "^4.15.3",
     "@tailwindcss/forms": "^0.5.2",

@@ -22,12 +22,12 @@ jobs:
       group: ${{ github.event.inputs.documentId }}-${{ github.event.inputs.force }}
       cancel-in-progress: true
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # tag=v3
+      - uses: actions/setup-node@969bd2663942d722d85b6a8626225850c2f7be4b # tag=v3
         with:
           node-version: lts/*
       - id: cache
-        uses: actions/cache@v3
+        uses: actions/cache@56461b9eb0f8438fd15c7a9968e3c9ebb18ceff1 # tag=v3
         with:
           path: |
             ./blazing-scripts/createSocialImage.js

@@ -1,7 +1,5 @@
-import { IdentificationIcon } from '@heroicons/react/outline'
 import cx from 'classnames'
 import Image from 'next/image'
-import { useTranslations } from 'next-intl'
 import { memo } from 'react'
 
 import { type Experiences } from './ExperienceTimeline.getStaticProps'
@@ -12,7 +10,8 @@ export default memo(function ExperienceTimeline({
 }: {
   experiences: Experiences
 }) {
-  const t = useTranslations('ExperienceTimeline')
+  const t = (key:string,...args: any[]) => `ExperienceTimeline.${key}`
+  
 
   return (
     <section className="py-6">
@@ -48,7 +47,7 @@ export default memo(function ExperienceTimeline({
                         />
                       </figure>
 
-                      <div className="min-w-0 flex-1">
+                      <div className="flex-1 min-w-0">
                         <div>
                           <h2 className="font-medium text-slate-900">
                             {experience.role}
@@ -102,10 +101,9 @@ export default memo(function ExperienceTimeline({
                           'flex h-12 w-12 items-center justify-center'
                         )}
                       >
-                        <IdentificationIcon className="m-1 w-full rounded-full bg-slate-100 p-2 text-slate-600" />
                       </figure>
 
-                      <div className="min-w-0 flex-1">
+                      <div className="flex-1 min-w-0">
                         <div>
                           <h2 className="font-medium text-slate-900">
                             {t('changedName')}
@@ -113,9 +111,9 @@ export default memo(function ExperienceTimeline({
                           <div className="text-sm">
                             <a
                               href={t('changedNameLink')}
-                              className="group font-medium text-slate-900 hover:underline focus:outline-none focus-visible:underline"
+                              className="font-medium group text-slate-900 hover:underline focus:outline-none focus-visible:underline"
                             >
-                              {t.rich('changedNameFromTo', {
+                              {t('changedNameFromTo', {
                                 from: experience.from,
                                 to: experience.to,
                                 del: (children) => (

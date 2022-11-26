@@ -1,16 +1,13 @@
+import { acceptLanguage } from 'lib/server/accept-language'
 import { type NextRequest, NextResponse } from 'next/server'
 
-// Takes care of redirecting /studio to /studio/en as Sanity Studio workspaces requires the same number of
-// path segments in `basePath`. In other words, two workspaces with basePath `/en/studio` and '/no/studio' is allowed
-// while `/studio` and '/no/studio' is not
-
 export const config = {
-  matcher: '/studio/:tool*',
+  // It's only necessary to do the accept-language redirect on the initial request
+  matcher: '/',
 }
 
-export function middleware(request: NextRequest) {
-  // @TODO come back to this later and figure out how to make it work without causing an infinite redirect loop
-  /*
+// @TODO come back to this later and figure out how to make it work without causing an infinite redirect loop
+/*
   const { pathname } = new URL(request.url)
   if (
     pathname.endsWith(request.nextUrl.pathname) &&
@@ -22,5 +19,10 @@ export function middleware(request: NextRequest) {
   }
   // */
 
-  return undefined
+export function middleware(request: NextRequest) {
+  const locale = acceptLanguage(request.headers.get('accept-language'), [
+    'en',
+    'no',
+  ])
+  return NextResponse.redirect(new URL(`/${locale}`, request.url))
 }

@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useIntl, useNow, useTranslations } from 'next-intl'
 import { memo, useMemo } from 'react'
 
 type FooterProps = {
@@ -17,10 +16,12 @@ export default memo(function Footer({
   tailwind,
   sanity,
 }: FooterProps) {
-  const t = useTranslations('Footer')
-  const intl = useIntl()
+  
+  const t = (key:string,...args: any[]) => `Footer.${key}`
+  
   const { locale, defaultLocale } = useRouter()
   const buildDate = useMemo(() => new Date(then), [then])
+  /
   const date = useMemo(
     () =>
       intl.formatDateTime(buildDate, {
@@ -68,7 +69,7 @@ export default memo(function Footer({
   )
 
   return (
-    <footer className="mt-5 mb-6 py-6 text-center text-xs print:mb-0 print:pb-0">
+    <footer className="py-6 mt-5 mb-6 text-xs text-center print:mb-0 print:pb-0">
       {generated}
       <RelativeWhen
         date={buildDate}
@@ -76,7 +77,7 @@ export default memo(function Footer({
         dateJson={buildDate.toJSON()}
         dateAbsolute={date}
       />
-      <div className="mt-3 grid grid-flow-col justify-center gap-3">
+      <div className="grid justify-center grid-flow-col gap-3 mt-3">
         <Tag name="next" version={next} url="https://nextjs.org/" />
         <Tag name="react" version={react} url="https://reactjs.org/" />
         <Tag name="sanity" version={sanity} url="https://sanity.io/" />
@@ -86,11 +87,11 @@ export default memo(function Footer({
           url="https://tailwindcss.com/"
         />
       </div>
-      <Link href="/studio" locale={false} prefetch={false}>
-        <a className="mt-4 inline-flex items-center justify-center rounded-full border border-transparent bg-blue-600 text-xs font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 print:hidden">
+      <Link href="/studio" locale={false} prefetch={false} className="inline-flex items-center justify-center mt-4 text-xs font-medium text-white bg-blue-600 border border-transparent rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 print:hidden">
+        
           <svg
             aria-label="Sanity"
-            className="inline-block h-8 w-8"
+            className="inline-block w-8 h-8"
             viewBox="0 0 512 512"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -110,7 +111,7 @@ export default memo(function Footer({
               fill="white"
             ></path>
           </svg>
-        </a>
+        
       </Link>
     </footer>
   )
@@ -165,7 +166,7 @@ const Tag = ({
     rel="noopener noreferrer"
   >
     <span className="inline-block px-2 py-1">{name}</span>
-    <span className="inline-block rounded-r bg-cyan-700 px-2 py-1 text-slate-50">
+    <span className="inline-block px-2 py-1 rounded-r bg-cyan-700 text-slate-50">
       v{version.split('.')[0]}
     </span>
   </a>

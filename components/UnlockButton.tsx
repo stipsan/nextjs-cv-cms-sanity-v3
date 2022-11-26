@@ -1,10 +1,3 @@
-import { MailIcon, SparklesIcon } from '@heroicons/react/outline'
-import {
-  CheckIcon,
-  LockClosedIcon,
-  LockOpenIcon,
-  XCircleIcon,
-} from '@heroicons/react/solid'
 import cx from 'classnames'
 import type { UnlockProps } from 'hooks/useUnlocked'
 import { useTranslations } from 'next-intl'
@@ -29,8 +22,8 @@ export default memo(function UnlockButton({
   const t = useTranslations('UnlockButton')
 
   return (
-    <div className="ml-6 w-40 sm:ml-7">
-      <div className="group w-0">
+    <div className="w-40 ml-6 sm:ml-7">
+      <div className="w-0 group">
         <button
           id="unlock-button"
           type="button"
@@ -47,13 +40,13 @@ export default memo(function UnlockButton({
           onClick={unlocked ? undefined : () => setOpen(true)}
         >
           {unlocked ? (
-            <LockOpenIcon className="mr-1.5 -ml-0.5 h-4" />
+            <span data-name="LockOpenIcon" className="mr-1.5 -ml-0.5 h-4" />
           ) : (
             <>
               {!open && (
                 <div className="pointer-events-none absolute top-0.5 right-3.5 bottom-0.5 left-3.5 z-[-1] animate-ping rounded-lg bg-cyan-100 transition-colors group-hover:animate-none group-hover:bg-opacity-0 group-focus:animate-none group-focus:bg-opacity-0 group-active:animate-none group-active:bg-opacity-0" />
               )}
-              <LockClosedIcon className="mr-1.5 -ml-0.5 h-4" />
+              <span data-name="LockClosedIcon" className="mr-1.5 -ml-0.5 h-4" />
             </>
           )}
           {unlocked ? t('unlocked') : t('unlock')}
@@ -78,13 +71,10 @@ export default memo(function UnlockButton({
       >
         {unlocked ? (
           <div className="px-4 pt-4 pb-4">
-            <div className="rounded-md bg-green-50 p-4">
+            <div className="p-4 rounded-md bg-green-50">
               <div className="flex">
                 <div className="flex-shrink-0">
-                  <SparklesIcon
-                    className="h-5 w-5 text-green-400"
-                    aria-hidden="true"
-                  />
+                  
                 </div>
                 <div className="ml-3">
                   <h3 className="text-sm font-medium text-green-800">
@@ -106,7 +96,7 @@ export default memo(function UnlockButton({
                 }
               )}
             >
-              <CheckIcon className="mr-2 -ml-1 h-5 w-5" aria-hidden="true" />
+              
               {t('ok')}
             </button>
           </div>
@@ -129,7 +119,7 @@ export default memo(function UnlockButton({
                     href="mailto:stipsan@gmail.com?subject=Requesting%20CV%20Password"
                   >
                     {children}
-                    <MailIcon className="-mt-1 ml-0.5 inline h-5 text-inherit" />
+                    
                   </a>
                 ),
               })}
@@ -155,13 +145,10 @@ export default memo(function UnlockButton({
               onChange={(event) => setPassword(event.target.value)}
             />
             {error && (
-              <div className="mt-4 rounded-md bg-red-100 p-4">
+              <div className="p-4 mt-4 bg-red-100 rounded-md">
                 <div className="flex">
                   <div className="flex-shrink-0">
-                    <XCircleIcon
-                      className="h-5 w-5 text-red-500"
-                      aria-hidden="true"
-                    />
+                    
                   </div>
                   <div className="ml-3">
                     <h3 className="text-sm font-medium text-red-900">
@@ -188,7 +175,7 @@ export default memo(function UnlockButton({
             >
               {loading ? (
                 <svg
-                  className="mr-2 -ml-1 h-5 w-5 animate-spin text-white"
+                  className="w-5 h-5 mr-2 -ml-1 text-white animate-spin"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -208,8 +195,8 @@ export default memo(function UnlockButton({
                   ></path>
                 </svg>
               ) : (
-                <LockOpenIcon
-                  className="mr-2 -ml-1 h-5 w-5"
+                <span data-name="LockOpenIcon"
+                  className="w-5 h-5 mr-2 -ml-1"
                   aria-hidden="true"
                 />
               )}
@@ -228,7 +215,7 @@ export function RedactedLabel() {
 
   return (
     <label
-      className="cursor-pointer opacity-50 transition-opacity hover:opacity-100"
+      className="transition-opacity opacity-50 cursor-pointer hover:opacity-100"
       htmlFor="unlock-button"
     >
       {t('redacted')}

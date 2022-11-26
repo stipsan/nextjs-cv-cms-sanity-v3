@@ -1,5 +1,4 @@
-import { differenceInYears } from 'date-fns'
-import { useIntl, useTranslations } from 'next-intl'
+import { differenceInYears } from 'date-fns'import { useIntl, useTranslations } from 'next-intl'
 import { memo, useMemo } from 'react'
 
 // 2010-02-18
@@ -17,7 +16,8 @@ export default memo(function OpenSourceStats({
   rsbsStars,
   then,
 }: OpenSourceStatsProps) {
-  const t = useTranslations('OpenSourceStats')
+  
+  const t = (key:string,...args: any[]) => `OpenSourceStats.${key}`
   const intl = useIntl()
   const stats = useMemo(
     () =>
@@ -64,20 +64,20 @@ export default memo(function OpenSourceStats({
     [csivWeeklyDownloads, imDependants, intl, rsbsStars, t, then]
   )
   return (
-    <section className="relative my-5 break-inside-avoid py-6">
+    <section className="relative py-6 my-5 break-inside-avoid">
       <h1 className="mb-3 text-lg font-medium leading-6 text-slate-700">
         {t('title')}
       </h1>
-      <dl className="mt-5 grid grid-cols-1 gap-5 print:grid-cols-2 sm:grid-cols-2">
+      <dl className="grid grid-cols-1 gap-5 mt-5 print:grid-cols-2 sm:grid-cols-2">
         {stats.map((item) => (
           <a
             key={item.name}
             href={item.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="overflow-hidden rounded-2xl bg-slate-900 px-4 py-5 transition hover:bg-slate-800 hover:shadow-lg hover:shadow-slate-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-800 focus-visible:ring-offset-2 active:scale-95 active:bg-slate-900 active:shadow-slate-500/75 print:p-6 sm:p-6"
+            className="px-4 py-5 overflow-hidden transition rounded-2xl bg-slate-900 hover:bg-slate-800 hover:shadow-lg hover:shadow-slate-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-800 focus-visible:ring-offset-2 active:scale-95 active:bg-slate-900 active:shadow-slate-500/75 print:p-6 sm:p-6"
           >
-            <dt className="truncate text-sm font-medium text-slate-400">
+            <dt className="text-sm font-medium truncate text-slate-400">
               {t(item.name)}
             </dt>
             <dd className="mt-1">

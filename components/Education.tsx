@@ -1,4 +1,4 @@
-import { useTranslations } from 'next-intl'
+
 import { memo } from 'react'
 
 // *[_type == 'education']{_id,school,degree,field,start,end}
@@ -25,9 +25,9 @@ const activityItems = [
 ]
 
 export default memo(function Education() {
-  const t = useTranslations('Education')
+  
   return (
-    <section className="my-5 break-inside-avoid rounded-2xl border border-slate-300 border-opacity-25 bg-slate-50 px-6 py-4">
+    <section className="px-6 py-4 my-5 border border-opacity-25 break-inside-avoid rounded-2xl border-slate-300 bg-slate-50">
       <h1 className="text-lg font-medium leading-6 text-slate-900">
         {t('title')}
       </h1>

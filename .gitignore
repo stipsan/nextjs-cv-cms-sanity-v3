@@ -121,3 +121,6 @@ studio/.env.development
 blazing-scripts
 # utils used by the edge and other esm native envs
 blazing-utils
+
+# Fetch themer theme on build by not version controlling it
+next.lock

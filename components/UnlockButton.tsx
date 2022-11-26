@@ -22,8 +22,8 @@ export default memo(function UnlockButton({
   const t = useTranslations('UnlockButton')
 
   return (
-    <div className="w-40 ml-6 sm:ml-7">
-      <div className="w-0 group">
+    <div className="ml-6 w-40 sm:ml-7">
+      <div className="group w-0">
         <button
           id="unlock-button"
           type="button"
@@ -71,11 +71,9 @@ export default memo(function UnlockButton({
       >
         {unlocked ? (
           <div className="px-4 pt-4 pb-4">
-            <div className="p-4 rounded-md bg-green-50">
+            <div className="rounded-md bg-green-50 p-4">
               <div className="flex">
-                <div className="flex-shrink-0">
-                  
-                </div>
+                <div className="flex-shrink-0"></div>
                 <div className="ml-3">
                   <h3 className="text-sm font-medium text-green-800">
                     {t('welcome', { user: unlocked.user })}
@@ -96,7 +94,6 @@ export default memo(function UnlockButton({
                 }
               )}
             >
-              
               {t('ok')}
             </button>
           </div>
@@ -119,7 +116,6 @@ export default memo(function UnlockButton({
                     href="mailto:stipsan@gmail.com?subject=Requesting%20CV%20Password"
                   >
                     {children}
-                    
                   </a>
                 ),
               })}
@@ -145,11 +141,9 @@ export default memo(function UnlockButton({
               onChange={(event) => setPassword(event.target.value)}
             />
             {error && (
-              <div className="p-4 mt-4 bg-red-100 rounded-md">
+              <div className="mt-4 rounded-md bg-red-100 p-4">
                 <div className="flex">
-                  <div className="flex-shrink-0">
-                    
-                  </div>
+                  <div className="flex-shrink-0"></div>
                   <div className="ml-3">
                     <h3 className="text-sm font-medium text-red-900">
                       {error === 'Password is required'
@@ -175,7 +169,7 @@ export default memo(function UnlockButton({
             >
               {loading ? (
                 <svg
-                  className="w-5 h-5 mr-2 -ml-1 text-white animate-spin"
+                  className="mr-2 -ml-1 h-5 w-5 animate-spin text-white"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -195,8 +189,9 @@ export default memo(function UnlockButton({
                   ></path>
                 </svg>
               ) : (
-                <span data-name="LockOpenIcon"
-                  className="w-5 h-5 mr-2 -ml-1"
+                <span
+                  data-name="LockOpenIcon"
+                  className="mr-2 -ml-1 h-5 w-5"
                   aria-hidden="true"
                 />
               )}
@@ -215,7 +210,7 @@ export function RedactedLabel() {
 
   return (
     <label
-      className="transition-opacity opacity-50 cursor-pointer hover:opacity-100"
+      className="cursor-pointer opacity-50 transition-opacity hover:opacity-100"
       htmlFor="unlock-button"
     >
       {t('redacted')}

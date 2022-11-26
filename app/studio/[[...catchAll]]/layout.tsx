@@ -2,16 +2,14 @@ import 'tailwindcss/tailwind.css'
 
 import { Analytics } from 'app/analytics'
 
-export default function RootLayout({
+export default function StudioLayout({
   children,
-  params,
 }: {
   children: React.ReactNode
-  params: { locale: string }
 }) {
   return (
-    <html lang={params.locale}>
-      <body className="print:[zoom:75%]">
+    <html lang="en">
+      <body className='overscroll-none'>
         {children}
         <Analytics />
       </body>

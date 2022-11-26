@@ -29,22 +29,22 @@ const stats = [
 export default memo(function ExperienceStats({ then }: { then: Date }) {
   const t = (key) => `ExperienceStats.${key}`
   return (
-    <section className="py-6 my-5 break-inside-avoid">
+    <section className="my-5 break-inside-avoid py-6">
       <h1 className="mb-3 text-lg font-medium leading-6 text-slate-700">
         {t('title')}
       </h1>
-      <dl className="grid grid-cols-1 gap-5 mt-5 print:grid-cols-3 sm:grid-cols-3">
+      <dl className="mt-5 grid grid-cols-1 gap-5 print:grid-cols-3 sm:grid-cols-3">
         {stats.map((item) => (
           <div
             key={item.name}
-            className="relative px-4 py-5 overflow-hidden group rounded-2xl bg-slate-900 print:p-6 sm:p-6"
+            className="group relative overflow-hidden rounded-2xl bg-slate-900 px-4 py-5 print:p-6 sm:p-6"
           >
-            <dt className="text-sm font-medium truncate text-slate-400">
+            <dt className="truncate text-sm font-medium text-slate-400">
               {item.name}
             </dt>
             <Since since={item.since} then={then} />
-            <span className="absolute transition-opacity -translate-y-6 opacity-25 top-1/2 right-4 transform-gpu mix-blend-screen group-hover:opacity-100">
-              <span className="relative inline-block w-12 h-12">
+            <span className="absolute top-1/2 right-4 -translate-y-6 transform-gpu opacity-25 mix-blend-screen transition-opacity group-hover:opacity-100">
+              <span className="relative inline-block h-12 w-12">
                 <Image src={item.logo} alt="" layout="fill" />
               </span>
             </span>
@@ -56,7 +56,6 @@ export default memo(function ExperienceStats({ then }: { then: Date }) {
 })
 
 function Since({ since, then }: { since: Date; then: Date }) {
-  
   const t = (key) => `Since.${key}`
   const years = differenceInYears(then, since)
 
@@ -70,7 +69,7 @@ function Since({ since, then }: { since: Date; then: Date }) {
           </span>
         ),
         unit: (children) => (
-          <span className="inline-block ml-1 text-3xl text-slate-400">
+          <span className="ml-1 inline-block text-3xl text-slate-400">
             {children}
           </span>
         ),

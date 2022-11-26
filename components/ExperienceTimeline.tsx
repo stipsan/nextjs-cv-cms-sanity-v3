@@ -10,8 +10,7 @@ export default memo(function ExperienceTimeline({
 }: {
   experiences: Experiences
 }) {
-  const t = (key:string,...args: any[]) => `ExperienceTimeline.${key}`
-  
+  const t = (key: string, ...args: any[]) => `ExperienceTimeline.${key}`
 
   return (
     <section className="py-6">
@@ -47,7 +46,7 @@ export default memo(function ExperienceTimeline({
                         />
                       </figure>
 
-                      <div className="flex-1 min-w-0">
+                      <div className="min-w-0 flex-1">
                         <div>
                           <h2 className="font-medium text-slate-900">
                             {experience.role}
@@ -100,10 +99,9 @@ export default memo(function ExperienceTimeline({
                           styles.dropShadowOutline,
                           'flex h-12 w-12 items-center justify-center'
                         )}
-                      >
-                      </figure>
+                      ></figure>
 
-                      <div className="flex-1 min-w-0">
+                      <div className="min-w-0 flex-1">
                         <div>
                           <h2 className="font-medium text-slate-900">
                             {t('changedName')}
@@ -111,7 +109,7 @@ export default memo(function ExperienceTimeline({
                           <div className="text-sm">
                             <a
                               href={t('changedNameLink')}
-                              className="font-medium group text-slate-900 hover:underline focus:outline-none focus-visible:underline"
+                              className="group font-medium text-slate-900 hover:underline focus:outline-none focus-visible:underline"
                             >
                               {t('changedNameFromTo', {
                                 from: experience.from,

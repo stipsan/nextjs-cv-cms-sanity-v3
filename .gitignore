@@ -119,8 +119,6 @@ studio/.env.development
 .sanity
 # these are scripts compiled from /scripts, they're create on the CI so it doesn't need to be version controlled
 blazing-scripts
-# utils used by the edge and other esm native envs
-blazing-utils
 
 # Fetch themer theme on build by not version controlling it
 next.lock

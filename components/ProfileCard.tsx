@@ -1,4 +1,3 @@
-
 import { differenceInYears } from 'date-fns'
 import type { UnlockProps } from 'hooks/useUnlocked'
 import Head from 'next/head'
@@ -45,14 +44,14 @@ export default memo(function ProfileCard({
         <meta property="og:title" content={t('metaTitle')} />
         <meta property="og:description" content={t('metaDescription')} />
       </Head>
-      <section className="border border-opacity-25 rounded-2xl border-slate-300 bg-slate-50">
+      <section className="rounded-2xl border border-slate-300 border-opacity-25 bg-slate-50">
         <h1 className="sr-only">{t('title')}</h1>
         <div className="px-6 py-4">
           <div className="print:flex print:items-center print:justify-between sm:flex sm:items-center sm:justify-between">
             <div className="print:flex print:space-x-5 sm:flex sm:space-x-5">
               <div className="flex-shrink-0">
                 <a
-                  className="relative block w-20 h-20 mx-auto rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2"
+                  className="relative mx-auto block h-20 w-20 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2"
                   href="/headshot.jpeg"
                   target="_blank"
                 >
@@ -78,13 +77,12 @@ export default memo(function ProfileCard({
                 <Subheading t={t} then={then} intl={intl} />
               </div>
             </div>
-            <div className="flex justify-center mt-5 print:mt-0 sm:mt-0">
+            <div className="mt-5 flex justify-center print:mt-0 sm:mt-0">
               <button
                 type="button"
-                className="inline-flex items-center px-5 py-2 text-sm font-medium text-white transition border border-transparent rounded-lg bg-sky-600 hover:bg-sky-700 hover:shadow-sm hover:shadow-sky-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 active:bg-sky-800 print:hidden"
+                className="inline-flex items-center rounded-lg border border-transparent bg-sky-600 px-5 py-2 text-sm font-medium text-white transition hover:bg-sky-700 hover:shadow-sm hover:shadow-sky-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 active:bg-sky-800 print:hidden"
                 onClick={() => window.print()}
               >
-                
                 {t('print')}
               </button>
               <a
@@ -92,15 +90,14 @@ export default memo(function ProfileCard({
                   locale === defaultLocale ? '/' : `/${locale}`,
                   'https://cv.cocody.dev/'
                 ).toString()}
-                className="items-center hidden px-5 py-2 text-sm font-medium border border-transparent rounded-lg bg-slate-100 text-slate-500 print:inline-flex "
+                className="hidden items-center rounded-lg border border-transparent bg-slate-100 px-5 py-2 text-sm font-medium text-slate-500 print:inline-flex "
               >
-                
                 {t('latest')}
               </a>
             </div>
           </div>
         </div>
-        <div className="px-6 py-4 border-t border-opacity-50 border-slate-200 print:px-6 sm:px-6">
+        <div className="border-t border-slate-200 border-opacity-50 px-6 py-4 print:px-6 sm:px-6">
           <dl className="grid grid-cols-1 gap-x-4 gap-y-5 print:grid-cols-3 sm:grid-cols-3">
             <div className="sm:order-0 print:order-0 print:row-span-2 sm:col-span-1 sm:row-span-2">
               <Dt>{t('address')}</Dt>
@@ -229,7 +226,7 @@ const ShortUrl = memo(function ShortUrl({ url }: { url: string }) {
 
   return (
     <>
-      <span className="transition-colors text-slate-500 hover:text-slate-900">{`${
+      <span className="text-slate-500 transition-colors hover:text-slate-900">{`${
         parsed.hostname
       }${parts.join('/')}/`}</span>
       {handle}

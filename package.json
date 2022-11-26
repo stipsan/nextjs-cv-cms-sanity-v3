@@ -1,22 +1,17 @@
 {
   "private": true,
   "scripts": {
-    "prebuild": "npm run build:utils",
     "build": "next build",
     "prebuild:ci": "npx rimraf blazing-scripts",
     "build:ci": "node scripts/buildBlazingScripts.mjs",
-    "prebuild:utils": "npx rimraf blazing-utils",
-    "build:utils": "node scripts/buildBlazingUtils.mjs",
     "ci:createSocialImage": "node blazing-scripts/createSocialImage.js",
     "cli:createSocialImage": "node -r esbuild-register scripts/createSocialImage.ts",
     "decrypt": "node decrypt",
-    "predev": "npm run build:utils",
     "dev": "next dev",
     "encrypt": "node encrypt",
-    "format": "npx prettier --write . && npm run lint -- --fix",
+    "format": "npx prettier --cache --write . --ignore-path .gitignore && npm run lint -- --fix",
     "lint": "next lint",
     "start": "next start",
-    "test:hello:secrets": "node -r dotenv/config scripts/helloSecrets",
     "test:workflow": "node -r dotenv/config scripts/manualWorkflow.mjs"
   },
   "prettier": {
@@ -29,6 +24,7 @@
     "@sanity/image-url": "^1.0.1",
     "@segment/snippet": "^4.15.3",
     "@tailwindcss/forms": "^0.5.3",
+    "@vercel/analytics": "^0.1.5",
     "classnames": "^2.3.2",
     "cryptr": "^6.0.3",
     "date-fns": "^2.29.3",

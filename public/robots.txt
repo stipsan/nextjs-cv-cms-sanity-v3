@@ -1,9 +1,0 @@
-# No need to crawl the Social Media Card generator page
-User-agent: *
-Disallow: /no/internal
-User-agent: *
-Disallow: /internal
-
-# Allow all crawlers in general
-User-agent: *
-Allow: /

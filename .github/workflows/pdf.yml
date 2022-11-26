@@ -1,0 +1,61 @@
+---
+name: PDF Generator
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      os:
+        description: 'Runner'
+        required: true
+        default: 'ubuntu-latest'
+        type: choice
+        options:
+        - ubuntu-latest
+        - macos-latest
+        - windows-latest
+
+concurrency:
+  group: ${{ github.workflow }}-${{ inputs.os }}
+  cancel-in-progress: true
+
+jobs:
+  say_hello:
+    runs-on: ubuntu-latest
+    outputs:
+      locales: ${{ steps.generate-matrix.outputs.locales }}
+    steps:
+      - uses: actions/github-script@v6
+        id: set-result
+        with:
+          script: return ['en', 'no']
+      #- name: Get result
+      #  run: echo "${{steps.set-result.outputs.result}}"
+      - name: Generate Matrix
+        id: generate-matrix
+        run: |
+          LOCALES='${{ steps.set-result.outputs.result }}'
+          echo ::set-output name=locales::${LOCALES}
+  # ------------------------
+  my_echo:
+    runs-on: ubuntu-latest
+    needs:
+      - say_hello
+    steps:
+      - name: Echo previous outputs
+        run: echo "${{ toJSON(needs.say_hello.outputs) }}"
+  # ------------------------
+  my_matrix:
+    runs-on: ${{ inputs.os }}
+    needs:
+      - my_echo
+      - say_hello
+    strategy:
+      matrix:
+        locales: ${{ fromJSON(needs.say_hello.outputs.locales) }}
+        os: [macos-latest, ubuntu-latest, windows-latest]
+    steps:
+      - name: Matrix => (${{ matrix.locale }} ${{ matrix.os}})
+        run: |
+          echo ${{ matrix.service }}

@@ -2,7 +2,7 @@ import 'tailwindcss/tailwind.css'
 
 import { Analytics } from 'app/analytics'
 
-export default function RootLayout({
+export default function LocaleLayout({
   children,
   params,
 }: {

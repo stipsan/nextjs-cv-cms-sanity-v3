@@ -9,7 +9,7 @@ export default function StudioLayout({
 }) {
   return (
     <html lang="en">
-      <body className='overscroll-none'>
+      <body className="overscroll-none">
         {children}
         <Analytics />
       </body>

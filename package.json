@@ -42,7 +42,7 @@
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.0",
     "react-spring-bottom-sheet": "^3.4.1",
-    "sanity": "3.0.0-v3-pte.17",
+    "sanity": "3.0.0-rc.3",
     "styled-components": "^5.3.6"
   },
   "devDependencies": {

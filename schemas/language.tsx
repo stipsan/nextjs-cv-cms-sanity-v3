@@ -1,5 +1,9 @@
+import {
+  clear,
+} from '@stipsan/sanity-plugin-internationalized-array'
 import { bcp47Normalize } from 'bcp-47-normalize'
 import { Languages } from 'lucide-react'
+import { useEffect } from 'react'
 import { defineField, defineType } from 'sanity'
 
 const languageNames = new Intl.DisplayNames([], {
@@ -12,6 +16,15 @@ export default defineType({
   type: 'document',
   // liveEdit: true,
   icon: Languages,
+  components:{
+    input: props => {
+      // Clear cache on unmount in case any mutations where made
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      useEffect(() => () => clear(),[])
+
+      return props.renderDefault(props)
+    },
+  },
   preview: {
     select: {
       title: 'title',

@@ -1,20 +1,25 @@
 'use client'
 
 import { visionTool } from '@sanity/vision'
-import { internationalizedArray } from '@stipsan/sanity-plugin-internationalized-array'
+import {
+  type Language,
+  internationalizedArray,
+} from '@stipsan/sanity-plugin-internationalized-array'
 // Customize the Studio theme here: https://themer.sanity.build/?preset=verdant
 import { theme } from 'https://themer.sanity.build/api/hues?preset=verdant'
 import { apiVersion, dataset, projectId } from 'lib/sanity.api'
-import { defineConfig } from 'sanity'
+import { languagesQuery } from 'lib/sanity.queries'
+import { createElement, Fragment } from 'react'
+import { defineConfig, SanityClient } from 'sanity'
 import { deskTool } from 'sanity/desk'
 import languageType from 'schemas/language'
 import settingsType from 'schemas/settings'
 
-async function fetchLanguages() {
-  return [
-    { id: 'en', title: 'English' },
-    { id: 'no', title: 'Norwegian' },
-  ]
+import Preload from './Preload'
+
+async function loadLanguages(client: SanityClient): Promise<Language[]> {
+  const languages = await client.fetch<Language[]>(languagesQuery)
+  return languages.length > 0 ? languages : [{ id: 'en', title: 'English' }]
 }
 
 const config = defineConfig({
@@ -24,7 +29,8 @@ const config = defineConfig({
   plugins: [
     deskTool(),
     internationalizedArray({
-      languages: fetchLanguages,
+      apiVersion,
+      languages: loadLanguages,
       fieldTypes: ['string', 'text'],
     }),
     // Vision lets you query your content with GROQ in the studio
@@ -33,6 +39,18 @@ const config = defineConfig({
   ],
   projectId,
   dataset,
+  // If `languages` is a callback then let's preload it
+  studio: {
+    components: {
+      layout: (props) =>
+        createElement(
+          Fragment,
+          {},
+          createElement(Preload, { apiVersion, languages: loadLanguages }),
+          props.renderDefault(props)
+        ),
+    },
+  },
   document: {
     actions: (prev, { schemaType }) => {
       if (schemaType === 'secrets') {
@@ -102,7 +120,7 @@ const config = defineConfig({
           {
             title: 'Role',
             name: 'role',
-            type: 'string',
+            type: 'internationalizedArrayString',
           },
           {
             title: 'Company',

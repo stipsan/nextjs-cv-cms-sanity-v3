@@ -1,31 +1,39 @@
-import {
-  getFilteredDocumentTypeListItems,
-  withDocumentI18nPlugin,
-} from '@sanity/document-internationalization'
-import { CogIcon, EditIcon, LockIcon, UserIcon } from '@sanity/icons'
-import { createConfig } from 'sanity'
-import { theme } from 'https://themer.sanity.build/api/hues?preset=tw-cyan'
+'use client'
 
+import { visionTool } from '@sanity/vision'
+import { internationalizedArray } from '@stipsan/sanity-plugin-internationalized-array'
+// Customize the Studio theme here: https://themer.sanity.build/?preset=verdant
+import { theme } from 'https://themer.sanity.build/api/hues?preset=verdant'
+import { apiVersion, dataset, projectId } from 'lib/sanity.api'
+import { defineConfig } from 'sanity'
 import { deskTool } from 'sanity/desk'
+import languageType from 'schemas/language'
+import settingsType from 'schemas/settings'
 
-import SocialMediaCardPreview from './components/SocialMediaCardPreview'
-import { sanity as sanityConfig } from './env.config.mjs'
-import i18n from './intl.config.json'
+async function fetchLanguages() {
+  return [
+    { id: 'en', title: 'English' },
+    { id: 'no', title: 'Norwegian' },
+  ]
+}
 
-const { projectId, dataset } = sanityConfig
-const STRUCTURE_CUSTOM_TYPES = ['settings', 'secrets']
-
-const config = createConfig({
+const config = defineConfig({
   basePath: '/studio',
   name: 'CV',
   theme,
+  plugins: [
+    deskTool(),
+    internationalizedArray({
+      languages: fetchLanguages,
+      fieldTypes: ['string', 'text'],
+    }),
+    // Vision lets you query your content with GROQ in the studio
+    // https://www.sanity.io/docs/the-vision-plugin
+    visionTool({ defaultApiVersion: apiVersion }),
+  ],
+  projectId,
+  dataset,
   document: {
-    /* @TODO setup this later when secrets are implemented
-    productionUrl: async (prev, context) => {
-      debugger
-      return 'https://cv.creativecody.dev/'
-    },
-    // */
     actions: (prev, { schemaType }) => {
       if (schemaType === 'secrets') {
         return prev.filter(({ action }) => action !== 'duplicate')
@@ -50,325 +58,11 @@ const config = createConfig({
       return prev
     },
   },
-  plugins: withDocumentI18nPlugin(
-    (pluginConfig) => [
-      deskTool({
-        structure: (S, { schema }) => {
-          // The `Settings` root list item
-          const settingsListItem = S.listItem()
-            .title('Settings')
-            .icon(CogIcon)
-            .child(
-              S.document()
-                .schemaType('settings')
-                .documentId('settings')
-                .views([
-                  S.view.form().icon(EditIcon),
-                  S.view
-                    .component(SocialMediaCardPreview)
-                    .icon(UserIcon)
-                    .title('Social preview'),
-                ])
-            )
-          // Like Settings but private, prefixing with `private.` ensures it can't be queried unless by an authenticated user with access to the dataset, like drafts
-          const secretsListItem = S.listItem()
-            .title('Secrets')
-            .icon(LockIcon)
-            .child(
-              S.document()
-                .id('secrets')
-                .schemaType('secrets')
-                .documentId('private.secrets')
-                .title('Secret title')
-            )
 
-          // The default root list items (except custom ones)
-          const defaultListItems = getFilteredDocumentTypeListItems({
-            S,
-            schema,
-            config: pluginConfig,
-          }).filter((listItem) => !STRUCTURE_CUSTOM_TYPES.includes(listItem.id))
-
-          return S.list()
-            .title('Content')
-            .items([
-              settingsListItem,
-              secretsListItem,
-              S.divider(),
-              ...defaultListItems,
-            ])
-        },
-        defaultDocumentNode: (S, { schemaType, documentId }) => {
-          if (schemaType === 'settings') {
-            return S.document().views([
-              S.view.form().icon(EditIcon),
-              S.view
-                .component(SocialMediaCardPreview)
-                .icon(UserIcon)
-                .title('Social preview'),
-            ])
-          }
-        },
-      }),
-    ],
-    {
-      includeDeskTool: false,
-      base: i18n.defaultLocale,
-      languages: i18n.locales,
-    }
-  ),
-  projectId,
-  dataset,
   schema: {
     types: [
-      {
-        title: 'Settings',
-        name: 'settings',
-        type: 'document',
-        // @ts-expect-error -- typings don't understand i18n yet
-        i18n: true,
-        preview: { prepare: () => ({ title: 'Settings' }) },
-        fields: [
-          {
-            title: 'Profile',
-            name: 'profile',
-            type: 'object',
-            fields: [
-              {
-                title: 'Name',
-                name: 'name',
-                type: 'string',
-              },
-              {
-                title: 'Role',
-                name: 'role',
-                type: 'string',
-              },
-              {
-                title: 'Pronouns',
-                name: 'pronouns',
-                type: 'string',
-              },
-              {
-                title: 'Country',
-                name: 'country',
-                type: 'string',
-              },
-            ],
-          },
-          {
-            title: 'Social',
-            name: 'social',
-            type: 'object',
-            description:
-              'Stand out from the crowd of CV links by adding a beatiful image with a brief summary of your profile',
-            fields: [
-              {
-                title: 'Mode',
-                name: 'mode',
-                type: 'string',
-                initialValue: 'auto',
-                options: {
-                  list: [
-                    { title: 'Auto', value: 'auto' },
-                    { title: 'Manual', value: 'manual' },
-                  ],
-                  layout: 'radio',
-                  direction: 'horizontal',
-                },
-              },
-              {
-                title: 'Headshot',
-                name: 'headshot',
-                type: 'image',
-                hidden: ({ document }) =>
-                  (document?.social as any)?.mode === 'manual',
-                options: {
-                  // Save some resources by not processing the image as we know we won't be using blurhash or lqip
-                  //https://www.sanity.io/docs/image-metadata
-                  metadata: ['palette'],
-                  hotspot: true,
-                  // Only care about excluding SVG tbh, but since input[type="file"].accept only lets us specify an allowlist it's necessary to best-guess
-                  accept: ['image/jpeg', 'image/png'],
-                },
-              },
-              {
-                title: 'Eyebrow',
-                name: 'eyebrow',
-                type: 'string',
-                hidden: ({ document }) =>
-                  (document?.social as any)?.mode === 'manual',
-              },
-              {
-                title: 'Name',
-                name: 'name',
-                type: 'string',
-                hidden: ({ document }) =>
-                  (document?.social as any)?.mode === 'manual',
-              },
-              {
-                title: 'Pronouns',
-                name: 'pronouns',
-                type: 'string',
-                hidden: ({ document }) =>
-                  (document?.social as any)?.mode === 'manual',
-              },
-              {
-                title: 'Role',
-                name: 'role',
-                type: 'string',
-                hidden: ({ document }) =>
-                  (document?.social as any)?.mode === 'manual',
-              },
-              {
-                title: 'Image',
-                name: 'image',
-                type: 'image',
-                options: {
-                  // gc uses specific filenames, this option allows manually testing the gc manually
-                  storeOriginalFilename: true,
-                  // Save some resources by not processing the image as we know we won't be using blurhash or lqip
-                  //https://www.sanity.io/docs/image-metadata
-                  metadata: ['palette'],
-                  hotspot: true,
-                  // Only care about excluding SVG tbh, but since input[type="file"].accept only lets us specify an allowlist it's necessary to best-guess
-                  accept: ['image/jpeg', 'image/png'],
-                },
-                fields: [
-                  {
-                    title: 'Alt text',
-                    name: 'alt',
-                    type: 'text',
-                    rows: 2,
-                  },
-                  // eyebrow, name, pronouns and role are duplicated here to keep track of when the graphic needs to be recreated whenever something is edited
-                  {
-                    title: 'auto.headshot',
-                    name: 'headshot',
-                    type: 'string',
-                    hidden: true,
-                    readOnly: ({ document }) =>
-                      (document?.social as any)?.mode === 'manual',
-                  },
-                  {
-                    title: 'auto.eyebrow',
-                    name: 'eyebrow',
-                    type: 'string',
-                    hidden: true,
-                    readOnly: ({ document }) =>
-                      (document?.social as any)?.mode === 'manual',
-                  },
-                  {
-                    title: 'auto.name',
-                    name: 'name',
-                    type: 'string',
-                    hidden: true,
-                    readOnly: ({ document }) =>
-                      (document?.social as any)?.mode === 'manual',
-                  },
-                  {
-                    title: 'auto.pronouns',
-                    name: 'pronouns',
-                    type: 'string',
-                    hidden: true,
-                    readOnly: ({ document }) =>
-                      (document?.social as any)?.mode === 'manual',
-                  },
-                  {
-                    title: 'auto.role',
-                    name: 'role',
-                    type: 'string',
-                    hidden: true,
-                    readOnly: ({ document }) =>
-                      (document?.social as any)?.mode === 'manual',
-                  },
-                ],
-                // @TODO figure out how to type this
-                hidden: ({ document }) => !(document?.social as any)?.mode,
-                readOnly: ({ document }) =>
-                  (document?.social as any)?.mode === 'auto',
-              },
-            ],
-          },
-          {
-            title: 'Labels',
-            name: 'label',
-            description:
-              "Translate UI text, don't put content here, unless you really want to!",
-            type: 'object',
-            fields: [
-              {
-                title: 'Address',
-                name: 'address',
-                type: 'string',
-              },
-              {
-                title: 'Email',
-                name: 'email',
-                type: 'string',
-              },
-              {
-                title: 'Phone',
-                name: 'phone',
-                type: 'string',
-              },
-              {
-                title: 'About',
-                name: 'about',
-                type: 'string',
-              },
-              {
-                title: 'Print',
-                name: 'print',
-                type: 'string',
-              },
-              {
-                title: 'Latest',
-                name: 'latest',
-                type: 'string',
-              },
-            ],
-          },
-          {
-            title: 'Meta',
-            name: 'meta',
-            type: 'object',
-            fields: [
-              {
-                title: 'Title',
-                name: 'title',
-                type: 'string',
-              },
-              {
-                title: 'Description',
-                name: 'description',
-                type: 'string',
-              },
-              {
-                title: 'Twitter',
-                name: 'twitter',
-                type: 'string',
-                description: 'Just the @username, not the URL',
-                // @TODO validate if the handle is prefixed with @
-              },
-            ],
-          },
-        ],
-      },
-      {
-        title: 'Secrets',
-        name: 'secrets',
-        type: 'document',
-        preview: { prepare: () => ({ title: 'Secrets' }) },
-        fields: [
-          {
-            title: 'Hello',
-            name: 'hello',
-            type: 'string',
-            description: 'Publish this to anything but "Edge"',
-          },
-        ],
-      },
+      settingsType,
+      languageType,
       {
         title: 'Company',
         name: 'company',

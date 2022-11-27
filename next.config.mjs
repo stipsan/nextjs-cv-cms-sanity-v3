@@ -6,9 +6,8 @@
 const nextConfig = {
   experimental: {
     appDir: true,
-    urlImports: ['https://themer.sanity.build/'],
     legacyBrowsers: false,
-    runtime: 'experimental-edge',
+    urlImports: ['https://themer.sanity.build/'],
   },
   images: {
     domains: ['cdn.sanity.io', 'source.unsplash.com'],

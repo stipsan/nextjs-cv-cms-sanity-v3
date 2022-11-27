@@ -1,6 +1,6 @@
 import { defaultLocale, locales } from 'lib/intl.config'
-import {absolute } from 'lib/url'
-import { headers } from 'next/headers';
+import { absolute } from 'lib/url'
+import { headers } from 'next/headers'
 
 // import { getSettings } from 'lib/sanity.client'
 import favicon from './favicon.png'
@@ -10,8 +10,8 @@ export default async function LocaleHead({
 }: {
   params: { locale: string }
 }) {
-  const host =  headers().get('host')
-  
+  const host = headers().get('host')
+
   return (
     <>
       <title>{`Cody Olsen, Full Stack Engineer – CV`}</title>
@@ -31,10 +31,8 @@ export default async function LocaleHead({
           href={`${absolute(`/${locale}`)}`}
         />
       ))}
-      <link rel="canonical" href={`${absolute(`/${defaultLocale}`)}`}
-      />
-      <meta property="og:url"content={`${absolute(`/${defaultLocale}`)}`}
-      />
+      <link rel="canonical" href={`${absolute(`/${defaultLocale}`)}`} />
+      <meta property="og:url" content={`${absolute(`/${defaultLocale}`)}`} />
 
       <meta
         property="og:image"

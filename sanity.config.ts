@@ -9,9 +9,11 @@ import {
 import { theme } from 'https://themer.sanity.build/api/hues?preset=verdant'
 import { apiVersion, dataset, projectId } from 'lib/sanity.api'
 import { languagesQuery } from 'lib/sanity.queries'
-import { createElement, Fragment } from 'react'
 import { defineConfig, defineField, SanityClient } from 'sanity'
 import { deskTool } from 'sanity/desk'
+import confidentialType from 'schemas/confidential'
+import educationType from 'schemas/education'
+import jobType from 'schemas/job'
 import languageType from 'schemas/language'
 import settingsType from 'schemas/settings'
 import workplaceType from 'schemas/workplace'
@@ -52,122 +54,14 @@ const config = defineConfig({
     // https://www.sanity.io/docs/the-vision-plugin
     visionTool({ defaultApiVersion: apiVersion }),
   ],
-  document: {
-    actions: (prev, { schemaType }) => {
-      if (schemaType === 'secrets') {
-        return prev.filter(({ action }) => action !== 'duplicate')
-      }
-      if (schemaType === 'settings') {
-        return prev.filter(
-          ({ action }) => action !== 'unpublish' && action !== 'duplicate'
-        )
-      }
-
-      return prev
-    },
-    newDocumentOptions: (prev, { creationContext }) => {
-      if (creationContext.type === 'global') {
-        return prev.filter(
-          (templateItem) =>
-            templateItem.templateId !== 'settings' &&
-            templateItem.templateId !== 'secrets'
-        )
-      }
-
-      return prev
-    },
-  },
-
   schema: {
     types: [
-      settingsType,
       languageType,
+      settingsType,
+      confidentialType,
+      jobType,
       workplaceType,
-      {
-        title: 'Experience',
-        name: 'experience',
-        type: 'document',
-        fields: [
-          {
-            title: 'Role',
-            name: 'role',
-            type: 'internationalizedArrayString',
-          },
-          {
-            title: 'Company',
-            name: 'company',
-            type: 'reference',
-            to: [{ type: 'company' }],
-          },
-          {
-            title: 'Joined',
-            name: 'joined',
-            type: 'date',
-          },
-          {
-            title: 'Left',
-            name: 'left',
-            type: 'date',
-          },
-          {
-            title: 'Location',
-            name: 'location',
-            type: 'string',
-          },
-          {
-            title: 'Flag',
-            name: 'flag',
-            type: 'string',
-          },
-          {
-            title: 'Map URL',
-            name: 'mapUrl',
-            type: 'url',
-          },
-          {
-            title: 'Remote Work',
-            name: 'remote',
-            type: 'boolean',
-          },
-        ],
-        initialValue: {
-          remote: false,
-        },
-      },
-      {
-        title: 'Education',
-        name: 'education',
-        type: 'document',
-        fields: [
-          {
-            title: 'School',
-            name: 'school',
-            type: 'string',
-          },
-          {
-            title: 'Degree',
-            name: 'degree',
-            type: 'string',
-          },
-          {
-            title: 'Field of study',
-            name: 'field',
-            type: 'string',
-          },
-          {
-            title: 'Start date',
-            name: 'start',
-            type: 'date',
-            options: { dateFormat: 'YYYY' },
-          },
-          {
-            title: 'End date',
-            name: 'end',
-            type: 'date',
-            options: { dateFormat: 'YYYY' },
-          },
-        ],
-      },
+      educationType,
     ],
   },
 })

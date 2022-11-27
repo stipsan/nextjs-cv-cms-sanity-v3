@@ -5,10 +5,12 @@ import {
   type Language,
   internationalizedArray,
 } from '@stipsan/sanity-plugin-internationalized-array'
+import OpenGraphPreview from 'components/OpenGraphPreview'
 // Customize the Studio theme here: https://themer.sanity.build/?preset=verdant
 import { theme } from 'https://themer.sanity.build/api/hues?preset=verdant'
 import { apiVersion, dataset, projectId } from 'lib/sanity.api'
 import { languagesQuery } from 'lib/sanity.queries'
+import { singleton } from 'plugins/singleton'
 import { defineConfig, defineField, SanityClient } from 'sanity'
 import { deskTool } from 'sanity/desk'
 import confidentialType from 'schemas/confidential'
@@ -20,6 +22,7 @@ import workplaceType from 'schemas/workplace'
 
 async function loadLanguages(client: SanityClient): Promise<Language[]> {
   const languages = await client.fetch<Language[]>(languagesQuery)
+  console.log({ languages })
   return languages.length > 0 ? languages : [{ id: 'en', title: 'English' }]
 }
 
@@ -30,14 +33,84 @@ const config = defineConfig({
   projectId,
   dataset,
   plugins: [
-    deskTool(),
+    singleton({ typeName: settingsType.name }),
+    singleton({ typeName: confidentialType.name }),
+    deskTool({
+      structure: (S) => {
+        // The `Settings` root list item
+        const settingsListItem = // A singleton not using `documentListItem`, eg no built-in preview
+          S.listItem()
+            .title(settingsType.title)
+            .icon(settingsType.icon)
+            .child(
+              S.editor()
+                .id(settingsType.name)
+                .schemaType(settingsType.name)
+                .documentId(settingsType.name)
+                .views([
+                  S.view.form().icon(settingsType.icon),
+                  S.view
+                    .component(OpenGraphPreview)
+                    .icon(settingsType.icon)
+                    .title('Open Graph'),
+                ])
+            )
+
+        // The `Confidential` root list item
+        const confidentialListItem = // A singleton not using `documentListItem`, eg no built-in preview
+          S.listItem()
+            .title(confidentialType.title)
+            .icon(confidentialType.icon)
+            .child(
+              S.editor()
+                .id(confidentialType.name)
+                .schemaType(confidentialType.name)
+                .documentId(confidentialType.name)
+            )
+
+        // The default root list items (except custom ones)
+        const defaultListItems = S.documentTypeListItems().filter(
+          (listItem) =>
+            listItem.getId() !== settingsType.name &&
+            listItem.getId() !== confidentialType.name &&
+            listItem.getId() !== languageType.name
+        )
+
+        return S.list()
+          .id('root')
+          .title('Content')
+          .items([
+            S.documentTypeListItems()
+              .find((listItem) => listItem.getId() === languageType.name)
+              .title('Languages'),
+            S.divider(),
+            settingsListItem,
+            confidentialListItem,
+            S.divider(),
+            ...defaultListItems,
+          ])
+      },
+      defaultDocumentNode: (S, options) => {
+        console.log(options.schemaType)
+        debugger
+        switch (options.schemaType) {
+          case settingsType.name:
+            return S.document().views([
+              S.view.form().icon(settingsType.icon),
+              // S.view.component(SocialSharePreview).title('Social Share'),
+            ])
+
+          default:
+            return S.document().views([S.view.form()])
+        }
+      },
+    }),
     internationalizedArray({
       apiVersion,
       languages: loadLanguages,
       fieldTypes: [
         'string',
         'text',
-        'file',
         defineField({
           name: 'altText',
           type: 'text' as any,

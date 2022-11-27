@@ -7,56 +7,69 @@ export default defineType({
   type: 'document',
   icon: CogIcon,
   preview: { prepare: () => ({ title: 'Settings' }) },
+  fieldsets: [
+    {
+      name: 'profile',
+      title: 'Profile',
+      options: { collapsible: false, columns: 2 },
+    },
+    {
+      name: 'picture',
+      title: 'Picture',
+      options: { collapsible: true },
+    },
+  ],
+  groups: [
+    { name: 'profile', title: 'Profile' },
+    { name: 'og', title: 'Open Graph', icon: CogIcon },
+  ],
   fields: [
     defineField({
-      title: 'Profile',
-      name: 'profile',
-      type: 'object',
-      fields: [
-        defineField({
-          title: 'Name',
-          name: 'name',
-          type: 'string',
-        }),
-        defineField({
-          title: 'Pronouns',
-          name: 'pronouns',
-          type: 'internationalizedArrayString',
-        }),
-        defineField({
-          title: 'Country',
-          name: 'country',
-          type: 'internationalizedArrayString',
-        }),
-        defineField({
-          title: 'PDF',
-          name: 'pdf',
-          type: 'internationalizedArrayPdf',
-        }),
-        defineField({
-          title: 'Image',
-          name: 'image',
-          type: 'image',
-          options: {
-            // gc uses specific filenames, this option allows manually testing the gc manually
-            storeOriginalFilename: true,
-            // Save some resources by not processing the image as we know we won't be using blurhash or lqip
-            //https://www.sanity.io/docs/image-metadata
-            metadata: ['palette'],
-            hotspot: true,
-            // Only care about excluding SVG tbh, but since input[type="file"].accept only lets us specify an allowlist it's necessary to best-guess
-            accept: 'image/jpeg, image/png',
-          },
-          fields: [
-            {
-              title: 'Alternative  text',
-              name: 'alt',
-              type: 'internationalizedArrayAltText',
-            },
-          ],
-        }),
-      ],
+      title: 'Full name',
+      name: 'name',
+      type: 'string',
+      group: 'profile',
     }),
+    defineField({
+      title: 'CV PDF',
+      name: 'pdf',
+      type: 'internationalizedArrayPdf',
+    }),
+    defineField({
+      title: 'Pronouns',
+      name: 'pronouns',
+      type: 'internationalizedArrayString',
+      fieldset: 'profile',
+    }),
+    defineField({
+      title: 'Country',
+      name: 'country',
+      type: 'internationalizedArrayString',
+      fieldset: 'profile',
+    }),
+    defineField({
+      title: 'Headshot',
+      name: 'headshot',
+      type: 'image',
+      fieldset: 'picture',
+      options: {
+        // gc uses specific filenames, this option allows manually testing the gc manually
+        storeOriginalFilename: true,
+        // Save some resources by not processing the image as we know we won't be using blurhash or lqip
+        //https://www.sanity.io/docs/image-metadata
+        metadata: ['palette'],
+        hotspot: true,
+        // Only care about excluding SVG tbh, but since input[type="file"].accept only lets us specify an allowlist it's necessary to best-guess
+        accept: 'image/jpeg,image/png',
+      },
+    }),
+    defineField({
+      title: 'Profile picture alt',
+      name: 'profilePictureAlt',
+      type: 'internationalizedArrayAltText',
+      group: ['profile', 'og'],
+    }),
+
     defineField({
       title: 'Meta',
       name: 'meta',

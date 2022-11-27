@@ -10,7 +10,9 @@ import { defineArrayMember, defineField, defineType } from 'sanity'
 import workplaceType from 'schemas/workplace'
 
 export default defineType({
-  name: 'confidential',
+  // The name is also used as the ID in the structure builder later, and is why it's only accessible with a viewer or auth token
+  // And it's safe to have sensitive information here like phone numbers and such.
+  name: 'private.confidential',
   title: 'Confidential',
   type: 'document',
   icon: FileLock,

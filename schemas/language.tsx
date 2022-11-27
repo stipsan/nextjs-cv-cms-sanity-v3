@@ -1,6 +1,4 @@
-import {
-  clear,
-} from '@stipsan/sanity-plugin-internationalized-array'
+import { clear } from '@stipsan/sanity-plugin-internationalized-array'
 import { bcp47Normalize } from 'bcp-47-normalize'
 import { Languages } from 'lucide-react'
 import { useEffect } from 'react'
@@ -14,13 +12,12 @@ export default defineType({
   name: 'language',
   title: 'Language',
   type: 'document',
-  // liveEdit: true,
   icon: Languages,
-  components:{
-    input: props => {
+  components: {
+    input: (props) => {
       // Clear cache on unmount in case any mutations where made
       // eslint-disable-next-line react-hooks/rules-of-hooks
-      useEffect(() => () => clear(),[])
+      useEffect(() => () => clear(), [])
 
       return props.renderDefault(props)
     },

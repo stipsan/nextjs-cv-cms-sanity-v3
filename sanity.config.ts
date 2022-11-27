@@ -14,6 +14,7 @@ import { defineConfig, defineField, SanityClient } from 'sanity'
 import { deskTool } from 'sanity/desk'
 import languageType from 'schemas/language'
 import settingsType from 'schemas/settings'
+import workplaceType from 'schemas/workplace'
 
 async function loadLanguages(client: SanityClient): Promise<Language[]> {
   const languages = await client.fetch<Language[]>(languagesQuery)
@@ -81,37 +82,7 @@ const config = defineConfig({
     types: [
       settingsType,
       languageType,
-      {
-        title: 'Company',
-        name: 'company',
-        type: 'document',
-        fields: [
-          {
-            title: 'Name',
-            name: 'name',
-            type: 'string',
-          },
-          {
-            title: 'Slug',
-            name: 'slug',
-            type: 'slug',
-            options: { source: 'name' },
-          },
-          {
-            title: 'LinkedIn',
-            name: 'linkedin',
-            type: 'url',
-          },
-          {
-            title: 'Logo',
-            name: 'logo',
-            type: 'image',
-            description:
-              'The logo will need render in a timeline that uses a CSS drop-shadow effect to create a white outline. Thus the opacity of the logo must be deliberate in order for it to look great. And generally square logos look better.',
-            options: { hotspot: true },
-          },
-        ],
-      },
+      workplaceType,
       {
         title: 'Experience',
         name: 'experience',

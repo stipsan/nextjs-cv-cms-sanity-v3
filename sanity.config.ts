@@ -10,12 +10,10 @@ import { theme } from 'https://themer.sanity.build/api/hues?preset=verdant'
 import { apiVersion, dataset, projectId } from 'lib/sanity.api'
 import { languagesQuery } from 'lib/sanity.queries'
 import { createElement, Fragment } from 'react'
-import { defineConfig, SanityClient } from 'sanity'
+import { defineConfig, defineField, SanityClient } from 'sanity'
 import { deskTool } from 'sanity/desk'
 import languageType from 'schemas/language'
 import settingsType from 'schemas/settings'
-
-import Preload from './Preload'
 
 async function loadLanguages(client: SanityClient): Promise<Language[]> {
   const languages = await client.fetch<Language[]>(languagesQuery)
@@ -26,31 +24,33 @@ const config = defineConfig({
   basePath: '/studio',
   name: 'CV',
   theme,
+  projectId,
+  dataset,
   plugins: [
     deskTool(),
     internationalizedArray({
       apiVersion,
       languages: loadLanguages,
-      fieldTypes: ['string', 'text'],
+      fieldTypes: [
+        'string',
+        'text',
+        'file',
+        defineField({
+          name: 'altText',
+          type: 'text' as any,
+          rows: 2,
+        }),
+        defineField({
+          name: 'pdf',
+          type: 'file',
+          options: { accept: 'application/pdf' },
+        }),
+      ],
     }),
     // Vision lets you query your content with GROQ in the studio
     // https://www.sanity.io/docs/the-vision-plugin
     visionTool({ defaultApiVersion: apiVersion }),
   ],
-  projectId,
-  dataset,
-  // If `languages` is a callback then let's preload it
-  studio: {
-    components: {
-      layout: (props) =>
-        createElement(
-          Fragment,
-          {},
-          createElement(Preload, { apiVersion, languages: loadLanguages }),
-          props.renderDefault(props)
-        ),
-    },
-  },
   document: {
     actions: (prev, { schemaType }) => {
       if (schemaType === 'secrets') {

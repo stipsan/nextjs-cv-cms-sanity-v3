@@ -8,24 +8,16 @@ export default defineType({
   type: 'document',
   icon: CogIcon,
   preview: { prepare: () => ({ title: 'Settings' }) },
-  // Uncomment below to have edits publish automatically as you type
-  // liveEdit: true,
   fields: [
     defineField({
       title: 'Profile',
       name: 'profile',
       type: 'object',
-      initialValue: demo.profile,
       fields: [
         defineField({
           title: 'Name',
           name: 'name',
           type: 'string',
-        }),
-        defineField({
-          title: 'Role',
-          name: 'role',
-          type: 'internationalizedArrayString',
         }),
         defineField({
           title: 'Pronouns',
@@ -36,6 +28,11 @@ export default defineType({
           title: 'Country',
           name: 'country',
           type: 'internationalizedArrayString',
+        }),
+        defineField({
+          title: 'PDF',
+          name: 'pdf',
+          type: 'internationalizedArrayPdf',
         }),
         defineField({
           title: 'Image',
@@ -53,12 +50,9 @@ export default defineType({
           },
           fields: [
             {
-              title: 'Alt text',
+              title: 'Alternative  text',
               name: 'alt',
-              type: 'internationalizedArrayText',
-              options: {
-                rows: 2,
-              },
+              type: 'internationalizedArrayAltText',
             },
           ],
         }),

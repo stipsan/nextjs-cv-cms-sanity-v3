@@ -35,7 +35,7 @@ export default memo(function UnlockButton({
           id="unlock-button"
           type="button"
           className={cx(
-            'group relative flex items-center justify-center whitespace-nowrap rounded-lg border border-cyan-200/50 bg-cyan-100 py-1 px-4 text-sm text-cyan-700 shadow shadow-cyan-100/50 focus:outline-none ',
+            'group relative flex items-center justify-center whitespace-nowrap rounded-lg border border-cyan-200/50 bg-cyan-100 px-4 py-1 text-sm text-cyan-700 shadow shadow-cyan-100/50 focus:outline-none ',
             {
               'transform-gpu transition hover:animate-bounce group-hover:scale-110 group-hover:animate-none':
                 !unlocked,
@@ -47,13 +47,13 @@ export default memo(function UnlockButton({
           onClick={unlocked ? undefined : () => setOpen(true)}
         >
           {unlocked ? (
-            <LockOpenIcon className="mr-1.5 -ml-0.5 h-4" />
+            <LockOpenIcon className="-ml-0.5 mr-1.5 h-4" />
           ) : (
             <>
               {!open && (
-                <div className="pointer-events-none absolute top-0.5 right-3.5 bottom-0.5 left-3.5 z-[-1] animate-ping rounded-lg bg-cyan-100 transition-colors group-hover:animate-none group-hover:bg-opacity-0 group-focus:animate-none group-focus:bg-opacity-0 group-active:animate-none group-active:bg-opacity-0" />
+                <div className="pointer-events-none absolute bottom-0.5 left-3.5 right-3.5 top-0.5 z-[-1] animate-ping rounded-lg bg-cyan-100 transition-colors group-hover:animate-none group-hover:bg-opacity-0 group-focus:animate-none group-focus:bg-opacity-0 group-active:animate-none group-active:bg-opacity-0" />
               )}
-              <LockClosedIcon className="mr-1.5 -ml-0.5 h-4" />
+              <LockClosedIcon className="-ml-0.5 mr-1.5 h-4" />
             </>
           )}
           {unlocked ? t('unlocked') : t('unlock')}
@@ -77,7 +77,7 @@ export default memo(function UnlockButton({
         }}
       >
         {unlocked ? (
-          <div className="px-4 pt-4 pb-4">
+          <div className="px-4 pb-4 pt-4">
             <div className="rounded-md bg-green-50 p-4">
               <div className="flex">
                 <div className="flex-shrink-0">
@@ -106,13 +106,13 @@ export default memo(function UnlockButton({
                 }
               )}
             >
-              <CheckIcon className="mr-2 -ml-1 h-5 w-5" aria-hidden="true" />
+              <CheckIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
               {t('ok')}
             </button>
           </div>
         ) : (
           <form
-            className="px-4 pt-4 pb-4"
+            className="px-4 pb-4 pt-4"
             onSubmit={(event) => {
               event.preventDefault()
               if (!loading) {
@@ -188,7 +188,7 @@ export default memo(function UnlockButton({
             >
               {loading ? (
                 <svg
-                  className="mr-2 -ml-1 h-5 w-5 animate-spin text-white"
+                  className="-ml-1 mr-2 h-5 w-5 animate-spin text-white"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -209,7 +209,7 @@ export default memo(function UnlockButton({
                 </svg>
               ) : (
                 <LockOpenIcon
-                  className="mr-2 -ml-1 h-5 w-5"
+                  className="-ml-1 mr-2 h-5 w-5"
                   aria-hidden="true"
                 />
               )}

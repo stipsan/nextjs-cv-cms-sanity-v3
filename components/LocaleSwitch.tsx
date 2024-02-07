@@ -46,7 +46,7 @@ export default memo(function LocaleSwitch({
           <Link
             key={locale}
             className={cx(
-              'transform-cpu rounded-[0.4rem] py-1.5 px-3 text-sm font-medium leading-4 ring-white ring-opacity-60 ring-offset-2 ring-offset-slate-400 transition focus:outline-none focus-visible:ring-2 active:scale-95',
+              'transform-cpu rounded-[0.4rem] px-3 py-1.5 text-sm font-medium leading-4 ring-white ring-opacity-60 ring-offset-2 ring-offset-slate-400 transition focus:outline-none focus-visible:ring-2 active:scale-95',
               {
                 'pointer-events-none bg-white text-slate-600 shadow shadow-slate-500/25':
                   locale === currentLocale,

@@ -68,14 +68,14 @@ export default memo(function OpenSourceStats({
       <h1 className="mb-3 text-lg font-medium leading-6 text-slate-700">
         {t('title')}
       </h1>
-      <dl className="mt-5 grid grid-cols-1 gap-5 print:grid-cols-2 sm:grid-cols-2">
+      <dl className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 print:grid-cols-2">
         {stats.map((item) => (
           <a
             key={item.name}
             href={item.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="overflow-hidden rounded-2xl bg-slate-900 px-4 py-5 transition hover:bg-slate-800 hover:shadow-lg hover:shadow-slate-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-800 focus-visible:ring-offset-2 active:scale-95 active:bg-slate-900 active:shadow-slate-500/75 print:p-6 sm:p-6"
+            className="overflow-hidden rounded-2xl bg-slate-900 px-4 py-5 transition hover:bg-slate-800 hover:shadow-lg hover:shadow-slate-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-800 focus-visible:ring-offset-2 active:scale-95 active:bg-slate-900 active:shadow-slate-500/75 sm:p-6 print:p-6"
           >
             <dt className="truncate text-sm font-medium text-slate-400">
               {t(item.name)}

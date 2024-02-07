@@ -34,17 +34,17 @@ export default memo(function ExperienceStats({ then }: { then: Date }) {
       <h1 className="mb-3 text-lg font-medium leading-6 text-slate-700">
         {t('title')}
       </h1>
-      <dl className="mt-5 grid grid-cols-1 gap-5 print:grid-cols-3 sm:grid-cols-3">
+      <dl className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3 print:grid-cols-3">
         {stats.map((item) => (
           <div
             key={item.name}
-            className="group relative overflow-hidden rounded-2xl bg-slate-900 px-4 py-5 print:p-6 sm:p-6"
+            className="group relative overflow-hidden rounded-2xl bg-slate-900 px-4 py-5 sm:p-6 print:p-6"
           >
             <dt className="truncate text-sm font-medium text-slate-400">
               {item.name}
             </dt>
             <Since since={item.since} then={then} />
-            <span className="absolute top-1/2 right-4 -translate-y-6 transform-gpu opacity-25 mix-blend-screen transition-opacity group-hover:opacity-100">
+            <span className="absolute right-4 top-1/2 -translate-y-6 transform-gpu opacity-25 mix-blend-screen transition-opacity group-hover:opacity-100">
               <span className="relative inline-block h-12 w-12">
                 <Image src={item.logo} alt="" layout="fill" />
               </span>

@@ -26,7 +26,7 @@ export default memo(function ExperienceTimeline({
               <div className="relative pb-8">
                 {experienceIdx !== experiences.length - 1 ? (
                   <span
-                    className="absolute top-5 left-6 -ml-px h-full w-0.5 bg-slate-200"
+                    className="absolute left-6 top-5 -ml-px h-full w-0.5 bg-slate-200"
                     aria-hidden="true"
                   />
                 ) : null}

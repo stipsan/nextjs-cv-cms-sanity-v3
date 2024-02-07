@@ -66,7 +66,7 @@ function RedactedLabel() {
 
   return (
     <label
-      className="block h-10 cursor-pointer rounded-2xl bg-white py-2 px-4 text-opacity-50 transition-opacity hover:opacity-100"
+      className="block h-10 cursor-pointer rounded-2xl bg-white px-4 py-2 text-opacity-50 transition-opacity hover:opacity-100"
       htmlFor="unlock-button"
     >
       {t('redacted')}

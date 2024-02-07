@@ -68,7 +68,7 @@ export default memo(function Footer({
   )
 
   return (
-    <footer className="mt-5 mb-6 py-6 text-center text-xs print:mb-0 print:pb-0">
+    <footer className="mb-6 mt-5 py-6 text-center text-xs print:mb-0 print:pb-0">
       {generated}
       <RelativeWhen
         date={buildDate}

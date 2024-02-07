@@ -119,6 +119,3 @@ studio/.env.development
 .sanity
 # these are scripts compiled from /scripts, they're create on the CI so it doesn't need to be version controlled
 blazing-scripts
-
-# Fetch themer theme on build by not version controlling it
-next.lock

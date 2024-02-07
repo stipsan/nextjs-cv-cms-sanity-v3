@@ -1,11 +1,11 @@
-import { CogIcon } from '@sanity/icons'
+import { BoxSelect, Contact,Settings, User } from 'lucide-react'
 import { defineField, defineType } from 'sanity'
 
 export default defineType({
   name: 'settings',
   title: 'Settings',
   type: 'document',
-  icon: CogIcon,
+  icon: () =><Settings size={30} strokeWidth={1} />,
   preview: { prepare: () => ({ title: 'Settings' }) },
   fieldsets: [
     {
@@ -20,8 +20,8 @@ export default defineType({
     },
   ],
   groups: [
-    { name: 'profile', title: 'Profile' },
-    { name: 'og', title: 'Open Graph', icon: CogIcon },
+    { name: 'profile', title: 'Profile', icon: ()=><User  strokeWidth={1} />  },
+    { name: 'og', title: 'Open Graph', icon: ()=><Contact  strokeWidth={1} /> },
   ],
   fields: [
     defineField({

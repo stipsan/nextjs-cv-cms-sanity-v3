@@ -9,7 +9,7 @@ export default defineType({
   name: 'job',
   title: 'Job',
   type: 'document',
-  icon: Briefcase,
+  icon: () => <Briefcase size={30} strokeWidth={1} />,
   // preview
   fields: [
     defineField({

@@ -7,7 +7,7 @@ export default defineType({
   name: 'workplace',
   title: 'Workplace',
   type: 'document',
-  icon: Factory,
+  icon: () => <Factory size={30} strokeWidth={1} /> ,
   preview: { select: { title: 'name', subtitle: 'location', media: 'logo' } },
   fields: [
     defineField({

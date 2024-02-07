@@ -7,7 +7,7 @@ export default defineType({
   name: 'education',
   title: 'Education',
   type: 'document',
-  icon: Landmark,
+  icon: () => <Landmark size={30} strokeWidth={1} />,
   // preview
   fields: [
     defineField({

@@ -15,8 +15,13 @@ export default defineType({
   name: 'private.confidential',
   title: 'Confidential',
   type: 'document',
-  icon: FileLock,
+  icon: () => <FileLock size={30} strokeWidth={1} />,
   preview: { prepare: () => ({ title: 'Confidential' }) },
+  groups: [{
+    name: 'profile',
+    title: 'Profile',
+
+  }],
   fields: [
     defineField({
       title: 'Street address',
@@ -42,6 +47,11 @@ export default defineType({
           title: 'Reference',
           name: 'workReference',
           type: 'object',
+          preview: {
+            select: {
+              
+            }
+          },
           fields: [
             defineField({
               title: 'Workplace',

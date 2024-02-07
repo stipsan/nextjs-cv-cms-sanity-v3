@@ -10,7 +10,9 @@ import OpenGraphPreview from 'components/OpenGraphPreview'
 import { theme } from 'https://themer.sanity.build/api/hues?preset=verdant'
 import { apiVersion, dataset, projectId } from 'lib/sanity.api'
 import { languagesQuery } from 'lib/sanity.queries'
+import { Settings, View, Contact, Pencil } from 'lucide-react'
 import { singleton } from 'plugins/singleton'
+import { createElement } from 'react'
 import { defineConfig, defineField, SanityClient } from 'sanity'
 import { deskTool } from 'sanity/desk'
 import confidentialType from 'schemas/confidential'
@@ -22,7 +24,6 @@ import workplaceType from 'schemas/workplace'
 
 async function loadLanguages(client: SanityClient): Promise<Language[]> {
   const languages = await client.fetch<Language[]>(languagesQuery)
-  console.log({ languages })
   return languages.length > 0 ? languages : [{ id: 'en', title: 'English' }]
 }
 
@@ -48,11 +49,13 @@ const config = defineConfig({
                 .schemaType(settingsType.name)
                 .documentId(settingsType.name)
                 .views([
-                  S.view.form().icon(settingsType.icon),
+                  S.view
+                    .form()
+                    .icon(createElement(Pencil, { size: 24, strokeWidth: 1 })),
                   S.view
                     .component(OpenGraphPreview)
-                    .icon(settingsType.icon)
-                    .title('Open Graph'),
+                    .icon(createElement(Contact, { size: 24, strokeWidth: 1 }))
+                    .title('Open Graph Preview'),
                 ])
             )
 
@@ -89,20 +92,6 @@ const config = defineConfig({
             S.divider(),
             ...defaultListItems,
           ])
-      },
-      defaultDocumentNode: (S, options) => {
-        console.log(options.schemaType)
-        debugger
-        switch (options.schemaType) {
-          case settingsType.name:
-            return S.document().views([
-              S.view.form().icon(settingsType.icon),
-              // S.view.component(SocialSharePreview).title('Social Share'),
-            ])
-
-          default:
-            return S.document().views([S.view.form()])
-        }
       },
     }),
     internationalizedArray({

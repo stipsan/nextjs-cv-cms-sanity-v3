@@ -12,7 +12,7 @@ export default defineType({
   name: 'language',
   title: 'Language',
   type: 'document',
-  icon: Languages,
+  icon: () => <Languages size={30} strokeWidth={1} />,
   components: {
     input: (props) => {
       // Clear cache on unmount in case any mutations where made

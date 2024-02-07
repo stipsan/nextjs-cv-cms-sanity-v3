@@ -134,7 +134,6 @@ const config = defineConfig({
         title: 'Settings',
         name: 'settings',
         type: 'document',
-        // @ts-expect-error -- typings don't understand i18n yet
         i18n: true,
         preview: { prepare: () => ({ title: 'Settings' }) },
         fields: [

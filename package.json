@@ -1,16 +1,12 @@
 {
   "private": true,
   "scripts": {
-    "prebuild": "npm run build:utils",
     "build": "next build",
     "prebuild:ci": "npx rimraf blazing-scripts",
     "build:ci": "node scripts/buildBlazingScripts.mjs",
-    "prebuild:utils": "npx rimraf blazing-utils",
-    "build:utils": "node scripts/buildBlazingUtils.mjs",
     "ci:createSocialImage": "node blazing-scripts/createSocialImage.js",
     "cli:createSocialImage": "node -r esbuild-register scripts/createSocialImage.ts",
     "decrypt": "node decrypt",
-    "predev": "npm run build:utils",
     "dev": "next dev",
     "encrypt": "node encrypt",
     "format": "npx prettier --write . && npm run lint -- --fix",

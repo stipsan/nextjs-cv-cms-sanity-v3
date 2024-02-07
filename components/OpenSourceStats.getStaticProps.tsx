@@ -44,18 +44,21 @@ export async function getStaticProps() {
             `#dependents > div.Box > div.Box-header.clearfix > div > div > a.btn-link.selected`
           )
 
-          return Array.from(dependents).reduce((prev, curr: HTMLElement) => {
-            const extracted = curr.textContent
-              ? parseInt(
-                  curr.textContent.trim().split(' ')[0].replace(',', ''),
-                  10
-                )
-              : 0
-            if (extracted > prev) {
-              return extracted
-            }
-            return prev
-          }, 0)
+          return Array.from(dependents).reduce(
+            (prev: number, curr: HTMLElement) => {
+              const extracted = curr.textContent
+                ? parseInt(
+                    curr.textContent.trim().split(' ')[0].replace(',', ''),
+                    10
+                  )
+                : 0
+              if (extracted > prev) {
+                return extracted
+              }
+              return prev
+            },
+            0
+          )
         })
         .catch((err) => {
           console.error(

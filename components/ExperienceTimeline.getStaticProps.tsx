@@ -84,7 +84,7 @@ export async function getStaticProps({ locale }: { locale: string }) {
     if (joined && left) {
       const parsedJoined = parseISO(joined)
       const parsedLeft = parseISO(left)
-      const range = formatter.formatRange(parsedJoined, parsedLeft)
+      const range = (formatter as any).formatRange(parsedJoined, parsedLeft)
       return {
         ...rest,
         range,

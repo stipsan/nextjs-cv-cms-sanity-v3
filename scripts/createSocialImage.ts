@@ -9,7 +9,7 @@
 import createSanityClient from '@sanity/client'
 import chrome from 'chrome-aws-lambda'
 import dotenv from 'dotenv'
-import puppeteer from 'puppeteer-core'
+import puppeteer, { type Viewport } from 'puppeteer-core'
 
 import { defaultLocale } from '../intl.config.json'
 import { isSocialImageDifferent } from './utils'
@@ -62,7 +62,7 @@ async function getScreenshot({
   url: string
   timeout: number
   idleTime: number
-  viewport?: puppeteer.Viewport
+  viewport?: Viewport
 }) {
   const options = await getOptions(isDev)
   console.log('options', options)

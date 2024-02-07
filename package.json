@@ -24,10 +24,11 @@
     "singleQuote": true
   },
   "dependencies": {
-    "@heroicons/react": "^2.0.13",
+    "@heroicons/react": "^1.0.6",
     "@portabletext/react": "^2.0.0",
     "@sanity/document-internationalization": "^1.0.2",
     "@sanity/image-url": "^1.0.1",
+    "@sanity/preview-url-secret": "^1.6.1",
     "@segment/snippet": "^4.15.3",
     "@tailwindcss/forms": "^0.5.3",
     "@vercel/speed-insights": "^1.0.9",
@@ -50,7 +51,7 @@
     "react-hot-toast": "^2.4.0",
     "react-i18next": "^12.0.0",
     "react-spring-bottom-sheet": "^3.4.1",
-    "sanity": "3.0.0-rc.3",
+    "sanity": "3.28.0",
     "sanity-plugin-internationalized-array": "^1.4.1",
     "styled-components": "^5.3.6",
     "zod": "^3.19.1"

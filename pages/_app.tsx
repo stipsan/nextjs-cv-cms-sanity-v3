@@ -2,7 +2,7 @@ import 'tailwindcss/tailwind.css'
 import 'react-spring-bottom-sheet/dist/style.css'
 import '../style.css'
 
-import { SpeedInsights } from '@vercel/speed-insights/next'
+// import { SpeedInsights } from '@vercel/speed-insights/next'
 import CounterSnippet from 'components/CounterSnippet'
 import { NextIntlProvider } from 'next-intl'
 import { Toaster } from 'react-hot-toast'
@@ -17,7 +17,7 @@ function App({ Component, pageProps }) {
       <Toaster containerClassName="print:hidden" />
       {process.env.NEXT_PUBLIC_COUNTER_DEV && <CounterSnippet />}
       <Component {...pageProps} />
-      <SpeedInsights />
+      {/* <SpeedInsights /> */}
     </NextIntlProvider>
   )
 }

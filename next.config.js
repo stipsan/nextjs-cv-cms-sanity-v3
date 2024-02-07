@@ -8,7 +8,6 @@ const i18n = require('./intl.config.json')
 const nextConfig = {
   experimental: {
     urlImports: ['https://themer.sanity.build/'],
-    browsersListForSwc: true,
     legacyBrowsers: false,
   },
   compiler: { styledComponents: true },

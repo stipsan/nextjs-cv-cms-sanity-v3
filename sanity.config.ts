@@ -3,9 +3,8 @@ import {
   withDocumentI18nPlugin,
 } from '@sanity/document-internationalization'
 import { CogIcon, EditIcon, LockIcon, UserIcon } from '@sanity/icons'
-import { createConfig } from 'sanity'
 import { theme } from 'https://themer.sanity.build/api/hues?preset=tw-cyan'
-
+import { createConfig } from 'sanity'
 import { deskTool } from 'sanity/desk'
 
 import SocialMediaCardPreview from './components/SocialMediaCardPreview'

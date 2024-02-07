@@ -26,9 +26,11 @@
   "dependencies": {
     "@heroicons/react": "^1.0.6",
     "@portabletext/react": "^2.0.0",
-    "@sanity/document-internationalization": "^1.0.2",
-    "@sanity/image-url": "^1.0.1",
+    "@sanity/client": "^6.12.3",
+    "@sanity/document-internationalization": "^1.1.1",
+    "@sanity/image-url": "^1.0.2",
     "@sanity/preview-url-secret": "^1.6.1",
+    "@sanity/visual-editing": "^1.1.0",
     "@segment/snippet": "^4.15.3",
     "@tailwindcss/forms": "^0.5.3",
     "@vercel/speed-insights": "^1.0.9",
@@ -42,17 +44,17 @@
     "libphonenumber-js": "^1.10.14",
     "lodash.orderby": "^4.6.0",
     "lucide-react": "^0.102.0",
-    "next": "^13.0.5",
+    "next": "13.0.5",
     "next-intl": "^2.9.1",
-    "next-sanity": "^3.1.1",
     "polished": "^4.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.0",
     "react-i18next": "^12.0.0",
     "react-spring-bottom-sheet": "^3.4.1",
+    "rxjs": "^7.8.1",
     "sanity": "3.28.0",
-    "sanity-plugin-internationalized-array": "^1.4.1",
+    "sanity-plugin-internationalized-array": "^1.10.8",
     "styled-components": "^5.3.6",
     "zod": "^3.19.1"
   },
@@ -79,7 +81,7 @@
     "puppeteer-core": "^19.3.0",
     "tailwindcss": "^3.2.4",
     "type-fest": "^3.2.0",
-    "typescript": "^4.9.3",
+    "typescript": "^5.3.3",
     "write-file-atomic": "^5.0.0"
   }
 }

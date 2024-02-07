@@ -2,9 +2,8 @@
 import { intervalToDuration, parseISO } from 'date-fns'
 import { sanityClient } from 'lib/sanity.server'
 import orderBy from 'lodash.orderby'
-import { groq } from 'next-sanity'
 
-const experienceQuery = groq`*[_type == 'experience']{
+const experienceQuery = /* groq */ `*[_type == 'experience']{
   _id, 
   role, 
   "company": company->name, 

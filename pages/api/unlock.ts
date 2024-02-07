@@ -3,13 +3,12 @@ import type { Unlocked } from 'hooks/useUnlocked'
 import { sanityClient } from 'lib/sanity.server'
 import parsePhoneNumber from 'libphonenumber-js'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { groq } from 'next-sanity'
 
 import encrypted from '../../encrypted.json'
 
 type Data = Unlocked | { error: string }
 
-const logosQuery = groq`*[_type == 'company' && slug.current in $companies]{"slug": slug.current, ...logo.asset->{
+const logosQuery = /* groq */ `*[_type == 'company' && slug.current in $companies]{"slug": slug.current, ...logo.asset->{
   "src": url,
   "height": metadata.dimensions.height,
   "width": metadata.dimensions.width

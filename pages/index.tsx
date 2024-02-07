@@ -1,4 +1,4 @@
-import createSanityClient from '@sanity/client'
+import { createClient } from '@sanity/client'
 import Education from 'components/Education'
 import ExperienceStats from 'components/ExperienceStats'
 import ExperienceTimeline from 'components/ExperienceTimeline'
@@ -14,42 +14,10 @@ import References from 'components/References'
 import UnlockButton from 'components/UnlockButton'
 import { sanity as sanityConfig } from 'env.config.mjs'
 import useUnlocked from 'hooks/useUnlocked'
-// import * as esbuild from 'https://deno.land/x/esbuild@v0.14.45/mod.js'
 import { urlForImage } from 'lib/image'
 import Head from 'next/head'
 import { useTranslations } from 'next-intl'
 import favicon from 'public/favicon.png'
-
-// console.log({esbuild})
-
-/*
-console.groupCollapsed('utils/test')
-import('utils/test').then(({default: hello}) => console.log('utils/test', {hello})).catch(reason => console.error('utils/test failed', {reason})).finally(() => console.groupEnd())
-// */
-
-// /*
-if (typeof document !== 'undefined') {
-  console.group('BlackPink')
-  const searchParams = new URLSearchParams()
-  searchParams.set('lightest', 'f7f2f5')
-  searchParams.set('darkest', '171721')
-  searchParams.set('default', '8b6584;')
-  searchParams.set('primary', 'ec4899')
-  searchParams.set('transparent', '503a4c')
-  searchParams.set('positive', '10b981')
-  searchParams.set('caution', 'fde047;300')
-  searchParams.set('critical', 'fe3459')
-  const url = new URL(
-    `/api/hues?${decodeURIComponent(searchParams.toString())}`,
-    location.origin
-  )
-  console.log(url.toString())
-  import(/* webpackIgnore: true */ url.toString())
-    .then((mod) => console.log('/api/hues', mod))
-    .catch((reason) => console.error('/api/hues failed', { reason }))
-    .finally(() => console.groupEnd())
-}
-// */
 
 export default function Index({
   displayNames,
@@ -128,8 +96,13 @@ export default function Index({
   )
 }
 
-export async function getStaticProps({ locale, locales, defaultLocale }) {
-  const client = createSanityClient(sanityConfig)
+export async function getStaticProps({
+  locale,
+  locales,
+  defaultLocale,
+  preview = false,
+}) {
+  const client = createClient(sanityConfig)
   const [
     { displayNames },
     { default: shared },
@@ -145,9 +118,19 @@ export async function getStaticProps({ locale, locales, defaultLocale }) {
     getStaticFooterProps(),
     getStaticOpenSourceStatsProps(),
     getStaticExperienceTimelineProps({ locale }),
-    client.fetch(/* groq */ `*[_id == $id][0]`, {
-      id: locale === defaultLocale ? 'settings' : `settings__i18n_${locale}`,
-    }),
+    client.fetch(
+      /* groq */ `*[_id == $id][0]`,
+      {
+        id: locale === defaultLocale ? 'settings' : `settings__i18n_${locale}`,
+      },
+      {
+        perspective: preview ? 'previewDrafts' : 'published',
+        stega: {
+          enabled: preview,
+          studioUrl: '/studio',
+        },
+      }
+    ),
   ])
   const messages = { ...shared, ...local }
 
@@ -192,6 +175,7 @@ export async function getStaticProps({ locale, locales, defaultLocale }) {
       experiences,
       now,
       data: filteredData,
+      preview,
     },
     revalidate: 60,
   }

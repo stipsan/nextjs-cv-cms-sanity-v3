@@ -4,8 +4,9 @@ import {
 } from '@sanity/document-internationalization'
 import { CogIcon, EditIcon, LockIcon, UserIcon } from '@sanity/icons'
 import { theme } from 'https://themer.sanity.build/api/hues?preset=tw-cyan'
-import { createConfig } from 'sanity'
+import { defineConfig } from 'sanity'
 import { deskTool } from 'sanity/desk'
+import { presentationTool } from 'sanity/presentation'
 
 import SocialMediaCardPreview from './components/SocialMediaCardPreview'
 import { sanity as sanityConfig } from './env.config.mjs'
@@ -14,7 +15,7 @@ import i18n from './intl.config.json'
 const { projectId, dataset } = sanityConfig
 const STRUCTURE_CUSTOM_TYPES = ['settings', 'secrets']
 
-const config = createConfig({
+const config = defineConfig({
   basePath: '/studio',
   name: 'CV',
   theme,
@@ -107,6 +108,15 @@ const config = createConfig({
                 .title('Social preview'),
             ])
           }
+        },
+      }),
+      presentationTool({
+        previewUrl: {
+          preview: '/',
+          previewMode: {
+            enable: '/api/preview',
+            disable: '/api/exit-preview',
+          },
         },
       }),
     ],
